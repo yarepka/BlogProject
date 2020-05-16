@@ -185,6 +185,44 @@ p {
   width: 70px;
 }
 
+#main-nav .search {
+  position: relative;
+  flex: 1;
+  margin-left: 5px;
+}
+
+#main-nav .search input {
+  width: 100%;
+  padding: 0.25rem;
+  border-radius: 3px;
+  border: 1px solid var(--text-color);
+  padding-left: 45px;
+  font-size: 1.3rem;
+  background: var(--canvas-color);
+}
+
+#main-nav .search i {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 1.3rem;
+  z-index: 1;
+  color: #fff;
+}
+
+#main-nav .search:before {
+  content: "";
+  height: 100%;
+  width: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #777;
+  z-index: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
 #main-nav .list {
   display: flex;
 }
