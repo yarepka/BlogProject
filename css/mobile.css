@@ -2,6 +2,35 @@
   display: none;
 }
 
+#login .background-image,
+#signup .background-image {
+  display: none;
+}
+
+#login .content-wrapper, 
+#signup .content-wrapper {
+  grid-template-columns: 95% 5%;
+  max-height: 90%;
+  overflow: auto;
+}
+
+#login-form button,
+#signup-form button {
+  width: 90%;
+}
+
+#login-form img, #login-form h2,
+#signup-form img, #login-form h2 {
+  align-self: center;
+  padding-right: 7.5%;
+}
+
+#login-form, #signup-form {
+  padding-left: 15%;
+}
+
+
+
 @media (max-width: 768px) {
   #trends .box-trend-wrapper .box-trend:nth-child(3) {
     display: none;
@@ -15,6 +44,24 @@
   #popular-posts .post {
     grid-template-columns: 7% 93%;
   }
+
+  #login .content-wrapper, 
+  #signup .content-wrapper {
+    width: 70%;
+  }
+
+  #login-form img, #login-form h2,
+  #signup-form img, #signup-form h2 {
+    align-self: center;
+    padding-right: 7.5%;
+  }
+
+  #login .content-wrapper,
+  #signup .content-wrapper {
+    max-height: 90%;
+    overflow: auto;
+  }
+
 }
 
 @media(max-width: 600px) {
@@ -41,6 +88,11 @@
   #main-nav .list .login,
   #main-nav .list .signup {
     display: none;
+  }
+
+  #login .content-wrapper, #signup .content-wrapper {
+    width: 90%;
+    min-height: 50%;
   }
 
 }

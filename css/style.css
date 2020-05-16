@@ -255,6 +255,7 @@ p {
 #popular-posts .post {
   display: grid;
   grid-template-columns: 5% 95%;
+  margin-bottom: 40px;
 }
 
 #popular-posts .post .rating {
@@ -306,6 +307,98 @@ p {
 #popular-posts .post .post-content .comments p {
   margin-left: 5px;
 }
+
+/* Login Form / Sign up Form */
+#login, #signup {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  background-color: rgba(0,0,0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+#login .content-wrapper, #signup .content-wrapper {
+  background: #fff;
+  display: grid;
+  grid-template-columns: 20% 75% 5%;
+  max-width: 90%;
+  width: 600px;
+  border-radius: 10px;
+}
+
+#login .content-wrapper .background-image,
+#signup .content-wrapper .background-image {
+  background: url("../img/post.jpg") no-repeat center center;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+#login a i,
+#signup a i {
+  color: var(--text-color);
+}
+
+#login .content-wrapper > a,
+#signup .content-wrapper > a {
+  padding: 0.15rem;
+  justify-self: end;
+  align-self: start;
+}
+
+#login .content-wrapper > a i,
+#signup .content-wrapper > a i {
+  font-size: 2rem;
+}
+
+#login-form,
+#signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding: 1rem 0 1rem 1rem;
+}
+
+#login-form .form-control,
+#signup-form .form-control {
+  width: 100%;
+}
+
+#login-form input, #signup-form input {
+  font-size: 1.2rem;
+  padding: 0.75rem;
+  border-radius: 3px;
+  border: 1px solid var(--post-border-color);
+  width: 90%;
+}
+
+#login-form > p {
+  font-size: 0.85rem;
+}
+
+#login-form > p a {
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+#login-form button,
+#signup-form button {
+  width: 90%;
+  height: 50px
+}
+
+#login-form button:hover,
+#signup-form button:hover {
+  opacity: 0.8;
+}
+
 
 /* Footer */
 #main-footer {
