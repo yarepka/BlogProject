@@ -161,6 +161,7 @@ p {
   color: #fff;
 }
 
+
 /* Navbar */
 #main-nav {
   background-color: var(--primary-color);
@@ -183,6 +184,7 @@ p {
 
 #main-nav .logo-wrapper .logo {
   width: 70px;
+  cursor: pointer;
 }
 
 #main-nav .search {
@@ -450,5 +452,3 @@ p {
   color: var(--primary-color);
   background-color: var(--text-color);
 }
-
-
