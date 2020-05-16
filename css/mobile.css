@@ -1,0 +1,46 @@
+#trends .box-trend-wrapper .box-trend:last-child {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #trends .box-trend-wrapper .box-trend:nth-child(3) {
+    display: none;
+  }
+
+  #trends .box-trend-wrapper .box-trend:nth-child(1),
+  #trends .box-trend-wrapper .box-trend:nth-child(2) {
+    width: 47%;
+  }
+
+  #popular-posts .post {
+    grid-template-columns: 7% 93%;
+  }
+}
+
+@media(max-width: 600px) {
+  #trends .box-trend-wrapper .box-trend:nth-child(2) {
+    display: none;
+  }
+
+  #trends .box-trend-wrapper .box-trend:first-child {
+    width: 100%;
+  }
+
+  #popular-posts .post {
+    grid-template-columns: 15% 85%;
+  }
+
+  #popular-posts .controls ul:last-child li:not(:last-child) {
+    display: none;
+  }
+
+  #popular-posts .controls ul:last-child li:last-child {
+    display: block;
+  }
+
+  #main-nav .list .login,
+  #main-nav .list .signup {
+    display: none;
+  }
+
+}
