@@ -29,7 +29,9 @@
   padding-left: 15%;
 }
 
-
+#main-nav .search {
+  flex-grow: 1;
+}
 
 @media (max-width: 768px) {
   #trends .box-trend-wrapper .box-trend:nth-child(3) {
@@ -62,6 +64,11 @@
     overflow: auto;
   }
 
+  #main-nav .list li:first-child,
+  #main-nav .list li:nth-child(2) {
+    display: none;
+  }
+
 }
 
 @media(max-width: 600px) {
@@ -85,14 +92,23 @@
     display: block;
   }
 
-  #main-nav .list .login,
-  #main-nav .list .signup {
-    display: none;
-  }
-
   #login .content-wrapper, #signup .content-wrapper {
     width: 90%;
     min-height: 50%;
+  }
+
+  #main-nav .logo-wrapper {
+    padding: 0 2px;
+  }
+
+  #main-nav .logo-wrapper .logo {
+    width: 45px;
+  }
+
+  #main-nav .logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 }

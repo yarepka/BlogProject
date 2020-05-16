@@ -187,7 +187,7 @@ p {
 
 #main-nav .search {
   position: relative;
-  flex: 1;
+  flex-grow: 0.5;
   margin-left: 5px;
 }
 
@@ -245,6 +245,10 @@ p {
 
 #main-nav .list .user i {
   margin-left: 5px;
+}
+
+#main-nav .list li:last-child a {
+  display: flex;
 }
 
 /* Trends */
