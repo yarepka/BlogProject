@@ -20,7 +20,7 @@
 }
 
 #login-form img, #login-form h2,
-#signup-form img, #login-form h2 {
+#signup-form img, #signup-form h2 {
   align-self: center;
   padding-right: 7.5%;
 }
@@ -43,11 +43,9 @@
     width: 47%;
   }
 
-  #popular-posts .post-card {
-    grid-template-columns: 7% 93%;
-  }
-
-  #popular-posts .post-classic {
+  #popular-posts .post-card,
+  #popular-posts .post-classic,
+  #popular-posts .post-compact {
     grid-template-columns: 7% 93%;
   }
 
@@ -92,11 +90,9 @@
     width: 100%;
   }
 
-  #popular-posts .post-card {
-    grid-template-columns: 15% 85%;
-  }
-
-  #popular-posts .post-classic {
+  #popular-posts .post-card,
+  #popular-posts .post-classic,
+  #popular-posts .post-compact {
     grid-template-columns: 15% 85%;
   }
 

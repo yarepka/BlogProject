@@ -103,47 +103,40 @@ function showNewPosts(e) {
   e.preventDefault();
 }
 
-function changeToCard(e) {
-  console.log("Grid changed to Card View");
+function changePostGrid(type) {
+  // Delete current from all buttons
+  classicBtn.classList.remove("current");
+  compactBtn.classList.remove("current");
+  cardBtn.classList.remove("current");
 
-  if (!cardBtn.classList.contains("current")) {
-    classicBtn.classList.remove("current");
-    compactBtn.classList.remove("current");
-    cardBtn.classList.add("current");
+  const typeLowerCase = type.toLowerCase();
+
+  switch (typeLowerCase) {
+    case "card": cardBtn.classList.add("current"); break;
+    case "classic": classicBtn.classList.add("current"); break;
+    case "compact": compactBtn.classList.add("current"); break;
   }
 
   posts.forEach(post => {
-    post.className = "post-wrapper post-card";
+    post.className = `post-wrapper post-${typeLowerCase}`;
   });
+}
 
+function changeToCard(e) {
+  console.log("Grid changed to Card View");
+  changePostGrid("card");
   e.preventDefault();
 }
 
 function changeToClassic(e) {
   console.log("Grid changed to Classic View");
-
-  if (!classicBtn.classList.contains("current")) {
-    cardBtn.classList.remove("current");
-    compactBtn.classList.remove("current");
-    classicBtn.classList.add("current");
-  }
-
-  posts.forEach(post => {
-    post.className = "post-wrapper post-classic";
-  });
-
+  changePostGrid("classic");
   e.preventDefault();
 }
 
 function changeToCompact(e) {
   console.log("Grid changed to Compact View");
-
-  if (!compactBtn.classList.contains("current")) {
-    cardBtn.classList.remove("current");
-    classicBtn.classList.remove("current");
-    compactBtn.classList.add("current");
-  }
-
+  changePostGrid("compact");
   e.preventDefault();
 }
 

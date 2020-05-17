@@ -49,7 +49,7 @@ p {
   font-weight: bold;
 }
 
-.post-card, .post-classic {
+.post-card, .post-classic, .post-compact {
   width: 100%;
   background: var(--primary-color);
   border: 1px solid var(--post-border-color);
@@ -338,20 +338,65 @@ p {
 
 /* post-card && post-classic && post-compact */
 #popular-posts .post-card,
-#popular-posts .post-classic {
+#popular-posts .post-classic,
+#popular-posts .post-compact {
   display: grid;
   grid-template-columns: 5% 95%;
   margin-bottom: 40px;
 }
 
 #popular-posts .post-card .rating,
-#popular-posts .post-classic .rating {
+#popular-posts .post-classic .rating,
+#popular-posts .post-compact .rating {
   padding-top: 0.75rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+#popular-posts .post-card .post-content .post-info p,
+#popular-posts .post-classic .post-content .post-info p, 
+#popular-posts .post-compact .post-content .post-info p {
+  margin-left: 5px;
+  font-size: 0.75rem;
+}
+
+#popular-posts .post-card .post-content .post-info p:first-child,
+#popular-posts .post-classic .post-content .post-info p:first-child,
+#popular-posts .post-compact .post-content .post-info p:first-child {
+  margin-left: 0;
+}
+
+#popular-posts .post-card .post-content img,
+#popular-posts .post-classic .post-content img,
+#popular-posts .post-compact .post-content img {
+  display: block;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+#popular-posts .post-card .post-content .comments i, 
+#popular-posts .post-card .post-content .comments p,
+#popular-posts .post-classic .post-content .comments i, 
+#popular-posts .post-classic .post-content .comments p,
+#popular-posts .post-compact .post-content .comments i, 
+#popular-posts .post-compact .post-content .comments p {
+  font-size: 0.75rem;
+}
+
+#popular-posts .post-card .post-content .comments p,
+#popular-posts .post-classic .post-content .comments p,
+#popular-posts .post-compact .post-content .comments p {
+  margin-left: 5px;
+}
+
+#popular-posts .post-classic .post-content .comments,
+#popular-posts .post-compact .post-content .comments {
+  display: flex;
+  align-items: center;
+}
+
+/* Post card */
 #popular-posts .controls .btn-blue {
   border: 1px solid var(--text-color);
 }
@@ -362,45 +407,15 @@ p {
   margin-bottom: 10px;
 }
 
-#popular-posts .post-card .post-content .post-info p,
-#popular-posts .post-classic .post-content .post-info p{
-  margin-left: 5px;
-  font-size: 0.75rem;
-}
-
-#popular-posts .post-card .post-content .post-info p:first-child,
-#popular-posts .post-classic .post-content .post-info p:first-child {
-  margin-left: 0;
-}
-
 #popular-posts .post-card .post-content .post-title {
   padding-left: 0.75rem;
   margin-bottom: 20px;
-}
-
-#popular-posts .post-card .post-content img,
-#popular-posts .post-classic .post-content img {
-  display: block;
-  max-width: 90%;
-  margin: 0 auto;
 }
 
 #popular-posts .post-card .post-content .comments {
   padding: 0.75rem;
   display: flex;
   align-items: center;
-}
-
-#popular-posts .post-card .post-content .comments i, 
-#popular-posts .post-card .post-content .comments p,
-#popular-posts .post-classic .post-content .comments i, 
-#popular-posts .post-classic .post-content .comments p {
-  font-size: 0.75rem;
-}
-
-#popular-posts .post-card .post-content .comments p,
-#popular-posts .post-classic .post-content .comments p {
-  margin-left: 5px;
 }
 
 /* Post classic */
@@ -428,18 +443,13 @@ p {
   grid-area: title;
 }
 
-#popular-posts .post-classic .post-content img {
-  grid-area: img;
-  height: 100%;
-}
-
 #popular-posts .post-classic .post-content .comments {
   grid-area: comments;
 }
 
-#popular-posts .post-classic .post-content .comments {
-  display: flex;
-  align-items: center;
+#popular-posts .post-classic .post-content img {
+  grid-area: img;
+  height: 100%;
 }
 
 #popular-posts .post-classic .post-content .post-info {
@@ -455,6 +465,26 @@ p {
   "img info info info info"
   "img comments comments comments comments";
 }
+
+/* Post compact */
+#popular-posts .post-compact .post-content {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0 5px 10px;
+}
+#popular-posts .post-compact .post-content img {
+  display: none;
+}
+
+#popular-posts .post-compact .rating {
+  padding: 0.25rem;
+  justify-content: center;
+}
+
+#popular-posts .post-compact {
+  margin-bottom: 10px;
+}
+
 
 /* Login Form / Sign up Form */
 #login, #signup {
