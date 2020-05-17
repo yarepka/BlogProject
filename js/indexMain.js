@@ -29,8 +29,12 @@ const classicBtn = document.querySelector(".controls .classic");
 const compactBtn = document.querySelector(".controls .compact");
 const gridTypeBtn = document.querySelector(".controls .grid-type");
 
-
+// Page refresh
 function refreshPage() {
+  // "true" - will force the page to reload from the server
+  // "false" - will reload from cache, if available
+  window.location.reload(true);
+  window.scrollTo(0, 0);
   console.log("Page refreshed");
 }
 
