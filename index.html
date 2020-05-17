@@ -21,7 +21,7 @@
 
     <div class="search">
       <i class="fas fa-search"></i>
-      <input type="text">
+      <input type="text" id="search">
     </div>
 
     <ul class="list">
@@ -68,10 +68,10 @@
         </ul>
 
         <ul>
-          <li><a href="" class="btn">Card</a></li>
-          <li><a href="" class="btn">Classic</a></li>
-          <li><a href="" class="btn">Compact</a></li>
-          <li><a href="" class="btn"><i class="fa fa-arrow-down"></i></a></li>
+          <li><a href="" class="btn card">Card</a></li>
+          <li><a href="" class="btn classic">Classic</a></li>
+          <li><a href="" class="btn compact">Compact</a></li>
+          <li><a href="" class="btn grid-type"><i class="fa fa-arrow-down"></i></a></li>
         </ul>
       </div>
 
@@ -157,7 +157,7 @@
   </section>
 
   <!-- Login Form -->
-  <section id="login">
+  <section id="login" class="no-display">
     <div class="content-wrapper">
       <div class="background-image"></div>
       <form id="login-form">
@@ -173,14 +173,14 @@
 
         <button type="submit" class="btn btn-blue mb-10">Sign In</button>
 
-        <p>New to Yarepka? <a href="#">Sign Up</a></p>
+        <p>New to Yarepka? <a href="#" id="signup-redirect">Sign Up</a></p>
       </form>
-      <a href=""><i class="far fa-times-circle"></i></a>
+      <a href="#" id="close-login"><i class="far fa-times-circle"></i></a>
     </div>
   </section>
 
   <!-- Sign Up Form -->
-  <section id="signup">
+  <section id="signup" class="no-display">
     <div class="content-wrapper">
       <div class="background-image"></div>
       <form id="signup-form">
@@ -199,8 +199,10 @@
         </div>
 
         <button type="submit" class="btn btn-blue mb-10">Sign In</button>
+
+        <p>Already Yarepka user? <a href="#" id="login-redirect">Login</a></p>
       </form>
-      <a href=""><i class="far fa-times-circle"></i></a>
+      <a href="#" id="close-signup"><i class="far fa-times-circle"></i></a>
     </div>
   </section>
 
@@ -209,7 +211,9 @@
     Yarepka.com &copy; 2020. All rights reserved
   </footer>
 
-  <script src="./js/main.js"></script>
+  <script src="./js/server.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/indexMain.js"></script>
 </body>
 
 </html>

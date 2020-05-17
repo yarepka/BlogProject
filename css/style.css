@@ -37,6 +37,14 @@ p {
   font-size: 1.2rem;
 }
 
+.no-display {
+  display: none !important;
+}
+
+.hide-scrollbar {
+  overflow-y: hidden !important;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -362,7 +370,6 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: none;
 }
 
 #login .content-wrapper, #signup .content-wrapper {
@@ -422,11 +429,13 @@ p {
   width: 90%;
 }
 
-#login-form > p {
+#login-form > p,
+#signup-form > p {
   font-size: 0.85rem;
 }
 
-#login-form > p a {
+#login-form > p a,
+#signup-form > p a {
   color: var(--blue);
   text-transform: uppercase;
 }
