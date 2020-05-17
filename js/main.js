@@ -13,7 +13,7 @@ window.onscroll = function () {
       setTimeout(function () {
         navbar.style.transform = "translateY(0)";
         scrolled = true;
-      }, 600);
+      }, 300);
     } else {
       scrolled = false;
     }
