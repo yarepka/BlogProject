@@ -71,7 +71,7 @@
     display: none;
   }
 
-  .dropdown {
+  #main-nav .dropdown {
     top: 49px;
   }
 
@@ -96,11 +96,11 @@
     grid-template-columns: 15% 85%;
   }
 
-  #popular-posts .controls ul:last-child li:not(:last-child) {
+  #popular-posts .controls > ul:last-child > li:not(:last-child) {
     display: none;
   }
 
-  #popular-posts .controls ul:last-child li:last-child {
+  #popular-posts .controls ul:last-child > li:last-child {
     display: block;
   }
 
@@ -124,7 +124,6 @@
   }
 
   #popular-posts .post-classic .post-content img {
-    height: 60%;
     align-self: start;
   }
 

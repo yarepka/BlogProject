@@ -335,23 +335,32 @@ p {
   border-radius: 5px;
 }
 
+
 #popular-posts .controls {
   display: flex;
   justify-content: space-between;
 }
 
-#popular-posts .controls ul {
+#popular-posts .controls > ul {
   display: flex;
+}
+
+#popular-posts .controls .dropdown {
+  top: 47px;
+  right: -12px;
 }
 
 #popular-posts .controls ul:last-child li:last-child {
   display: none;
 }
 
-#popular-posts .controls ul li {
-  margin-left: 5px;
+#popular-posts .controls ul:last-child li:last-child {
+  position: relative;
 }
 
+#popular-posts .controls > ul > li {
+  margin-left: 5px;
+}
 
 /* Posts */
 
@@ -476,7 +485,8 @@ p {
 
 #popular-posts .post-classic .post-content img {
   grid-area: img;
-  align-self: center;
+  padding-top: 5px;
+  align-self: start;
 }
 
 #popular-posts .post-classic .post-content .post-info {

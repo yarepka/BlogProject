@@ -29,6 +29,10 @@ const cardBtn = document.querySelector(".controls .card");
 const classicBtn = document.querySelector(".controls .classic");
 const compactBtn = document.querySelector(".controls .compact");
 const gridTypeBtn = document.querySelector(".controls .grid-type");
+const gridTypeDropdown = document.querySelector(".controls .dropdown");
+const cardControlsBtn = document.querySelector(".controls .dropdown .card");
+const classicControlsBtn = document.querySelector(".controls .dropdown .classic");
+const compactControlsBtn = document.querySelector(".controls .dropdown .compact");
 
 // Posts
 const posts = document.querySelectorAll(".posts-container .post-wrapper");
@@ -120,22 +124,26 @@ function changePostGrid(type) {
   posts.forEach(post => {
     post.className = `post-wrapper post-${typeLowerCase}`;
   });
+
+  document.querySelector(".controls .dropdown").className = "dropdown no-display";
+  document.querySelector(".controls > ul:last-child > li:last-child i").className = "fa fa-arrow-down";
 }
 
+// Change Post Grid to "post-card"
 function changeToCard(e) {
-  console.log("Grid changed to Card View");
   changePostGrid("card");
   e.preventDefault();
 }
 
+// Change Post Grid to "post-classic"
 function changeToClassic(e) {
-  console.log("Grid changed to Classic View");
   changePostGrid("classic");
   e.preventDefault();
 }
 
+// Change Post Grid to "post-compact"
 function changeToCompact(e) {
-  console.log("Grid changed to Compact View");
+  console.log("Compact")
   changePostGrid("compact");
   e.preventDefault();
 }
@@ -148,7 +156,6 @@ search.addEventListener("keyup", searchForPost);
 loginBtn.addEventListener("click", showLogin);
 signUpBtn.addEventListener("click", showSignUp);
 userBtn.addEventListener("click", (e) => {
-  console.log("Show user dropdown");
   const icon = userBtn.querySelector("i:last-child");
 
   if (icon.classList.contains("fa-arrow-down")) {
@@ -158,6 +165,20 @@ userBtn.addEventListener("click", (e) => {
   }
 
   navBarDropdown.classList.toggle("no-display");
+
+  e.preventDefault();
+});
+
+gridTypeBtn.addEventListener("click", (e) => {
+  const icon = gridTypeBtn.querySelector("i:last-child");
+
+  if (icon.classList.contains("fa-arrow-down")) {
+    icon.className = "fa fa-arrow-up";
+  } else {
+    icon.className = "fa fa-arrow-down";
+  }
+
+  gridTypeDropdown.classList.toggle("no-display");
 
   e.preventDefault();
 });
@@ -193,8 +214,6 @@ newBtn.addEventListener("click", showNewPosts);
 cardBtn.addEventListener("click", changeToCard);
 classicBtn.addEventListener("click", changeToClassic);
 compactBtn.addEventListener("click", changeToCompact);
-gridTypeBtn.addEventListener("click", (e) => {
-  console.log("Dropdown with grid type shows up");
-
-  e.preventDefault();
-})
+cardControlsBtn.addEventListener("click", changeToCard);
+classicControlsBtn.addEventListener("click", changeToClassic);
+compactControlsBtn.addEventListener("click", changeToCompact);
