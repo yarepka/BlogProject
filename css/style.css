@@ -54,10 +54,20 @@ p {
   background: var(--primary-color);
   border: 1px solid var(--post-border-color);
   border-radius: 5px;
+  transition: border-color 0.25s ease;
+}
+
+.post-card:hover,
+.post-classic:hover,
+.post-compact:hover {
+  border-color: var(--text-color);
+  cursor: pointer;
 }
 
 .rating {
   background-color: #f1f1f1;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 /* Utility classes */
@@ -482,7 +492,7 @@ p {
 }
 
 #popular-posts .post-compact {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 
