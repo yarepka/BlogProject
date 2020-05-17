@@ -49,7 +49,7 @@ p {
   font-weight: bold;
 }
 
-.post {
+.post-card, .post-classic {
   width: 100%;
   background: var(--primary-color);
   border: 1px solid var(--post-border-color);
@@ -169,6 +169,36 @@ p {
   color: #fff;
 }
 
+.dropdown {
+  position: absolute !important;
+  width: 200px;
+  background: #fff;
+  right: 0;
+  top: 52px;
+}
+
+.dropdown ul li a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem;
+}
+
+.dropdown ul li i {
+  margin-right: 10px;
+}
+
+.dropdown ul li a:hover {
+  background: #f4f4f4;
+}
+
+.current {
+  background: #333;
+  color: #fff;
+  cursor: default;
+}
+
+
 /* Navbar */
 #main-nav {
   background-color: var(--primary-color);
@@ -236,7 +266,11 @@ p {
   display: flex;
 }
 
-#main-nav .list li {
+#main-nav .list li:last-child {
+  position: relative;
+}
+
+#main-nav .list > li {
   padding: 0 0.35rem;
 }
 
@@ -258,6 +292,8 @@ p {
 
 #main-nav .list li:last-child a {
   display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 /* Trends */
@@ -297,19 +333,19 @@ p {
   margin-left: 5px;
 }
 
-#popular-posts .controls ul li .btn:hover {
-  background: #6d6c6c;
-  color: #fff;
-}
 
 /* Posts */
-#popular-posts .post {
+
+/* post-card && post-classic && post-compact */
+#popular-posts .post-card,
+#popular-posts .post-classic {
   display: grid;
   grid-template-columns: 5% 95%;
   margin-bottom: 40px;
 }
 
-#popular-posts .post .rating {
+#popular-posts .post-card .rating,
+#popular-posts .post-classic .rating {
   padding-top: 0.75rem;
   display: flex;
   flex-direction: column;
@@ -320,43 +356,104 @@ p {
   border: 1px solid var(--text-color);
 }
 
-#popular-posts .post .post-content .post-info {
+#popular-posts .post-card .post-content .post-info {
   display: flex;
   padding: 0.75rem 0 0 0.75rem;
+  margin-bottom: 10px;
 }
 
-#popular-posts .post .post-content .post-info p {
+#popular-posts .post-card .post-content .post-info p,
+#popular-posts .post-classic .post-content .post-info p{
   margin-left: 5px;
   font-size: 0.75rem;
 }
 
-#popular-posts .post .post-content .post-info p:first-child {
+#popular-posts .post-card .post-content .post-info p:first-child,
+#popular-posts .post-classic .post-content .post-info p:first-child {
   margin-left: 0;
 }
 
-#popular-posts .post .post-content .post-title {
+#popular-posts .post-card .post-content .post-title {
   padding-left: 0.75rem;
+  margin-bottom: 20px;
 }
 
-#popular-posts .post .post-content img {
+#popular-posts .post-card .post-content img,
+#popular-posts .post-classic .post-content img {
   display: block;
   max-width: 90%;
   margin: 0 auto;
 }
 
-#popular-posts .post .post-content .comments {
+#popular-posts .post-card .post-content .comments {
   padding: 0.75rem;
   display: flex;
   align-items: center;
 }
 
-#popular-posts .post .post-content .comments i, 
-#popular-posts .post .post-content .comments p {
+#popular-posts .post-card .post-content .comments i, 
+#popular-posts .post-card .post-content .comments p,
+#popular-posts .post-classic .post-content .comments i, 
+#popular-posts .post-classic .post-content .comments p {
   font-size: 0.75rem;
 }
 
-#popular-posts .post .post-content .comments p {
+#popular-posts .post-card .post-content .comments p,
+#popular-posts .post-classic .post-content .comments p {
   margin-left: 5px;
+}
+
+/* Post classic */
+#popular-posts .post-classic {
+  margin-bottom: 10px;
+}
+
+#popular-posts .post-classic .rating {
+  justify-content: center;
+}
+
+#popular-posts .post-classic .rating {
+  padding: 0.50rem 0;
+}
+
+#popular-posts .post-classic .post-content {
+  padding: 0.25rem;
+}
+
+#popular-posts .post-classic .post-content .post-info {
+  grid-area: info;
+}
+
+#popular-posts .post-classic .post-content .post-title {
+  grid-area: title;
+}
+
+#popular-posts .post-classic .post-content img {
+  grid-area: img;
+  height: 100%;
+}
+
+#popular-posts .post-classic .post-content .comments {
+  grid-area: comments;
+}
+
+#popular-posts .post-classic .post-content .comments {
+  display: flex;
+  align-items: center;
+}
+
+#popular-posts .post-classic .post-content .post-info {
+  display: flex;
+}
+
+
+#popular-posts .post-classic .post-content {
+  display: grid;
+  grid-template-columns: 0.5fr repeat(4, 1fr);
+  grid-template-areas:
+  "img title title title title"
+  "img info info info info"
+  "img comments comments comments comments";
 }
 
 /* Login Form / Sign up Form */

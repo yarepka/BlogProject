@@ -8,6 +8,7 @@ const search = document.getElementById("search");
 const loginBtn = document.querySelector("#main-nav .login");
 const signUpBtn = document.querySelector("#main-nav .signup");
 const userBtn = document.querySelector("#main-nav .user");
+const navBarDropdown = document.querySelector("#main-nav .dropdown");
 
 // Trending
 const trendBoxWrapper = document.querySelector(".box-trend-wrapper");
@@ -28,6 +29,9 @@ const cardBtn = document.querySelector(".controls .card");
 const classicBtn = document.querySelector(".controls .classic");
 const compactBtn = document.querySelector(".controls .compact");
 const gridTypeBtn = document.querySelector(".controls .grid-type");
+
+// Posts
+const posts = document.querySelectorAll(".posts-container .post-wrapper");
 
 // Page refresh
 function refreshPage() {
@@ -64,6 +68,7 @@ function closeLogin(e) {
   e.preventDefault();
 }
 
+// Show Sign Up form
 function showSignUp(e) {
   console.log("Show Sign Up Form");
 
@@ -76,6 +81,7 @@ function showSignUp(e) {
   e.preventDefault();
 }
 
+// Hide Sign Up form
 function closeSignup(e) {
   console.log("Close Signup Form");
 
@@ -100,17 +106,43 @@ function showNewPosts(e) {
 function changeToCard(e) {
   console.log("Grid changed to Card View");
 
+  if (!cardBtn.classList.contains("current")) {
+    classicBtn.classList.remove("current");
+    compactBtn.classList.remove("current");
+    cardBtn.classList.add("current");
+  }
+
+  posts.forEach(post => {
+    post.className = "post-wrapper post-card";
+  });
+
   e.preventDefault();
 }
 
 function changeToClassic(e) {
   console.log("Grid changed to Classic View");
 
+  if (!classicBtn.classList.contains("current")) {
+    cardBtn.classList.remove("current");
+    compactBtn.classList.remove("current");
+    classicBtn.classList.add("current");
+  }
+
+  posts.forEach(post => {
+    post.className = "post-wrapper post-classic";
+  });
+
   e.preventDefault();
 }
 
 function changeToCompact(e) {
   console.log("Grid changed to Compact View");
+
+  if (!compactBtn.classList.contains("current")) {
+    cardBtn.classList.remove("current");
+    classicBtn.classList.remove("current");
+    compactBtn.classList.add("current");
+  }
 
   e.preventDefault();
 }
@@ -124,6 +156,15 @@ loginBtn.addEventListener("click", showLogin);
 signUpBtn.addEventListener("click", showSignUp);
 userBtn.addEventListener("click", (e) => {
   console.log("Show user dropdown");
+  const icon = userBtn.querySelector("i:last-child");
+
+  if (icon.classList.contains("fa-arrow-down")) {
+    icon.className = "fa fa-arrow-up";
+  } else {
+    icon.className = "fa fa-arrow-down";
+  }
+
+  navBarDropdown.classList.toggle("no-display");
 
   e.preventDefault();
 });
