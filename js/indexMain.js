@@ -135,6 +135,17 @@ signUpRedirect.addEventListener("click", showSignUp);
 signUpFormCloseBtn.addEventListener("click", closeSignup);
 loginRedirect.addEventListener("click", showLogin);
 
+// Login / Signup submit
+document.getElementById("login-form").addEventListener("submit", (e) => {
+  console.log("Login Submit");
+  e.preventDefault();
+})
+
+document.getElementById("signup-form").addEventListener("submit", (e) => {
+  console.log("Sign Up Submit");
+  e.preventDefault();
+})
+
 // Trends
 trendBoxWrapper.addEventListener("click", (e) => {
   if (e.target.classList.contains("box-trend") || e.target.classList.contains("title") || e.target.classList.contains("text")) {
