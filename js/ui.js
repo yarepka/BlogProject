@@ -70,7 +70,7 @@ class UI {
 
         <div class="post-content">
           <div class="post-info">
-            <p><a href="https://google.com" target="_blank" class="communit bold">${post.community}</a> Posted by <a
+            <p><a href="https://google.com" target="_blank" class="community bold">${post.community}</a> Posted by <a
               href="https://twitter.com" target="_blank" class="posted-by">${post.postedBy}</span> </a> <span
               class="hours-ago">21
               hours ago</span>

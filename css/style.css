@@ -510,6 +510,10 @@ a.comments-link:hover {
   padding-top: 5px;
 }
 
+#popular-posts .post-classic .post-content .post-title {
+  padding-right: 0.75rem;
+}
+
 #popular-posts .post-classic .post-content .post-info {
   display: flex;
 }
@@ -548,6 +552,9 @@ a.comments-link:hover {
   margin-bottom: 5px;
 }
 
+#popular-posts .post-compact .post-content .post-title {
+  padding-right: 0.75rem;
+}
 
 /* Login Form / Sign up Form */
 .form-control small {
@@ -671,7 +678,8 @@ a.comments-link:hover {
 #login-form button,
 #signup-form button {
   width: 90%;
-  height: 50px
+  height: 50px;
+  margin-top: 10px;
 }
 
 #login-form button:hover,

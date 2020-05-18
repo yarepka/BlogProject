@@ -14,7 +14,7 @@ const signUpBtn = document.querySelector("#main-nav .signup");
 const userBtn = document.querySelector("#main-nav .user");
 const navBarDropdown = document.querySelector("#main-nav .dropdown");
 
-// Trending
+// Trends
 // ------------------
 // ------------------
 const trendBoxWrapper = document.querySelector(".box-trend-wrapper");
@@ -90,8 +90,12 @@ function searchForPost(e) {
 // Show Login Form
 function showLogin(e) {
   console.log("Show Login Form");
+
   // hide sign up
   ui.hideForm(signUpForm);
+
+  // clean sign up form
+  ui.cleanSubmitForm([signUpEmail, signUpPassword, signUpConfirmPassword]);
 
   // unhide login
   ui.showForm(loginForm);
@@ -118,6 +122,9 @@ function showSignUp(e) {
 
   // hide login
   ui.hideForm(loginForm);
+
+  // clean login form
+  ui.cleanSubmitForm([loginEmail, loginPassword]);
 
   // unhide login
   ui.showForm(signUpForm);
@@ -350,9 +357,11 @@ signUpSubmitForm.addEventListener("submit", (e) => {
 // ------------------------
 // ------------------------
 trendBoxWrapper.addEventListener("click", (e) => {
-  if (e.target.classList.contains("box-trend") || e.target.classList.contains("title") || e.target.classList.contains("text")) {
-    console.log("Show Trending Post");
-  }
+  console.log(e.target);
+  // if (e.target.classList.contains("box-trend") || e.target.classList.contains("title") || e.target.classList.contains("text")) {
+  //   console.log("Show Trending Post");
+  // }
+
 })
 
 // Popular posts controls
@@ -391,7 +400,12 @@ postsContainer.addEventListener("click", e => {
 // ---------------------
 // ---------------------
 window.addEventListener("scroll", function (ev) {
+  console.log("window.innerHeight = ", window.innerHeight);
+  console.log("window.pageYOffset = ", window.pageYOffset);
+  console.log("document.body.offsetHeight = ", document.body.offsetHeight);
   if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-    loadPosts();
+    window.setTimeout(() => {
+      loadPosts();
+    }, 500);
   }
 });
