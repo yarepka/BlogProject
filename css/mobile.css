@@ -79,6 +79,13 @@
     grid-template-columns: 0.75fr repeat(4, 1fr);
   }
 
+  #popular-posts .post-classic .rating, 
+  #popular-posts .post-compact .rating,
+  #popular-posts .post-card .rating {
+    justify-content: start;
+    padding: 0.25rem;
+  }
+
 }
 
 @media(max-width: 600px) {
@@ -131,10 +138,5 @@
     grid-template-columns: 1.5fr repeat(4, 1fr);    
   }
 
-  #popular-posts .post-classic .rating, 
-  #popular-posts .post-compact .rating {
-    justify-content: start;
-    padding: 0.25rem;
-  }
 
 }

@@ -351,18 +351,7 @@ signUpSubmitForm.addEventListener("submit", (e) => {
   if (signUpEmail.parentElement.classList.contains("success") && signUpPassword.parentElement.classList.contains("success") && signUpConfirmPassword.parentElement.classList.contains("success")) {
     console.log("Sign Up Form Submit");
   }
-})
-
-// Trends
-// ------------------------
-// ------------------------
-trendBoxWrapper.addEventListener("click", (e) => {
-  console.log(e.target);
-  // if (e.target.classList.contains("box-trend") || e.target.classList.contains("title") || e.target.classList.contains("text")) {
-  //   console.log("Show Trending Post");
-  // }
-
-})
+});
 
 // Popular posts controls
 // ------------------------
