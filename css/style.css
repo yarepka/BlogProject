@@ -442,7 +442,7 @@ a.comments-link:hover {
 #popular-posts .post-classic .post-content .comments,
 #popular-posts .post-compact .post-content .comments {
   display: flex;
-  align-items: center;
+  align-self: end;
 }
 
 #popular-posts .post-classic .post-content .post-info,

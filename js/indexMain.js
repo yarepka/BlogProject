@@ -57,8 +57,8 @@ const compactControlsBtn = document.querySelector(".controls .dropdown .compact"
 // Posts
 // ------------------
 // ------------------
-const posts = document.querySelectorAll(".posts-container .post-wrapper");
-
+const postsContainer = document.querySelector(".posts-container");
+let currentGrid = "card";
 
 
 // Navbar Functions
@@ -228,6 +228,9 @@ function changePostGrid(type) {
     case "compact": compactBtn.classList.add("current"); break;
   }
 
+  // get posts from post-container
+  const posts = Array.from(postsContainer.children);
+
   posts.forEach(post => {
     post.className = `post-wrapper post-${typeLowerCase}`;
   });
@@ -238,23 +241,34 @@ function changePostGrid(type) {
 
 // Change Post Grid to "post-card"
 function changeToCard(e) {
+  currentGrid = "card";
   changePostGrid("card");
   e.preventDefault();
 }
 
 // Change Post Grid to "post-classic"
 function changeToClassic(e) {
+  currentGrid = "classic"
   changePostGrid("classic");
   e.preventDefault();
 }
 
 // Change Post Grid to "post-compact"
 function changeToCompact(e) {
-  console.log("Compact")
+  currentGrid = "compact";
   changePostGrid("compact");
   e.preventDefault();
 }
 
+loadPosts();
+
+// Get 10 posts
+async function loadPosts() {
+  // Fetch posts
+  const posts = await server.get("posts.json");
+
+  ui.appendPosts(postsContainer, currentGrid, posts);
+}
 // Event Listeners
 // -------------------------
 // -------------------------
@@ -352,3 +366,32 @@ compactBtn.addEventListener("click", changeToCompact);
 cardControlsBtn.addEventListener("click", changeToCard);
 classicControlsBtn.addEventListener("click", changeToClassic);
 compactControlsBtn.addEventListener("click", changeToCompact);
+
+// Posts
+// ------------------------
+// ------------------------
+postsContainer.addEventListener("click", e => {
+  console.log(e.target);
+
+  if (e.target.classList.contains("fa-arrow-up")) {
+    console.log("Arrow Up");
+  }
+
+  if (e.target.classList.contains("fa-arrow-down")) {
+    console.log("Arrow Down");
+  }
+  if (e.target.tagName !== "I" && e.target.tagName !== "A" && !e.target.classList.contains("posts-container") && !e.target.classList.contains("comments-quantity")) {
+    console.log("Blog");
+    window.location.href = "https://github.com/yarepka";
+  }
+});
+
+
+// Window
+// ---------------------
+// ---------------------
+window.addEventListener("scroll", function (ev) {
+  if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+    loadPosts();
+  }
+});
