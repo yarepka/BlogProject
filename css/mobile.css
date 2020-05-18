@@ -1,3 +1,4 @@
+/* index */
 #trends .box-trend-wrapper .box-trend:last-child {
   display: none;
 }
@@ -31,6 +32,16 @@
 
 #main-nav .search {
   flex-grow: 1;
+}
+
+/* blog */
+#main-section {
+  display: block;
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+#main-section aside {
+  display: none;
 }
 
 @media (max-width: 768px) {

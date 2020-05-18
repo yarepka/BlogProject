@@ -12,7 +12,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
 
-<body>
+<body id="blog-canvas">
   <!-- Navbar -->
   <nav id="main-nav">
     <div class="logo-wrapper">
@@ -42,6 +42,46 @@
       </li>
     </ul>
   </nav>
+
+  <nav id="second-nav">
+    <a class="close btn" href="/"><i class="far fa-times-circle"></i> Close</a>
+  </nav>
+
+  <div class="container">
+    <section id="main-section">
+      <div class="box">
+        <h1>No Content Yet</h1>
+        <h1>No Content Yet</h1>
+        <h1>No Content Yet</h1>
+        <h1>No Content Yet</h1>
+      </div>
+
+      <aside id="aside-community" class="box">
+        <div class="community-header">
+          <img src="./img/post.jpg" class="community-image" alt="">
+          <span class="community-title bold">y/AskYarepka</span>
+        </div>
+
+        <div class="community-description">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, inventore?</p>
+        </div>
+
+        <div class="members">
+          <span class="members-quantity">27.9k</span>
+          <span>Members</span>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="creation">
+          <i class="fas fa-birthday-cake"></i> Created <span class="creation-date">Jan 25, 2020</span>
+        </div>
+
+        <a href="#" class="btn">Join</a>
+      </aside>
+    </section>
+  </div>
+
 
   <!-- Login Form -->
   <section id="login" class="no-display">
@@ -104,6 +144,7 @@
   </footer>
   <script src="./js/ui.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/blogMain.js"></script>
 </body>
 
 </html>

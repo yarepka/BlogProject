@@ -9,6 +9,7 @@
   --canvas-color: #f4f4f4;
   --success-color:#2ecc71;
   --error-color:#e74c3c;
+  --blog-canvas-width: 1280px;
 }
 
 * {
@@ -143,7 +144,12 @@ p {
   justify-content: flex-end;
   padding: 1rem;
   margin-right: 10px;
+}
 
+.community-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 .box-trend:before {
@@ -231,7 +237,6 @@ p {
   border-bottom: 1px solid var(--border-color);
   top: 0;
   z-index: 3;
-  transition: all 0.3s ease-in 0s;
 }
 
 #main-nav .logo-wrapper {
@@ -556,6 +561,113 @@ a.comments-link:hover {
 #popular-posts .post-compact .post-content .post-title {
   padding-right: 0.75rem;
 }
+
+/* blog.html page */
+
+/* Navbar */
+#blog-canvas {
+  background-color: #666;
+}
+
+#blog-canvas .container {
+  padding: 0;
+  max-width: var(--blog-canvas-width);
+  width: 100%;
+}
+
+#second-nav {
+  position: sticky;
+  top: 70px;
+  display: flex;
+  justify-content: flex-end;
+  background: #000;
+  padding: 0.3rem;
+  max-width: var(--blog-canvas-width);
+  margin:auto;
+}
+
+#second-nav .btn {
+  color: #fff;
+  border-color: #fff;
+}
+
+#main-section {
+  padding: 1rem 3rem 1rem 3rem;
+  background-color: #efefef;
+  min-height: 85.2vh;
+  display: flex;
+  grid-gap: 20px;
+  align-items: flex-start;
+}
+
+#main-section .box {
+  background-color: #fff;
+}
+
+/* post section */
+#main-section > div:first-child {
+  flex:3;
+  padding: 0.5rem;
+  align-self: stretch;
+}
+
+/* community section */
+#main-section aside {
+  flex: 1;
+  overflow: auto;
+  padding: 0.5rem;
+  margin-left: 20px;
+  min-width: 300px;
+}
+
+#main-section aside .community-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#main-section aside .community-header span {
+  margin-left: 5px;
+}
+
+#main-section aside .community-description {
+  margin-bottom: 10px
+}
+
+#main-section aside .community-description p {
+  font-size: 1rem;
+}
+
+#main-section aside .members {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+#main-section aside .line {
+  width: 100%;
+  margin: auto;
+  border-bottom: 1px solid var(--post-border-color);
+  margin-bottom: 10px;
+}
+
+#main-section aside .creation {
+  margin-bottom: 10px;
+}
+
+#main-section aside .btn {
+  display: block;
+  text-align: center;
+  background: var(--text-color);
+  color: #fff;
+}
+
+#main-section aside .btn:hover {
+  background: #fff;
+  color: var(--text-color)
+}
+
+
 
 /* Login Form / Sign up Form */
 .form-control small {
