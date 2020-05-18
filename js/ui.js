@@ -1,7 +1,5 @@
 class UI {
-
   showForm(form) {
-    console.log(">>>FORM: ", form.id);
     if (form.classList.contains("no-display")) {
       // hide scrollbar
       if (!document.body.classList.contains("hide-scrollbar")) {
@@ -22,5 +20,19 @@ class UI {
         document.body.classList.remove("hide-scrollbar");
       }
     }
+  }
+
+  // Show input error message
+  showError(input, message) {
+    const formControl = input.parentElement;
+    formControl.className = "form-control error";
+    const small = formControl.querySelector("small");
+    small.innerText = message;
+  }
+
+  // Show success outline
+  showSuccess(input) {
+    const formControl = input.parentElement;
+    formControl.className = "form-control success";
   }
 }

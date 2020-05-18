@@ -1,8 +1,12 @@
 // Init UI && Server
+// ------------------
+// ------------------
 const ui = new UI();
 const server = new Server();
 
 // Navbar
+// ------------------
+// ------------------
 const logo = document.querySelector("#main-nav .logo");
 const search = document.getElementById("search");
 const loginBtn = document.querySelector("#main-nav .login");
@@ -11,18 +15,34 @@ const userBtn = document.querySelector("#main-nav .user");
 const navBarDropdown = document.querySelector("#main-nav .dropdown");
 
 // Trending
+// ------------------
+// ------------------
 const trendBoxWrapper = document.querySelector(".box-trend-wrapper");
 
-// Login/SignUp forms
+// Login / Sign Up forms
+// ------------------
+// ------------------
+
+// Login
 const loginForm = document.getElementById("login");
 const loginFormCloseBtn = document.getElementById("close-login");
-const signUpRedirect = document.getElementById("signup-redirect")
+const signUpRedirect = document.getElementById("signup-redirect");
+const loginSubmitForm = document.getElementById("login-form");
+const loginEmail = document.getElementById("login-email");
+const loginPassword = document.getElementById("login-password");
 
+// Sign Up
 const signUpForm = document.getElementById("signup");
 const signUpFormCloseBtn = document.getElementById("close-signup");
 const loginRedirect = document.getElementById("login-redirect");
+const signUpSubmitForm = document.getElementById("signup-form");
+const signUpEmail = document.getElementById("signup-email");
+const signUpPassword = document.getElementById("signup-password");
+const signUpConfirmPassword = document.getElementById("signup-confirm-password");
 
 // Popular posts controls
+// ------------------
+// ------------------
 const hotBtn = document.querySelector(".controls .hot");
 const newBtn = document.querySelector(".controls .new");
 const cardBtn = document.querySelector(".controls .card");
@@ -35,8 +55,18 @@ const classicControlsBtn = document.querySelector(".controls .dropdown .classic"
 const compactControlsBtn = document.querySelector(".controls .dropdown .compact");
 
 // Posts
+// ------------------
+// ------------------
 const posts = document.querySelectorAll(".posts-container .post-wrapper");
 
+
+
+// Navbar Functions
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
 // Page refresh
 function refreshPage() {
   // "true" - will force the page to reload from the server
@@ -50,6 +80,13 @@ function searchForPost(e) {
   console.log(`Searching for ${e.target.value} post`);
 }
 
+
+// Login / Sign Up functions
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
 // Show Login Form
 function showLogin(e) {
   console.log("Show Login Form");
@@ -95,6 +132,70 @@ function closeSignup(e) {
   e.preventDefault();
 }
 
+
+
+
+// Check email is valid
+function checkEmail(input) {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  if (re.test(String(input.value.trim()).toLowerCase())) {
+    ui.showSuccess(input);
+  } else {
+    ui.showError(input, "Email is not valid")
+  }
+}
+
+// Check password match
+function checkPasswordsMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    ui.showError(input2, "Passwords do not match");
+  }
+}
+
+getFieldName(signUpSubmitForm.querySelector("#signup-confirm-password"));
+
+// Get fieldname
+function getFieldName(input) {
+  let cutted = input.id.charAt(input.id.indexOf("-") + 1).toUpperCase() + input.id.slice(input.id.indexOf("-") + 2, input.id.length);
+
+  let dashIndex = cutted.indexOf("-");
+  while (dashIndex !== -1) {
+    cutted = cutted.slice(0, dashIndex) + " " + cutted.slice(dashIndex + 1);
+    dashIndex = cutted.indexOf("-");
+  }
+
+  return cutted;
+}
+
+// Check required fields
+function checkRequired(inputArr) {
+  inputArr.forEach(function (input) {
+    if (input.value.trim() === "") {
+      ui.showError(input, `${getFieldName(input)} is required`)
+    } else {
+      ui.showSuccess(input);
+    }
+  });
+}
+
+// Check input length
+function checkLength(input, min, max) {
+  if (input.value.length < min) {
+    ui.showError(input, `${getFieldName(input)} must be at least ${min} characters`);
+  } else if (input.value.length > max) {
+    ui.showError(input, `${getFieldName(input)} must be less than ${max} characters`);
+  } else {
+    ui.showSuccess(input);
+  }
+}
+
+// Posts functions
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
 function showHotPosts(e) {
   console.log("Show hot posts");
 
@@ -149,8 +250,15 @@ function changeToCompact(e) {
 }
 
 // Event Listeners
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
 
 // Navbar
+// ------------------------
+// ------------------------
 logo.addEventListener("click", refreshPage);
 search.addEventListener("keyup", searchForPost);
 loginBtn.addEventListener("click", showLogin);
@@ -184,24 +292,43 @@ gridTypeBtn.addEventListener("click", (e) => {
 });
 
 // Login / Signup forms
+// ------------------------
+// ------------------------
 loginFormCloseBtn.addEventListener("click", closeLogin);
 signUpRedirect.addEventListener("click", showSignUp);
 
 signUpFormCloseBtn.addEventListener("click", closeSignup);
 loginRedirect.addEventListener("click", showLogin);
 
-// Login / Signup submit
-document.getElementById("login-form").addEventListener("submit", (e) => {
-  console.log("Login Submit");
+// Login / Signup submit forms
+// ------------------------
+// ------------------------
+loginSubmitForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  checkRequired([loginEmail, loginPassword]);
+  checkLength(loginPassword, 6, 25);
+  checkEmail(loginEmail);
+
+  if (loginEmail.parentElement.classList.contains("success") && loginPassword.parentElement.classList.contains("success")) {
+    console.log("Login Form Submit");
+  }
 })
 
-document.getElementById("signup-form").addEventListener("submit", (e) => {
-  console.log("Sign Up Submit");
+signUpSubmitForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  checkRequired([signUpEmail, signUpPassword, signUpConfirmPassword]);
+  checkEmail(signUpEmail);
+  checkLength(signUpPassword, 6, 25);
+  checkPasswordsMatch(signUpPassword, signUpConfirmPassword);
+
+  if (signUpEmail.parentElement.classList.contains("success") && signUpPassword.parentElement.classList.contains("success") && signUpConfirmPassword.parentElement.classList.contains("success")) {
+    console.log("Sign Up Form Submit");
+  }
 })
 
 // Trends
+// ------------------------
+// ------------------------
 trendBoxWrapper.addEventListener("click", (e) => {
   if (e.target.classList.contains("box-trend") || e.target.classList.contains("title") || e.target.classList.contains("text")) {
     console.log("Show Trending Post");
@@ -209,6 +336,8 @@ trendBoxWrapper.addEventListener("click", (e) => {
 })
 
 // Popular posts controls
+// ------------------------
+// ------------------------
 hotBtn.addEventListener("click", showHotPosts);
 newBtn.addEventListener("click", showNewPosts);
 cardBtn.addEventListener("click", changeToCard);
