@@ -7,7 +7,6 @@ const server = new Server();
 // Navbar
 // ------------------
 // ------------------
-const logo = document.querySelector("#main-nav .logo");
 const search = document.getElementById("search");
 const loginBtn = document.querySelector("#main-nav .login");
 const signUpBtn = document.querySelector("#main-nav .signup");
@@ -67,14 +66,6 @@ let currentGrid = "card";
 // -------------------------
 // -------------------------
 // -------------------------
-// Page refresh
-function refreshPage() {
-  // "true" - will force the page to reload from the server
-  // "false" - will reload from cache, if available
-  window.location.reload(true);
-  window.scrollTo(0, 0);
-  console.log("Page refreshed");
-}
 
 function searchForPost(e) {
   console.log(`Searching for ${e.target.value} post`);
@@ -286,7 +277,6 @@ async function loadPosts() {
 // Navbar
 // ------------------------
 // ------------------------
-logo.addEventListener("click", refreshPage);
 search.addEventListener("keyup", searchForPost);
 loginBtn.addEventListener("click", showLogin);
 signUpBtn.addEventListener("click", showSignUp);
