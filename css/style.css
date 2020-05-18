@@ -473,7 +473,6 @@ a.comments-link:hover {
 #popular-posts .post-card .post-content .post-info {
   display: flex;
   padding: 5px 0 0 0.75rem;
-  margin-bottom: 10px;
 }
 
 #popular-posts .post-card .post-content .post-title {

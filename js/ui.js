@@ -1,5 +1,5 @@
 class UI {
-  showForm(form) {
+  static showForm(form) {
     if (form.classList.contains("no-display")) {
       // hide scrollbar
       if (!document.body.classList.contains("hide-scrollbar")) {
@@ -10,7 +10,7 @@ class UI {
     }
   }
 
-  hideForm(form) {
+  static hideForm(form) {
     if (!form.classList.contains("no-display")) {
       // hide form
       form.classList.add("no-display");
@@ -23,7 +23,7 @@ class UI {
   }
 
   // Show input error message
-  showError(input, message) {
+  static showError(input, message) {
     const formControl = input.parentElement;
     formControl.className = "form-control error";
     const small = formControl.querySelector("small");
@@ -31,13 +31,13 @@ class UI {
   }
 
   // Show success outline
-  showSuccess(input) {
+  static showSuccess(input) {
     const formControl = input.parentElement;
     formControl.className = "form-control success";
   }
 
   // Deletes error and success message
-  cleanSubmitForm(inputs) {
+  static cleanSubmitForm(inputs) {
     inputs.forEach(input => {
       const formControl = input.parentElement;
       if (formControl.classList.contains("error")) {
@@ -52,7 +52,7 @@ class UI {
     });
   }
 
-  appendPosts(postsContainer, currentGrid, posts) {
+  static appendPosts(postsContainer, currentGrid, posts) {
     // loop through every posts
     posts.forEach((post, index) => {
       // create post wrapper element
