@@ -35,4 +35,20 @@ class UI {
     const formControl = input.parentElement;
     formControl.className = "form-control success";
   }
+
+  // Deletes error and success message
+  cleanSubmitForm(inputs) {
+    inputs.forEach(input => {
+      const formControl = input.parentElement;
+      if (formControl.classList.contains("error")) {
+        formControl.classList.remove("error");
+      }
+
+      if (formControl.classList.contains("success")) {
+        formControl.classList.remove("success");
+      }
+
+      input.value = "";
+    });
+  }
 }

@@ -106,6 +106,9 @@ function closeLogin(e) {
   // hide login
   ui.hideForm(loginForm);
 
+  // clean form error/success messages
+  ui.cleanSubmitForm([loginEmail, loginPassword]);
+
   e.preventDefault();
 }
 
@@ -128,6 +131,9 @@ function closeSignup(e) {
 
   // hide signup
   ui.hideForm(signUpForm);
+
+  // clean form error/success messages
+  ui.cleanSubmitForm([signUpEmail, signUpPassword, signUpConfirmPassword]);
 
   e.preventDefault();
 }
