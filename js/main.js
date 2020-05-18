@@ -136,7 +136,6 @@ function checkEmail(input) {
 // Check password match
 function checkPasswordsMatch(input1, input2) {
   if (input1.value !== input2.value) {
-    UI.showError(input1, "Passwords do not match");
     UI.showError(input2, "Passwords do not match");
   }
 }
