@@ -365,6 +365,18 @@ p {
 }
 
 /* Posts */
+a.community, a.posted-by {
+  border-bottom: 1px transparent solid;
+  transition: border-bottom 0.15s ease;
+}
+
+a.community:hover, a.posted-by:hover {
+  border-bottom: 1px solid var(--text-color);
+}
+
+a.comments-link:hover {
+  background-color: #f4f4f4;
+}
 
 /* post-card && post-classic && post-compact */
 #popular-posts .post-card,
@@ -406,12 +418,19 @@ p {
 }
 
 #popular-posts .post-card .post-content .comments i, 
-#popular-posts .post-card .post-content .comments p,
+#popular-posts .post-card .post-content .comments a,
 #popular-posts .post-classic .post-content .comments i, 
-#popular-posts .post-classic .post-content .comments p,
+#popular-posts .post-classic .post-content .comments a,
 #popular-posts .post-compact .post-content .comments i, 
-#popular-posts .post-compact .post-content .comments p {
+#popular-posts .post-compact .post-content .comments a {
   font-size: 0.75rem;
+}
+
+#popular-posts .post-card .post-content .comments a,
+#popular-posts .post-classic .post-content .comments a,
+#popular-posts .post-compact .post-content .comments a {
+  padding: 0.25rem;
+  transition: background-color 0.15s ease;
 }
 
 #popular-posts .post-card .post-content .comments p,
