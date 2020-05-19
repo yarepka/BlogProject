@@ -77,7 +77,7 @@ class UI {
           </div>
 
           <h3 class="post-title">${post.title}</h3>
-          <img src="https://picsum.photos/200/300?random=${index}">
+          <img src="https://picsum.photos/700/700?random=${index}">
 
           <div class="comments">
             <a class="comments-link" href="https://yandex.ru" target="_blank">

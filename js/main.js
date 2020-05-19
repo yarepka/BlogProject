@@ -202,7 +202,7 @@ userBtn.addEventListener("click", (e) => {
   e.preventDefault();
 });
 
-
+logo.addEventListener("click", refreshPage);
 
 // Login / Signup forms
 // ------------------------
@@ -242,5 +242,8 @@ signUpSubmitForm.addEventListener("submit", (e) => {
   }
 });
 
-// Navbar
-logo.addEventListener("click", refreshPage);
+// Window
+window.addEventListener("click", e => {
+  if (e.target.id === "login") closeLogin();
+  else if (e.target.id === "signup") closeSignup();
+})
