@@ -40,6 +40,10 @@ p {
   font-size: 1.2rem;
 }
 
+input[type="file"] {
+  display: none;
+}
+
 .no-display {
   display: none !important;
 }
@@ -158,6 +162,12 @@ p {
 .community-image {
   width: 50px;
   height: 50px;
+  border-radius: 50%;
+}
+
+.community-image-small {
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
 }
 
@@ -285,18 +295,7 @@ p {
   left: 10px;
   font-size: 1.3rem;
   z-index: 1;
-  color: #fff;
-}
-
-#main-nav .search:before {
-  content: "";
-  height: 90%;
-  width: 40px;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  background-color: #777;
-  z-index: 0;
+  color: #333;
 }
 
 #main-nav .list {
@@ -399,7 +398,7 @@ a.comments-link:hover {
 .post-classic,
 .post-compact {
   display: grid;
-  grid-template-columns: 5% 95%;
+  grid-template-columns: 10% 90%;
   margin-bottom: 40px;
 }
 
@@ -668,7 +667,6 @@ a.comments-link:hover {
   color: var(--text-color)
 }
 
-
 /* post section */
 #main-section > div:first-child {
   flex:3;
@@ -753,6 +751,8 @@ a.comments-link:hover {
   border-bottom: 1px solid var(--post-border-color);
 }
 
+
+
 #comment-input:focus + div {
   border-color: var(--text-color);
 }
@@ -770,6 +770,124 @@ a.comments-link:hover {
 .comment-content p {
   font-size: 1rem;
 }
+
+
+/* add-post.html */
+#post-creation {
+  background-color: var(--canvas-color);
+  min-height: 90.9vh;
+}
+
+#post-creation .community-choice {
+  position: relative;
+  width: 305px;
+}
+
+#post-creation .community-choice > div:first-child {
+  display: inline-block;
+  position: relative;
+}
+
+#post-creation .community-choice div > input {
+  padding: 0.5rem;
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+  min-width: 300px;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  border: 1px solid var(--post-border-color);
+  border-radius: 3px;
+}
+
+#post-creation .community-choice div > input:focus {
+  outline: none;
+  border-color: var(--text-color)
+}
+
+#post-creation .community-choice .fa-search {
+  position: absolute;
+  top:13px;
+  left: 7px;
+}
+
+#post-creation .community-choice > div > a {
+  position: absolute;
+  top:13px;
+  right: 7px;
+}
+
+#post-creation .community-list {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  display: inline-block;
+  background-color: var(--primary-color);
+  min-width: 305px;
+}
+
+#post-creation .community-list > li {
+  width: 100%;
+  height: 100%;
+}
+
+#post-creation .community-list > li > a > p {
+  margin-left: 5px;
+}
+
+#post-creation .community-list > li > a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+#post-creation .community-list > li > a:hover {
+  background-color: #f4f4f4;
+}
+
+#add-post-form {
+  background-color: #fff;
+  padding: 2rem;
+  border: 1px solid var(--post-border-color);
+  border-radius: 3px;
+}
+
+#add-post-form .contol-panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+#add-post-form .contol-panel > ul {
+  display: flex;
+}
+
+#add-post-form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  border: 1px solid var(--post-border-color);
+  padding: 0.75rem;
+  font-size: 1.3rem;
+  overflow:hidden;
+}
+
+#add-post-form textarea:focus {
+  outline: none;
+  border-color: var(--text-color);
+}
+
+#add-post-form > textarea:first-child {
+  resize: none;
+  height: 45px;
+}
+
+#add-post-form >textarea:nth-child(2) {
+  resize: vertical;
+  min-height: 250px;
+}
+
 
 /* Login Form / Sign up Form */
 .form-control small {
