@@ -135,7 +135,7 @@ postsContainer.addEventListener("click", e => {
   }
   if (e.target.tagName !== "I" && e.target.tagName !== "A" && !e.target.classList.contains("posts-container") && !e.target.classList.contains("comments-quantity")) {
     console.log("Blog");
-    window.location.href = "https://github.com/yarepka";
+    window.location.href = "./blog.html";
   }
 });
 

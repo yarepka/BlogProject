@@ -691,6 +691,17 @@ a.comments-link:hover {
   margin-bottom: 30px;
 }
 
+#main-section .post-wrapper .post-text {
+  padding: 0 0.75rem;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+#main-section .post-wrapper .post-title {
+  margin-bottom: 10px;
+}
+
 #main-section .box {
   border: 1px solid var(--post-border-color);
 }
