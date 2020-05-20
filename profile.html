@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" media="screen and (max-width: 1000px)" href="./css/mobile.css">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-  <title>Forum - Yarepka</title>
+  <title>Profile - Yarepka</title>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
         <!-- Dropdown -->
         <div class="dropdown no-display">
           <ul>
-            <li><a href="#"><i class="fas fa-user-circle"></i>My Profile</a></li>
+            <li><a href="./profile.html"><i class="fas fa-user-circle"></i>My Profile</a></li>
             <li><a href="#"><i class="fas fa-sign-in-alt"></i>Log In / Sign Up</a></li>
             <li><a href="#"><i class="fas fa-sign-out-alt"></i>Log Out</a></li>
           </ul>
@@ -42,62 +42,6 @@
       </li>
     </ul>
   </nav>
-
-
-  <!-- Login Form -->
-  <section id="login" class="no-display">
-    <div class="content-wrapper">
-      <div class="background-image"></div>
-      <form id="login-form">
-        <img src="./img/logo_big.png" class="mb-20">
-        <h2 class="mb-20">Sign In</h2>
-        <div class="form-control">
-          <input id="login-email" type="text" placeholder="Enter email">
-          <small>Error</small>
-        </div>
-
-        <div class="form-control">
-          <input type="password" id="login-password" placeholder="Enter pasword">
-          <small>Error</small>
-        </div>
-
-        <button type="submit" class="btn btn-blue mb-10">Sign In</button>
-
-        <p>New to Yarepka? <a href="#" id="signup-redirect">Sign Up</a></p>
-      </form>
-      <a href="#" id="close-login"><i class="far fa-times-circle"></i></a>
-    </div>
-  </section>
-
-  <!-- Sign Up Form -->
-  <section id="signup" class="no-display">
-    <div class="content-wrapper">
-      <div class="background-image"></div>
-      <form id="signup-form">
-        <img src="./img/logo_big.png" class="mb-20">
-        <h2 class="mb-20">Sign Up</h2>
-        <div class="form-control">
-          <input type="text" id="signup-email" placeholder="Enter email">
-          <small>Error</small>
-        </div>
-
-        <div class="form-control">
-          <input type="password" id="signup-password" placeholder="Enter password">
-          <small>Error</small>
-        </div>
-
-        <div class="form-control">
-          <input type="password" id="signup-confirm-password" placeholder="Confirm password">
-          <small>Error</small>
-        </div>
-
-        <button type="submit" class="btn btn-blue mb-10">Sign Up</button>
-
-        <p>Already Yarepka user? <a href="#" id="login-redirect">Login</a></p>
-      </form>
-      <a href="#" id="close-signup"><i class="far fa-times-circle"></i></a>
-    </div>
-  </section>
 
   <section id="main-profile">
     <div class="container">
@@ -120,7 +64,7 @@
             </div>
           </div>
 
-          <a href="#" class="btn btn-blue">
+          <a href="./add-post.html" class="btn btn-blue">
             new post
           </a>
         </aside>
@@ -163,7 +107,7 @@
             </li>
           </ul>
 
-          <a class="btn btn-blue" href="#">View All</a>
+          <a class="btn btn-blue" href="./communities.html">View All</a>
         </aside>
       </div>
 
@@ -300,6 +244,61 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Login Form -->
+  <section id="login" class="no-display">
+    <div class="content-wrapper">
+      <div class="background-image"></div>
+      <form id="login-form">
+        <img src="./img/logo_big.png" class="mb-20">
+        <h2 class="mb-20">Sign In</h2>
+        <div class="form-control">
+          <input id="login-email" type="text" placeholder="Enter email">
+          <small>Error</small>
+        </div>
+
+        <div class="form-control">
+          <input type="password" id="login-password" placeholder="Enter pasword">
+          <small>Error</small>
+        </div>
+
+        <button type="submit" class="btn btn-blue mb-10">Sign In</button>
+
+        <p>New to Yarepka? <a href="#" id="signup-redirect">Sign Up</a></p>
+      </form>
+      <a href="#" id="close-login"><i class="far fa-times-circle"></i></a>
+    </div>
+  </section>
+
+  <!-- Sign Up Form -->
+  <section id="signup" class="no-display">
+    <div class="content-wrapper">
+      <div class="background-image"></div>
+      <form id="signup-form">
+        <img src="./img/logo_big.png" class="mb-20">
+        <h2 class="mb-20">Sign Up</h2>
+        <div class="form-control">
+          <input type="text" id="signup-email" placeholder="Enter email">
+          <small>Error</small>
+        </div>
+
+        <div class="form-control">
+          <input type="password" id="signup-password" placeholder="Enter password">
+          <small>Error</small>
+        </div>
+
+        <div class="form-control">
+          <input type="password" id="signup-confirm-password" placeholder="Confirm password">
+          <small>Error</small>
+        </div>
+
+        <button type="submit" class="btn btn-blue mb-10">Sign Up</button>
+
+        <p>Already Yarepka user? <a href="#" id="login-redirect">Login</a></p>
+      </form>
+      <a href="#" id="close-signup"><i class="far fa-times-circle"></i></a>
     </div>
   </section>
 

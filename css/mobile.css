@@ -182,4 +182,8 @@
     margin-bottom: 10px;
   }
 
+  #main-communities .box {
+    padding: 0.25rem;
+  }
+
 }

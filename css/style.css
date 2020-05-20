@@ -622,7 +622,7 @@ a.comments-link:hover {
 #main-section aside {
   flex: 1;
   overflow: auto;
-  padding: 0.5rem;
+  padding: 1rem;
   margin-left: 20px;
   min-width: 300px;
   border: 1px solid var(--post-border-color);
@@ -894,9 +894,8 @@ a.comments-link:hover {
 }
 
 /* Profile Page*/
-#main-profile .post-wrapper {
-  border: 1px solid var(--post-border-color);
-  cursor: default;
+#main-profile {
+  min-height: 89.9vh;
 }
 
 #main-profile .box {
@@ -1023,6 +1022,40 @@ a.comments-link:hover {
   text-transform: uppercase;
   font-size: 0.85rem;
   padding: 0.6rem;
+}
+
+/* Communities page */
+#main-communities {
+  min-height: 89.9vh;
+}
+
+#main-communities .title {
+  text-align: center;
+  font-size: 2rem;
+}
+
+#main-communities .box {
+  background: #fff;
+}
+
+#main-communities .communities-list > li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+}
+
+#main-communities .communities-list > li:not(:last-child) {
+  border-bottom: 1px solid var(--post-border-color);
+}
+
+#main-communities .communities-list > li a:not(.join) {
+  display: flex;
+  align-items: center;
+}
+
+#main-communities .communities-list > li a:not(.join) p {
+  margin-left: 10px;
 }
 
 /* Login Form / Sign up Form */
