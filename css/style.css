@@ -430,6 +430,7 @@ a.comments-link:hover {
 .post-classic .post-content .post-info p:first-child,
 .post-compact .post-content .post-info p:first-child {
   margin-left: 0;
+  padding-right: 0.5rem;
 }
 
 .post-card .post-content img,
@@ -600,7 +601,7 @@ a.comments-link:hover {
   padding: 0.3rem;
   max-width: var(--blog-canvas-width);
   margin:auto;
-  z-index: 100;
+  z-index: 1;
 }
 
 #second-nav .btn {
@@ -708,9 +709,6 @@ a.comments-link:hover {
   margin-bottom: 10px;
 }
 
-#main-section .post-card {
-  grid-template-columns: 10% 90%;
-}
 
 #main-section .box {
   border: 1px solid var(--post-border-color);
