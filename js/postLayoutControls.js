@@ -16,7 +16,7 @@ const compactControlsBtn = document.querySelector(".controls .dropdown .compact"
 // ------------------
 // ------------------
 const postsContainer = document.querySelector(".posts-container");
-let currentGrid = "card";
+let currentLayout = "card";
 
 // Posts functions
 // -------------------------
@@ -36,7 +36,7 @@ function showNewPosts(e) {
   e.preventDefault();
 }
 
-function changePostGrid(type) {
+function changePostLayout(type) {
   // Delete current from all buttons
   classicBtn.classList.remove("current");
   compactBtn.classList.remove("current");
@@ -63,22 +63,22 @@ function changePostGrid(type) {
 
 // Change Post Grid to "post-card"
 function changeToCard(e) {
-  currentGrid = "card";
-  changePostGrid("card");
+  currentLayout = "card";
+  changePostLayout("card");
   e.preventDefault();
 }
 
 // Change Post Grid to "post-classic"
 function changeToClassic(e) {
-  currentGrid = "classic"
-  changePostGrid("classic");
+  currentLayout = "classic"
+  changePostLayout("classic");
   e.preventDefault();
 }
 
 // Change Post Grid to "post-compact"
 function changeToCompact(e) {
-  currentGrid = "compact";
-  changePostGrid("compact");
+  currentLayout = "compact";
+  changePostLayout("compact");
   e.preventDefault();
 }
 

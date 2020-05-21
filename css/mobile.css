@@ -68,12 +68,6 @@
     width: 47%;
   }
 
-  .post-card,
-  .post-classic,
-  .post-compact {
-    grid-template-columns: 13% 87%;;
-  }
-
   #login .content-wrapper, 
   #signup .content-wrapper {
     width: 70%;
@@ -108,7 +102,6 @@
   .post-compact .rating,
   .post-card .rating {
     justify-content: start;
-    padding: 0.25rem;
   }
 
 }

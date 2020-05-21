@@ -19,7 +19,7 @@ async function loadPosts() {
   // Fetch posts
   const posts = await server.get("posts.json");
 
-  UI.appendPosts(postsContainer, currentGrid, posts);
+  UI.appendPosts(postsContainer, currentLayout, posts);
 }
 // Event Listeners
 // -------------------------

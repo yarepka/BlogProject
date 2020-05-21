@@ -405,15 +405,14 @@ a.comments-link:hover {
 .post-card,
 .post-classic,
 .post-compact {
-  display: grid;
-  grid-template-columns: 6% 94%;
+  display: flex;
   margin-bottom: 40px;
 }
 
 .post-card .rating,
 .post-classic .rating,
 .post-compact .rating {
-  padding-top: 0.25rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -519,10 +518,6 @@ a.comments-link:hover {
   justify-content: center;
 }
 
-.post-classic .rating {
-  padding: 0.50rem 0;
-}
-
 .post-classic .post-content {
   padding: 0.25rem;
 }
@@ -567,7 +562,6 @@ a.comments-link:hover {
 }
 
 .post-compact .rating {
-  padding: 0.25rem;
   justify-content: center;
 }
 

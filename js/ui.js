@@ -52,14 +52,14 @@ class UI {
     });
   }
 
-  static appendPosts(postsContainer, currentGrid, posts) {
+  static appendPosts(postsContainer, currentLayout, posts) {
     // loop through every posts
     posts.forEach((post, index) => {
       // create post wrapper element
       const postWrapper = document.createElement("div");
 
       // append classes to post wrapper
-      postWrapper.className = `post-wrapper post-${currentGrid}`;
+      postWrapper.className = `post-wrapper post-${currentLayout}`;
 
       postWrapper.innerHTML =
         `<div class="rating">
