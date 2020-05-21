@@ -35,6 +35,7 @@ const signUpForm = document.getElementById("signup");
 const signUpFormCloseBtn = document.getElementById("close-signup");
 const loginRedirect = document.getElementById("login-redirect");
 const signUpSubmitForm = document.getElementById("signup-form");
+const signUpUsername = document.getElementById("signup-username");
 const signUpEmail = document.getElementById("signup-email");
 const signUpPassword = document.getElementById("signup-password");
 const signUpConfirmPassword = document.getElementById("signup-confirm-password");
@@ -122,6 +123,13 @@ function closeSignup(e) {
   e.preventDefault();
 }
 
+// Check username
+function checkUsername(input) {
+  // Should send username to server through fetch, where
+  // the server will check is the username already in use
+  // or not and will send the response.
+}
+
 // Check email is valid
 function checkEmail(input) {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -174,7 +182,6 @@ function checkLength(input, min, max) {
     UI.showSuccess(input);
   }
 }
-
 
 // Event Listeners
 // -------------------------
@@ -231,7 +238,7 @@ loginSubmitForm.addEventListener("submit", (e) => {
 
 signUpSubmitForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  checkRequired([signUpEmail, signUpPassword, signUpConfirmPassword]);
+  checkRequired([signUpEmail, signUpPassword, signUpConfirmPassword, signUpUsername]);
   checkEmail(signUpEmail);
   checkLength(signUpPassword, 6, 25);
   checkLength(signUpConfirmPassword, 6, 25);

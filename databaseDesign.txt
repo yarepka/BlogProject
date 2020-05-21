@@ -1,5 +1,14 @@
+We need to store:
+Posts
+Communities
+Commentaries
+Users
+Votes
+Community Subscribers
+
 Schemas:
-PostSchema
+
+postSchema
 {
   _id: ID,
   title: "Example Title",
@@ -8,13 +17,12 @@ PostSchema
   userId:ID,
   userName: "Yarepka",
   rating: 575,
-  commentsId: ID,
-  commentsQuantity: 75
-  imagePath: "./img/cat.jpg"
+  commentsQuantity: 75,
+  creationDate: 2020-05-15 10:52:12,
+  imagePath: "./img/nature.jpg"
 }
 
-
-PostVotersBucketSchema
+postVotersBucketSchema
 {
   _id: ID,
   postId: ID,
@@ -46,12 +54,12 @@ Information took from: https://forums.meteor.com/t/efficient-mongodb-comments-sc
 
 The 4th way is preferable.
 
-CommentBucketSchema
+commentsBucketSchema
 {
   _id: ID,
   postId: ID,
   commentsCount: 2,
-  lastAddedAt: 2020-05-15 10:49:47,
+  lastAddedDate: 2020-05-15 10:49:47,
   // 20 - max document for Bucket
   comments: [
     {
@@ -71,20 +79,22 @@ CommentBucketSchema
   ]
 }
 
-CommunitySchema
+communitySchema
 {
   _id: ID,
   name: "y/gaming",
   title: "A Yarepka for gamers of all ages",
   amountOfSubscribers: 546,
+  topImagePath: "./img/top.jpg",
+  mainImagePath: "./img/main.jpg"
 }
 
-CommunitySubscribersBucketSchema
+communitySubscribersBucketSchema
 {
   _id: ID,
   communityId: ID,
-  subscribersCount: 2,
-  lastSubscribedAt: 2020-05-25 20:25:35,
+  subscribersCount: 3,
+  lastSubscribedDate: 2020-05-25 20:25:35,
   // 20 - max document for Bucket
   subscribers: [
     {userId: ID, subscribedAt: 2020-05-15 10:52:12},
@@ -92,3 +102,27 @@ CommunitySubscribersBucketSchema
     {userId: ID, subscribedAt: 2020-05-25 20:25:35}
   ]
 }
+
+communityModeratorsBucketSchema {
+  _id: ID,
+  communityID: ID,
+  moderatorsCount: 2
+  moderators: [
+    {userId: ID}
+  ]
+}
+
+userSchema {
+  _id: ID,
+  email: "test@test.test"
+  password: "encrypted with bcrypt and salted",
+  creationDate: 2020-05-15 10:52:12
+  / isAdmin: true / - optional property
+}
+
+profileSchema {
+  _id: ID,
+  userId: ID,
+  mainImagePath: "./img/profile-photo.jpg"
+}
+
