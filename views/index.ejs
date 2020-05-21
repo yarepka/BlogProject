@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Header -->
+<%- include("./partials/header") -%>
+
+<body>
+  <!-- Navbar -->
+  <%- include("./partials/navbar") -%>
+
+  <!-- Trends -->
+  <section id="trends">
+    <div class="container">
+      <h3>Trending today</h3>
+      <div class="box-trend-wrapper">
+        <% for(let i = 0; i < 4; i++) { %>
+        <a href="/blog" class="box-trend">
+          <h3 class="title">Lorem, ipsum dolor.</h3>
+          <p class="text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates, blanditiis.</p>
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Posts -->
+  <section id="popular-posts">
+    <div class="container">
+      <h3>Popular posts</h3>
+      <!-- Controls -->
+      <%- include("./partials/controls") -%>
+
+      <!-- Posts -->
+      <div class="posts-container">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Login & Sign Up forms -->
+  <%- include("./partials/loginSignupForms") -%>
+
+  <!-- Footer -->
+  <%- include("./partials/footer") -%>
+
+  <script src="./js/server.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/postLayoutControls.js"></script>
+  <script src="./js/indexMain.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

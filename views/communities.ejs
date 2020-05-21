@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Header -->
+<%- include("./partials/header") -%>
+
+<body>
+  <!-- Navbar -->
+  <%- include("./partials/navbar") -%>
+
+  <section id="main-communities">
+    <div class="container">
+      <h2 class="title mb-10">Communities</h2>
+      <ul class="communities-list box">
+        <% for(let i = 0; i < 10; i++) { %>
+        <li>
+          <a href="/community">
+            <img src="./img/post.jpg" class="community-image">
+            <p>y/gaming</p>
+          </a>
+          <a class="btn join" href="">Join</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Login & Sign Up forms -->
+  <%- include("./partials/loginSignupForms") -%>
+
+  <!-- Footer -->
+  <%- include("./partials/footer") -%>
+
+  <script src="./js/server.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

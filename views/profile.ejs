@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Header -->
+<%- include("./partials/header") -%>
+
+<body>
+  <!-- Navbar -->
+  <%- include("./partials/navbar") -%>
+
+  <!-- Login & Sign Up forms -->
+  <%- include("./partials/loginSignupForms") -%>
+
+  <section id="main-profile">
+    <div class="container">
+      <div class="profile-header">
+        <aside class="profile box mb-10">
+          <div class="profile-image-container">
+            <div class="profile-image-wrapper">
+              <img class="profile-image" src="./img/post.jpg">
+              <form>
+                <label for="image-file">
+                  <i class="fas fa-pencil-alt"></i>
+                  <input type="file" id="image-file" hidden="hidden">
+                </label>
+              </form>
+            </div>
+
+            <div class="registered-date">
+              <p>Cake day</p>
+              <span class="date">December 1, 2018</span>
+            </div>
+          </div>
+
+          <a href="/add-post" class="btn btn-blue">
+            new post
+          </a>
+        </aside>
+
+        <aside class="communities box mb-10">
+          <ul>
+            <% for(let i = 0; i < 5; i++) { %>
+            <li>
+              <a href="/community">
+                <img src="./img/post.jpg" class="community-image-small">
+                <p class="community-name">y/gaming</p>
+              </a>
+
+              <a href="#" class="btn">Join</a>
+            </li>
+            <% } %>
+          </ul>
+
+          <a class="btn btn-blue" href="/communities">View All</a>
+        </aside>
+      </div>
+
+      <div class="posts">
+        <h3 class="mb-10">Your Posts:</h3>
+        <!-- Controls -->
+        <%- include("./partials/controls") -%>
+
+        <!-- Posts -->
+        <div class="posts-container">
+          <% for(let i = 0; i < 10; i++) { %>
+          <%- include("./partials/fakePost") -%>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login & Sign Up forms -->
+  <%- include("./partials/loginSignupForms") -%>
+
+  <!-- Footer -->
+  <%- include("./partials/footer") -%>
+
+  <script src="./js/server.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/postLayoutControls.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

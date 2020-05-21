@@ -70,8 +70,8 @@ class UI {
 
         <div class="post-content">
           <div class="post-info">
-            <p><a href="https://google.com" target="_blank" class="community bold">${post.community}</a> Posted by <a
-              href="https://twitter.com" target="_blank" class="posted-by">${post.postedBy}</span> </a> <span
+            <p><a href="/community" class="community bold">${post.community}</a> Posted by <a
+              href="/profile" class="posted-by">${post.postedBy}</span> </a> <span
               class="hours-ago">21
               hours ago</span>
           </div>
@@ -80,7 +80,7 @@ class UI {
           <img src="https://picsum.photos/700/700?random=${index}">
 
           <div class="comments">
-            <a class="comments-link" href="https://yandex.ru" target="_blank">
+            <a class="comments-link" href="/blog">
               <i class="fas fa-comment-alt"></i>
               <span class="comments-quantity">${post.commentsQuantity} Comments</span>
             </a>

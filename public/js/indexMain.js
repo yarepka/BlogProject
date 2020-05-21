@@ -18,7 +18,6 @@ loadPosts();
 async function loadPosts() {
   // Fetch posts
   const posts = await server.get("posts.json");
-
   UI.appendPosts(postsContainer, currentLayout, posts);
 }
 // Event Listeners

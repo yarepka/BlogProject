@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Header -->
+<%- include("./partials/header") -%>
+
+<body>
+  <!-- Navbar -->
+  <%- include("./partials/navbar") -%>
+
+  <!-- Post Creation -->
+  <section id="post-creation">
+    <div class="container">
+      <h3>Create a post</h3>
+      <div class="line"></div>
+
+      <div class="community-choice">
+        <div>
+          <input type="text">
+          <i class="fas fa-search"></i>
+          <a href=""><i class="fas fa-arrow-down"></i></a>
+        </div>
+
+        <ul class="community-list no-display">
+          <% for(let i = 0; i < 5; i++) { %>
+          <li>
+            <a href="#">
+              <img src="./img/post.jpg" class="community-image-small">
+              <p class="community-name">
+                y/gaming
+              </p>
+            </a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+
+      <form id="add-post-form">
+        <textarea maxlength="300" placeholder="Title" class="title"></textarea>
+        <textarea maxlength="1000" placeholder="Text (optional)" class="text"></textarea>
+
+        <div class="contol-panel">
+          <ul>
+            <li>
+              <label class="btn custom-file-upload">
+                <input type="file">
+                Upload Image
+              </label>
+            </li>
+          </ul>
+
+
+          <button type="submit" class="btn btn-blue">Submit</button>
+        </div>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- Login & Sign Up forms -->
+  <%- include("./partials/loginSignupForms") -%>
+
+  <!-- Footer -->
+  <%- include("./partials/footer") -%>
+
+  <script src="./js/ui.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/addPostMain.js"></script>
+</body>
+
+</html>

@@ -2,7 +2,13 @@ class Server {
   // Get data from the server
   // localhost:8080/posts
   async get(url) {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        'Accept': 'application/json'
+      }
+    });
     const data = await response.json();
     return data;
   }
@@ -13,7 +19,7 @@ class Server {
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
       body: JSON.stringify(body)
     });

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Header -->
+<%- include("./partials/header") -%>
+
+<body>
+  <!-- Navbar -->
+  <%- include("./partials/navbar") -%>
+
+  <section id="main-community">
+    <header>
+      <div class="top-image"></div>
+      <div class="container">
+        <div class="content-wrapper">
+          <div>
+            <img src="./img/post.jpg" class="community-image-big">
+            <h2 class="community-name">A Yarepka for gamers of all ages.</h2>
+          </div>
+          <a href="#" class="btn">Join</a>
+        </div>
+      </div>
+    </header>
+
+    <section id="community-content">
+      <div class="container">
+        <!-- Controls -->
+        <%- include("./partials/controls") -%>
+
+        <!-- Posts -->
+        <div class="posts-container">
+          <% for(let i = 0; i < 10; i++) { %>
+          <%- include("./partials/fakePost") -%>
+          <% } %>
+        </div>
+
+      </div>
+    </section>
+
+
+  </section>
+
+  <!-- Login & Sign Up forms -->
+  <%- include("./partials/loginSignupForms") -%>
+
+  <!-- Footer -->
+  <%- include("./partials/footer") -%>
+
+  <script src="./js/server.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/postLayoutControls.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
