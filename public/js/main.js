@@ -244,6 +244,6 @@ signUpSubmitForm.addEventListener("submit", (e) => {
 
 // Window
 window.addEventListener("click", e => {
-  if (e.target.id === "login") closeLogin();
-  else if (e.target.id === "signup") closeSignup();
+  if (e.target.id === "login") closeLogin(e);
+  else if (e.target.id === "signup") closeSignup(e);
 })

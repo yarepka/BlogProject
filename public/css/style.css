@@ -418,6 +418,10 @@ a.comments-link:hover {
   margin-bottom: 40px;
 }
 
+.post-content {
+  width: 100%;
+}
+
 .post-card .rating,
 .post-classic .rating,
 .post-compact .rating {
