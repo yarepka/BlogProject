@@ -922,7 +922,8 @@ a.comments-link:hover {
 }
 
 /* profile */
-#main-profile .communities .btn:hover {
+#main-profile .communities .btn:hover,
+#main-profile .profile .btn:hover {
   border-color:var(--text-color);
   background: var(--primary-color);
   color: var(--text-color);

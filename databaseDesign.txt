@@ -1,0 +1,94 @@
+Schemas:
+PostSchema
+{
+  _id: ID,
+  title: "Example Title",
+  communityId: ID,
+  communityName: "y/yarepka",
+  userId:ID,
+  userName: "Yarepka",
+  rating: 575,
+  commentsId: ID,
+  commentsQuantity: 75
+  imagePath: "./img/cat.jpg"
+}
+
+
+PostVotersBucketSchema
+{
+  _id: ID,
+  postId: ID,
+  votesCount: 546,
+  // 20 - max document for Bucket
+  votes: [
+    {userId: ID, vote: 1},
+    {userId: ID, vote: -1},
+    {userId: ID, vote: -1},
+  ]
+}
+
+How to store Comments?
+There are many approaches:
+Documents have SIZE LIMIT - 16 megabytes
+1. Add a comments field to each post that is an array of comment objects.
+2. Have a separate comments collection. Each document would contain a post id and an array of comment objects.
+
+The problem with 1 & 2 is that there is a limit on total comments because of the document size limit. There is also the issue of storage fragmentation. 3 would be the most versatile(гибкий) but at the cost of performance. The hybrid approach(4) avoids the document limit and still provides good performance.
+
+3. Same as #2 but each individual comment would a be its own document.
+4. A separate comments collection where multiple comment objects are stored in buckets. For example, each bucket document would have a post ID and could hold an array of 20 comments. A post could have multiple comment buckets associated with it.
+  4.1. Inserting:
+  commentBucket = Comments.findOne({postId: postId, commentsCount: {$lte: 20}});
+  If find something, push the new comment in comments array and increase commentsCount by 1, probably update lastAddedAt field for sort buckets of comments by date;
+  Else insert a new document with postId, comments array with new comment and commentsCount: 1;
+
+Information took from: https://forums.meteor.com/t/efficient-mongodb-comments-schema/15717
+
+The 4th way is preferable.
+
+CommentBucketSchema
+{
+  _id: ID,
+  postId: ID,
+  commentsCount: 2,
+  lastAddedAt: 2020-05-15 10:49:47,
+  // 20 - max document for Bucket
+  comments: [
+    {
+      _id: ID,
+      userId: ID,
+      userName: "yarepka",
+      whenPosted: 2020-05-15 10:49:47,
+      text: "It looks like i commented the blog :)"
+    },
+    {
+      _id: ID,
+      userId: ID,
+      userName: "goblin",
+      whenPosted: 2020-05-15 10:49:47,
+      text: "Cool Blog"
+    }
+  ]
+}
+
+CommunitySchema
+{
+  _id: ID,
+  name: "y/gaming",
+  title: "A Yarepka for gamers of all ages",
+  amountOfSubscribers: 546,
+}
+
+CommunitySubscribersBucketSchema
+{
+  _id: ID,
+  communityId: ID,
+  subscribersCount: 2,
+  lastSubscribedAt: 2020-05-25 20:25:35,
+  // 20 - max document for Bucket
+  subscribers: [
+    {userId: ID, subscribedAt: 2020-05-15 10:52:12},
+    {userId: ID, subscribedAt: 2020-05-17 15:19:43},
+    {userId: ID, subscribedAt: 2020-05-25 20:25:35}
+  ]
+}
