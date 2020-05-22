@@ -1,3 +1,5 @@
+const domain = "http://localhost:3000";
+
 // Navbar Init
 // -------------------------
 // -------------------------
@@ -25,20 +27,21 @@ let scrolled = false;
 // Login
 const loginForm = document.getElementById("login");
 const loginFormCloseBtn = document.getElementById("close-login");
-const signUpRedirect = document.getElementById("signup-redirect");
+const loginRedirect = document.getElementById("login-redirect");
 const loginSubmitForm = document.getElementById("login-form");
-const loginEmail = document.getElementById("login-email");
 const loginPassword = document.getElementById("login-password");
+const loginUsername = document.getElementById("login-username");
+const loginCsrf = document.getElementById("login-csrf");
 
 // Sign Up
 const signUpForm = document.getElementById("signup");
 const signUpFormCloseBtn = document.getElementById("close-signup");
-const loginRedirect = document.getElementById("login-redirect");
+const signUpRedirect = document.getElementById("signup-redirect");
 const signUpSubmitForm = document.getElementById("signup-form");
 const signUpUsername = document.getElementById("signup-username");
-const signUpEmail = document.getElementById("signup-email");
 const signUpPassword = document.getElementById("signup-password");
 const signUpConfirmPassword = document.getElementById("signup-confirm-password");
+const signUpCsrf = document.getElementById("signup-csrf");
 
 
 // Navbar Functions
@@ -66,14 +69,20 @@ function searchForPost(e) {
 // -------------------------
 // -------------------------
 // Show Login Form
-function showLogin(e) {
+async function showLogin(e) {
   console.log("Show Login Form");
+
+  // get csrf
+  const resObject = await Server.get(`${domain}/user/login`);
+
+  // set csrf
+  loginCsrf.value = resObject.csrfToken;
 
   // hide sign up
   UI.hideForm(signUpForm);
 
   // clean sign up form
-  UI.cleanSubmitForm([signUpEmail, signUpPassword, signUpConfirmPassword]);
+  UI.cleanSubmitForm([signUpUsername, signUpPassword, signUpConfirmPassword]);
 
   // unhide login
   UI.showForm(loginForm);
@@ -89,20 +98,26 @@ function closeLogin(e) {
   UI.hideForm(loginForm);
 
   // clean form error/success messages
-  UI.cleanSubmitForm([loginEmail, loginPassword]);
+  UI.cleanSubmitForm([loginUsername, loginPassword]);
 
   e.preventDefault();
 }
 
 // Show Sign Up form
-function showSignUp(e) {
+async function showSignUp(e) {
   console.log("Show Sign Up Form");
+
+  // get csrf
+  const resObject = await Server.get(`${domain}/user/signup`);
+
+  // set csrf
+  signUpCsrf.value = resObject.csrfToken;
 
   // hide login
   UI.hideForm(loginForm);
 
   // clean login form
-  UI.cleanSubmitForm([loginEmail, loginPassword]);
+  UI.cleanSubmitForm([loginUsername, loginPassword]);
 
   // unhide login
   UI.showForm(signUpForm);
@@ -118,34 +133,40 @@ function closeSignup(e) {
   UI.hideForm(signUpForm);
 
   // clean form error/success messages
-  UI.cleanSubmitForm([signUpEmail, signUpPassword, signUpConfirmPassword]);
+  UI.cleanSubmitForm([signUpUsername, signUpPassword, signUpConfirmPassword]);
 
   e.preventDefault();
 }
 
 // Check username
-function checkUsername(input) {
-  // Should send username to server through fetch, where
-  // the server will check is the username already in use
-  // or not and will send the response.
-}
+async function isUsernameAvailable(input) {
+  /* https://stackoverflow.com/questions/12018245/regular-expression-to-validate-username */
+  const re = /^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 
-// Check email is valid
-function checkEmail(input) {
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  if (re.test(String(input.value.trim()).toLowerCase())) {
-    UI.showSuccess(input);
+  if (re.test(String(input.value.trim()))) {
+    const resData = await Server.post(`${domain}/user/checkUsername`, { username: input.value.trim() }, { "CSRF-Token": signUpCsrf.value });
+    if (resData.isUsernameRegistered) {
+      UI.showError(input, "Username is already taken");
+      return false;
+    } else {
+      UI.showSuccess(input);
+      return true;
+    }
   } else {
-    UI.showError(input, "Email is not valid")
+    UI.showError(input, "Invalid username");
+    return false;
   }
 }
 
 // Check password match
 function checkPasswordsMatch(input1, input2) {
-  if (input1.value !== input2.value) {
+  if (input1.value.trim() !== input2.value.trim()) {
     UI.showError(input2, "Passwords do not match");
+    UI.showError(input1, "Passwords do not match");
+    return false;
   }
+
+  return true;
 }
 
 // Get fieldname
@@ -163,24 +184,40 @@ function getFieldName(input) {
 
 // Check required fields
 function checkRequired(inputArr) {
+  let errorsCount = 0;
   inputArr.forEach(function (input) {
     if (input.value.trim() === "") {
-      UI.showError(input, `${getFieldName(input)} is required`)
+      UI.showError(input, `${getFieldName(input)} is required`);
+      errorsCount++;
     } else {
       UI.showSuccess(input);
     }
   });
+
+  return errorsCount > 0 ? false : true;
 }
 
 // Check input length
 function checkLength(input, min, max) {
   if (input.value.length < min) {
     UI.showError(input, `${getFieldName(input)} must be at least ${min} characters`);
+    return false;
   } else if (input.value.length > max) {
     UI.showError(input, `${getFieldName(input)} must be less than ${max} characters`);
+    return false;
   } else {
     UI.showSuccess(input);
+    return true;
   }
+}
+
+// Helper functions
+//-----------------
+//-----------------
+function getRoute(url) {
+  const route = url.slice(domain.length, url.length);
+
+  return route;
 }
 
 // Event Listeners
@@ -214,8 +251,8 @@ logo.addEventListener("click", refreshPage);
 // Login / Signup forms
 // ------------------------
 // ------------------------
-loginBtn.addEventListener("click", showLogin);
-signUpBtn.addEventListener("click", showSignUp);
+if (loginBtn) loginBtn.addEventListener("click", showLogin);
+if (signUpBtn) signUpBtn.addEventListener("click", showSignUp);
 loginFormCloseBtn.addEventListener("click", closeLogin);
 signUpRedirect.addEventListener("click", showSignUp);
 
@@ -225,32 +262,43 @@ loginRedirect.addEventListener("click", showLogin);
 // Login / Signup submit forms
 // ------------------------
 // ------------------------
-loginSubmitForm.addEventListener("submit", (e) => {
+loginSubmitForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  checkRequired([loginEmail, loginPassword]);
-  checkLength(loginPassword, 6, 25);
-  checkEmail(loginEmail);
+  const required = checkRequired([loginUsername, loginPassword]);
+  const usernameLength = checkLength(loginUsername, 6, 25);
+  const passwordLength = checkLength(loginPassword, 6, 25);
 
-  if (loginEmail.parentElement.classList.contains("success") && loginPassword.parentElement.classList.contains("success")) {
-    console.log("Login Form Submit");
+  if (required && usernameLength && passwordLength) {
+    const res = await Server.post(`${domain}/user/signin`, { username: loginUsername.value, password: loginPassword.value }, { "CSRF-Token": loginCsrf.value });
+
+    if (res.status === "OK") {
+      window.location.href = `${domain}${getRoute(window.location.href)}`;
+    } else {
+      if (res.errorType === "username") {
+        UI.showError(loginUsername, res.errorMsg);
+      } else if (res.errorType === "password") {
+        UI.showError(loginPassword, res.errorMsg);
+      }
+    }
   }
 })
 
-signUpSubmitForm.addEventListener("submit", (e) => {
+signUpSubmitForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  checkRequired([signUpEmail, signUpPassword, signUpConfirmPassword, signUpUsername]);
-  checkEmail(signUpEmail);
-  checkLength(signUpPassword, 6, 25);
-  checkLength(signUpConfirmPassword, 6, 25);
-  checkPasswordsMatch(signUpPassword, signUpConfirmPassword);
+  const required = checkRequired([signUpPassword, signUpConfirmPassword]);
+  const usernameUnique = await isUsernameAvailable(signUpUsername);
+  const password = checkLength(signUpPassword, 6, 25);
+  const confirmPassword = checkLength(signUpConfirmPassword, 6, 25);
+  const passwordsMatch = checkPasswordsMatch(signUpPassword, signUpConfirmPassword);
 
-  if (signUpEmail.parentElement.classList.contains("success") && signUpPassword.parentElement.classList.contains("success") && signUpConfirmPassword.parentElement.classList.contains("success")) {
-    console.log("Sign Up Form Submit");
+  if (required && password && confirmPassword && passwordsMatch && usernameUnique) {
+    await Server.post(`${domain}/user/signup`, { username: signUpUsername.value, password: signUpPassword.value }, { "CSRF-Token": signUpCsrf.value });
+    console.log(`${domain}${getRoute(window.location.href)}`);
   }
 });
 
 // Window
-window.addEventListener("click", e => {
+window.addEventListener("mousedown", e => {
   if (e.target.id === "login") closeLogin(e);
   else if (e.target.id === "signup") closeSignup(e);
 })

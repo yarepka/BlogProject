@@ -10,18 +10,23 @@
   </div>
 
   <ul class="list">
-    <li><a href="#" class="btn login">Log In</a></li>
-    <li><a href="#" class="btn btn-blue signup">Sign Up</a></li>
+    <% if(!login) { %>
+    <li><a class="btn login">Log In</a></li>
+    <li><a class="btn btn-blue signup">Sign Up</a></li>
+    <% } %>
+
     <li>
-      <a href="#" class="btn user">
+      <a class="btn user">
         <i class="fas fa-user"></i> <i class="fa fa-arrow-down"></i>
       </a>
-      <!-- Dropdown -->
       <div class="dropdown no-display">
         <ul>
+          <% if(login) { %>
           <li><a href="/profile"><i class="fas fa-user-circle"></i>My Profile</a></li>
-          <li><a href="#"><i class="fas fa-sign-in-alt"></i>Log In / Sign Up</a></li>
-          <li><a href="#"><i class="fas fa-sign-out-alt"></i>Log Out</a></li>
+          <li><a href="/user/logout"><i class="fas fa-sign-out-alt"></i>Log Out</a></li>
+          <% } else { %>
+          <li><a><i class="fas fa-sign-in-alt"></i>Log In / Sign Up</a></li>
+          <% } %>
         </ul>
       </div>
     </li>

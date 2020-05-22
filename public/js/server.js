@@ -1,7 +1,7 @@
 class Server {
   // Get data from the server
   // localhost:8080/posts
-  async get(url) {
+  static async get(url) {
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -15,12 +15,15 @@ class Server {
 
   // Create, saving data in DataBase
   // localhost:8080/posts
-  async post(url, body) {
+  static async post(url, body, additionalHeaders = {}) {
+    const headers = {
+      ...additionalHeaders,
+      "Content-type": "application/json"
+    };
+
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify(body)
     });
 
@@ -31,7 +34,7 @@ class Server {
 
   // Update, sending the entire entry to replace the previouse one
   // localhost:8080/posts/:id
-  async put(url, body) {
+  static async put(url, body) {
     const response = await fetch(url, {
       method: "PUT",
       headers: {
@@ -48,7 +51,7 @@ class Server {
 
   // Update, sending the peace of data, which needs to be updated, instead of entire entry
   // localhost:8080/posts/:id
-  async patch(url, body) {
+  static async patch(url, body) {
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
@@ -65,7 +68,7 @@ class Server {
 
   // Delete data from database
   // localhost:8080/posts/:id
-  async delete(url) {
+  static async delete(url) {
     const response = await fetch(url, {
       method: "DELETE",
       headers: {

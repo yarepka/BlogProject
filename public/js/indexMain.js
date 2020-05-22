@@ -1,8 +1,3 @@
-// Init UI && Server
-// ------------------
-// ------------------
-const server = new Server();
-
 // Trends
 // ------------------
 // ------------------
@@ -17,7 +12,7 @@ loadPosts();
 // Get 10 posts
 async function loadPosts() {
   // Fetch posts
-  const posts = await server.get("posts.json");
+  const posts = await Server.get("posts.json");
   UI.appendPosts(postsContainer, currentLayout, posts);
 }
 // Event Listeners
@@ -31,10 +26,7 @@ async function loadPosts() {
 // Window
 // ---------------------
 // ---------------------
-window.addEventListener("scroll", function (ev) {
-  console.log("window.innerHeight = ", window.innerHeight);
-  console.log("window.pageYOffset = ", window.pageYOffset);
-  console.log("document.body.offsetHeight = ", document.body.offsetHeight);
+window.addEventListener("scroll", function (e) {
   if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
     window.setTimeout(() => {
       loadPosts();

@@ -6,7 +6,7 @@
       <img src="./img/logo_big.png" class="mb-20">
       <h2 class="mb-20">Sign In</h2>
       <div class="form-control">
-        <input id="login-email" type="text" placeholder="Enter email">
+        <input id="login-username" type="text" placeholder="Enter username">
         <small>Error</small>
       </div>
 
@@ -15,11 +15,13 @@
         <small>Error</small>
       </div>
 
+      <input type="hidden" name="_csrf" id="login-csrf">
+
       <button type="submit" class="btn btn-blue mb-10">Sign In</button>
 
-      <p>New to Yarepka? <a href="#" id="signup-redirect">Sign Up</a></p>
+      <p>New to Yarepka? <a id="signup-redirect">Sign Up</a></p>
     </form>
-    <a href="#" id="close-login"><i class="far fa-times-circle"></i></a>
+    <a id="close-login"><i class="far fa-times-circle"></i></a>
   </div>
 </section>
 
@@ -31,17 +33,12 @@
       <img src="./img/logo_big.png" class="mb-20">
       <h2 class="mb-20">Sign Up</h2>
       <div class="form-control">
-        <input type="text" id="signup-username" placeholder="Enter username">
+        <input type="text" id="signup-username" placeholder="Enter username" name="username">
         <small>Error</small>
       </div>
 
       <div class="form-control">
-        <input type="text" id="signup-email" placeholder="Enter email">
-        <small>Error</small>
-      </div>
-
-      <div class="form-control">
-        <input type="password" id="signup-password" placeholder="Enter password">
+        <input type="password" id="signup-password" placeholder="Enter password" name="password">
         <small>Error</small>
       </div>
 
@@ -50,10 +47,20 @@
         <small>Error</small>
       </div>
 
+      <!-- CSRF protection, if session got stolen other users
+      will not be able to create user with this session.
+      This field sends session token which allows the server to
+      identify if the browser sending this token is the same browser
+      which got the session on the first place -->
+
+      <!-- name must be _csrf -->
+      <!-- on more check https://youtu.be/waAqEjjssxU?t=806-->
+      <input type="hidden" name="_csrf" id="signup-csrf">
+
       <button type="submit" class="btn btn-blue mb-10">Sign Up</button>
 
-      <p>Already Yarepka user? <a href="#" id="login-redirect">Login</a></p>
+      <p>Already Yarepka user? <a id="login-redirect">Login</a></p>
     </form>
-    <a href="#" id="close-signup"><i class="far fa-times-circle"></i></a>
+    <a id="close-signup"><i class="far fa-times-circle"></i></a>
   </div>
 </section>

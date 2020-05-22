@@ -114,7 +114,7 @@ communityModeratorsBucketSchema {
 
 userSchema {
   _id: ID,
-  email: "test@test.test"
+  username: "usernickname"
   password: "encrypted with bcrypt and salted",
   creationDate: 2020-05-15 10:52:12
   / isAdmin: true / - optional property
