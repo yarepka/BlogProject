@@ -1,3 +1,5 @@
+/* Laptops */
+
 /* index */
 #trends .box-trend-wrapper .box-trend:last-child {
   display: none;
@@ -58,7 +60,9 @@
   width: 100%;
 }
 
+/* Tablets & Smaller */
 @media (max-width: 768px) {
+  /* trends */
   #trends .box-trend-wrapper .box-trend:nth-child(3) {
     display: none;
   }
@@ -68,6 +72,7 @@
     width: 47%;
   }
 
+  /* login/signup */
   #login .content-wrapper, 
   #signup .content-wrapper {
     width: 70%;
@@ -85,8 +90,9 @@
     overflow: auto;
   }
 
-  #main-nav .list > li:first-child,
-  #main-nav .list > li:nth-child(2) {
+  /* navbar */
+  #main-nav .list .login,
+  #main-nav .list .signup {
     display: none;
   }
 
@@ -94,6 +100,7 @@
     top: 49px;
   }
 
+  /* posts layouts */
   .post-classic .post-content {
     grid-template-columns: 0.75fr repeat(4, 1fr);
   }
@@ -105,7 +112,9 @@
   }
 }
 
+/* Mobiles */
 @media(max-width: 600px) {
+  /* trends */
   #trends .box-trend-wrapper .box-trend:nth-child(2) {
     display: none;
   }
@@ -114,12 +123,7 @@
     width: 100%;
   }
 
-  .post-card,
-  .post-classic,
-  .post-compact {
-    grid-template-columns: 15% 85%;
-  }
-
+  /* controls */
   .controls > ul:last-child > li:not(:last-child) {
     display: none;
   }
@@ -128,11 +132,13 @@
     display: block;
   }
 
+  /* login / signup */
   #login .content-wrapper, #signup .content-wrapper {
     width: 90%;
     min-height: 50%;
   }
 
+  /* navbar */
   #main-nav .logo-wrapper {
     padding: 0 2px;
   }
@@ -147,6 +153,7 @@
     justify-content: center;
   }
 
+  /* posts layouts */
   .post-classic .post-content img {
     align-self: start;
   }
@@ -155,6 +162,7 @@
     grid-template-columns: 1.5fr repeat(4, 1fr);    
   }
 
+  /* add post */
   #add-post-form {
     padding: 1rem;
   }
