@@ -60,7 +60,7 @@ let communities = [
   new Community({
     name: "y/programming",
     amountOfSubscribers: 0,
-    topImagePath: "./img/communities/programming/programmingTop.jpg",
+    mainImagePath: "./img/communities/programming/programmingMain.jpg",
   }),
   new Community({
     name: "y/cooking",
