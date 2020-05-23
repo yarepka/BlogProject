@@ -265,14 +265,14 @@ loginRedirect.addEventListener("click", showLogin);
 loginSubmitForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const required = checkRequired([loginUsername, loginPassword]);
-  const usernameLength = checkLength(loginUsername, 6, 25);
-  const passwordLength = checkLength(loginPassword, 6, 25);
 
-  if (required && usernameLength && passwordLength) {
+  if (required) {
     const res = await Server.post(`${domain}/user/signin`, { username: loginUsername.value, password: loginPassword.value }, { "CSRF-Token": loginCsrf.value });
 
     if (res.status === "OK") {
       window.location.href = `${domain}${getRoute(window.location.href)}`;
+      UI.showSuccess(loginUsername);
+      UI.showSuccess(loginPassword);
     } else {
       if (res.errorType === "username") {
         UI.showError(loginUsername, res.errorMsg);

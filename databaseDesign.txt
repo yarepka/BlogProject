@@ -26,7 +26,7 @@ postVotersBucketSchema
 {
   _id: ID,
   postId: ID,
-  votesCount: 546,
+  votesCount: 17,
   // 20 - max document for Bucket
   votes: [
     {userId: ID, vote: 1},
