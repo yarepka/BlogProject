@@ -15,7 +15,7 @@ postSchema
   communityId: ID,
   communityName: "y/yarepka",
   userId:ID,
-  userName: "Yarepka",
+  username: "Yarepka",
   rating: 575,
   commentsQuantity: 75,
   creationDate: 2020-05-15 10:52:12,

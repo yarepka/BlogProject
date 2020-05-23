@@ -52,7 +52,7 @@
   40
 
 
-
-3. Create near 40 posts for each community 40*30=1200 posts,
+3. Add logic of post creation
+4. Create near 40 posts for each community 40*30=1200 posts,
 most of it will be lorem ipsum with lorem ipsum image, but some (~2 posts per community) should be real posts with real title, real text and image which will be stored in the file system.
 

@@ -61,21 +61,21 @@ function changePostLayout(type) {
   document.querySelector(".controls > ul:last-child > li:last-child i").className = "fa fa-arrow-down";
 }
 
-// Change Post Grid to "post-card"
+// Change posts layout to "post-card"
 function changeToCard(e) {
   currentLayout = "card";
   changePostLayout("card");
   e.preventDefault();
 }
 
-// Change Post Grid to "post-classic"
+// Change posts layout to "post-classic"
 function changeToClassic(e) {
   currentLayout = "classic"
   changePostLayout("classic");
   e.preventDefault();
 }
 
-// Change Post Grid to "post-compact"
+// Change posts layout to "post-compact"
 function changeToCompact(e) {
   currentLayout = "compact";
   changePostLayout("compact");
@@ -89,7 +89,7 @@ function changeToCompact(e) {
 // -------------------------
 // -------------------------
 
-// Popular posts controls
+// Popular posts controls Event Listeners
 // ------------------------
 // ------------------------
 hotBtn.addEventListener("click", showHotPosts);
@@ -101,7 +101,7 @@ cardControlsBtn.addEventListener("click", changeToCard);
 classicControlsBtn.addEventListener("click", changeToClassic);
 compactControlsBtn.addEventListener("click", changeToCompact);
 
-// Posts
+// Posts Event Listeners
 // ------------------------
 // ------------------------
 postsContainer.addEventListener("click", e => {

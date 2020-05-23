@@ -1,5 +1,4 @@
 const domain = "http://localhost:3000";
-
 // Navbar Init
 // -------------------------
 // -------------------------
@@ -44,7 +43,14 @@ const signUpPassword = document.getElementById("signup-password");
 const signUpConfirmPassword = document.getElementById("signup-confirm-password");
 const signUpCsrf = document.getElementById("signup-csrf");
 
+// Login / Signup forms
+if (loginBtn) loginBtn.addEventListener("click", showLogin);
+if (signUpBtn) signUpBtn.addEventListener("click", showSignUp);
+loginFormCloseBtn.addEventListener("click", closeLogin);
+signUpRedirect.addEventListener("click", showSignUp);
 
+signUpFormCloseBtn.addEventListener("click", closeSignup);
+loginRedirect.addEventListener("click", showLogin);
 
 // Navbar Functions
 // -------------------------
@@ -52,11 +58,9 @@ const signUpCsrf = document.getElementById("signup-csrf");
 // -------------------------
 // -------------------------
 // -------------------------
-// Page refresh
-function refreshPage() {
-  // "true" - will force the page to reload from the server
-  // "false" - will reload from cache, if available
-  console.log("Page refreshed");
+
+// Return to home page
+function returnToHomePage() {
   window.location.href = "/";
 }
 
@@ -214,8 +218,8 @@ function checkLength(input, min, max) {
 }
 
 // Helper functions
-//-----------------
-//-----------------
+// -------------------------
+// -------------------------
 function getRoute(url) {
   const route = url.slice(domain.length, url.length);
 
@@ -230,7 +234,7 @@ function getRoute(url) {
 // -------------------------
 
 
-// Navbar
+// Navbar Event Listeners
 // ------------------------
 // ------------------------
 search.addEventListener("keyup", searchForPost);
@@ -248,7 +252,7 @@ userBtn.addEventListener("click", (e) => {
   e.preventDefault();
 });
 
-logo.addEventListener("click", refreshPage);
+logo.addEventListener("click", returnToHomePage);
 
 if (logout) logout.addEventListener("click", async (e) => {
   const res = await Server.get(`${domain}/user/logout`, { "CSRF-Token": loginCsrf.value });
@@ -259,54 +263,69 @@ if (logout) logout.addEventListener("click", async (e) => {
   e.preventDefault();
 });
 
-// Login / Signup forms
-// ------------------------
-// ------------------------
-if (loginBtn) loginBtn.addEventListener("click", showLogin);
-if (signUpBtn) signUpBtn.addEventListener("click", showSignUp);
-loginFormCloseBtn.addEventListener("click", closeLogin);
-signUpRedirect.addEventListener("click", showSignUp);
 
-signUpFormCloseBtn.addEventListener("click", closeSignup);
-loginRedirect.addEventListener("click", showLogin);
+// Login / Signup Event Listeners
+// ------------------------
+// ------------------------
 
-// Login / Signup submit forms
-// ------------------------
-// ------------------------
+// Login Form Submit
 loginSubmitForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  // check if loginUsername and loginPassword are empty or not
   const required = checkRequired([loginUsername, loginPassword]);
 
-  if (required) {
+  // check password length
+  const password = checkLength(loginPassword, 6, 25);
+
+  // loginUsername and loginPassword are not empty
+  if (required && password) {
+    // trying to login
     const res = await Server.post(`${domain}/user/signin`, { username: loginUsername.value, password: loginPassword.value }, { "CSRF-Token": loginCsrf.value });
 
+    // user logged in
     if (res.status === "OK") {
-      window.location.href = `${domain}${getRoute(window.location.href)}`;
       UI.showSuccess(loginUsername);
       UI.showSuccess(loginPassword);
+      window.location.href = `${domain}${getRoute(window.location.href)}`;
     } else {
+      // user couldn't log in
+
+      // username error
       if (res.errorType === "username") {
         UI.showError(loginUsername, res.errorMsg);
       } else if (res.errorType === "password") {
+        // password error
         UI.showError(loginPassword, res.errorMsg);
       }
     }
   }
 })
 
+// Sign Up Form Submit
 signUpSubmitForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+  // check if signUpPassword and signUpConfirmPassword are empty or not
   const required = checkRequired([signUpPassword, signUpConfirmPassword]);
+  // check if username isn't registered yet
   const usernameUnique = await isUsernameAvailable(signUpUsername);
+  // check if password length is valid
   const password = checkLength(signUpPassword, 6, 25);
+  // check if confirmPassword length is valid
   const confirmPassword = checkLength(signUpConfirmPassword, 6, 25);
+  // check if password match
   const passwordsMatch = checkPasswordsMatch(signUpPassword, signUpConfirmPassword);
 
   if (required && password && confirmPassword && passwordsMatch && usernameUnique) {
+    // trying to sign up
     await Server.post(`${domain}/user/signup`, { username: signUpUsername.value, password: signUpPassword.value }, { "CSRF-Token": signUpCsrf.value });
-    console.log(`${domain}${getRoute(window.location.href)}`);
+    window.location.href = `${domain}${getRoute(window.location.href)}`;
   }
 });
+
+// Window Event Listeners
+// ----------------------
+// ----------------------
 
 // Window
 window.addEventListener("mousedown", e => {
