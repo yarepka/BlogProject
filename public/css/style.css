@@ -1113,10 +1113,9 @@ a.comments-link:hover {
 }
 
 #main-community header .container {
-  padding-top:115px;
+  padding: 1rem 0;
   background: transparent;
   position: relative;
-  padding-bottom: 1rem;
 }
 
 #main-community .content-wrapper {
@@ -1132,6 +1131,7 @@ a.comments-link:hover {
 
 #main-community .content-wrapper > .btn {
   padding: 0.25rem 1rem;
+  background-color: #fff;
 }
 
 #main-community .content-wrapper > .btn:hover {
@@ -1145,14 +1145,6 @@ a.comments-link:hover {
 
 #main-community .content-wrapper > div .community-name {
   margin-left: 10px;
-}
-
-#main-community header .top-image {
-  height: 60%;
-  width: 100%;
-  background: url("../img/huge.jpg") no-repeat bottom center/cover;
-  position: absolute;
-  z-index: 0;
 }
 
 #community-content .container {

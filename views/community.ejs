@@ -10,12 +10,11 @@
 
   <section id="main-community">
     <header>
-      <div class="top-image"></div>
       <div class="container">
         <div class="content-wrapper">
           <div>
-            <img src="./img/post.jpg" class="community-image-big">
-            <h2 class="community-name">A Yarepka for gamers of all ages.</h2>
+            <img src="<%= community.mainImagePath %>" class="community-image-big">
+            <h2 class="community-name"><%= community.name %></h2>
           </div>
           <a href="#" class="btn">Join</a>
         </div>
@@ -28,7 +27,7 @@
         <%- include("./partials/controls") -%>
 
         <!-- Posts -->
-        <div class="posts-container">
+        <div class=" posts-container">
           <% for(let i = 0; i < 10; i++) { %>
           <%- include("./partials/fakePost") -%>
           <% } %>

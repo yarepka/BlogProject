@@ -84,7 +84,7 @@ communitySchema
   _id: ID,
   name: "y/gaming",
   title: "A Yarepka for gamers of all ages",
-  amountOfSubscribers: 546,
+  amountOfSubscribers: 0,
   topImagePath: "./img/top.jpg",
   mainImagePath: "./img/main.jpg"
 }
