@@ -72,9 +72,9 @@ router.post("/signup",
 );
 
 router.get("/logout", (req, res, next) => {
-  // method added by passport
+  console.log("LOGOUT");
   req.logout();
-  res.redirect("/");
+  res.json({ status: "OK" });
 });
 
 module.exports = router;

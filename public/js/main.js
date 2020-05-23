@@ -17,6 +17,7 @@ const signUpBtn = document.querySelector("#main-nav .signup");
 const userBtn = document.querySelector("#main-nav .user");
 const navBarDropdown = document.querySelector("#main-nav .dropdown");
 const logo = document.querySelector("#main-nav .logo");
+const logout = document.getElementById("logout");
 
 let scrolled = false;
 
@@ -42,6 +43,7 @@ const signUpUsername = document.getElementById("signup-username");
 const signUpPassword = document.getElementById("signup-password");
 const signUpConfirmPassword = document.getElementById("signup-confirm-password");
 const signUpCsrf = document.getElementById("signup-csrf");
+
 
 
 // Navbar Functions
@@ -247,6 +249,15 @@ userBtn.addEventListener("click", (e) => {
 });
 
 logo.addEventListener("click", refreshPage);
+
+if (logout) logout.addEventListener("click", async (e) => {
+  const res = await Server.get(`${domain}/user/logout`, { "CSRF-Token": loginCsrf.value });
+
+  console.log("RES = ", res);
+  console.log(`${domain}${getRoute(window.location.href)}`);
+  window.location.href = `${domain}${getRoute(window.location.href)}`;
+  e.preventDefault();
+});
 
 // Login / Signup forms
 // ------------------------

@@ -1,12 +1,13 @@
 class Server {
   // Get data from the server
   // localhost:8080/posts
-  static async get(url) {
+  static async get(url, additionalHeaders = {}) {
     const response = await fetch(url, {
       method: "GET",
       headers: {
+        ...additionalHeaders,
         "Content-type": "application/json",
-        'Accept': 'application/json'
+        "Accept": 'application/json'
       }
     });
     const data = await response.json();

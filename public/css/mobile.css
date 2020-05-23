@@ -1,0 +1,207 @@
+/* index */
+#trends .box-trend-wrapper .box-trend:last-child {
+  display: none;
+}
+
+#login .background-image,
+#signup .background-image {
+  display: none;
+}
+
+#login .content-wrapper, 
+#signup .content-wrapper {
+  grid-template-columns: 95% 5%;
+  max-height: 90%;
+  overflow: auto;
+}
+
+#login-form button,
+#signup-form button {
+  width: 90%;
+}
+
+#login-form img, #login-form h2,
+#signup-form img, #signup-form h2 {
+  align-self: center;
+  padding-right: 7.5%;
+}
+
+#login-form, #signup-form {
+  padding-left: 15%;
+}
+
+#main-nav .search {
+  flex-grow: 1;
+}
+
+/* blog */
+#main-section {
+  padding: 1rem 0.25rem 0.25rem 0.25rem;
+}
+
+#main-section aside {
+  display: none;
+}
+
+#main-section > div:first-child {
+  flex: 1;
+}
+
+/* add-post */
+#post-creation .community-choice {
+  display: block;
+  width: 100%;
+}
+
+#post-creation .community-choice > div,
+#post-creation .community-choice > div > input {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  #trends .box-trend-wrapper .box-trend:nth-child(3) {
+    display: none;
+  }
+
+  #trends .box-trend-wrapper .box-trend:nth-child(1),
+  #trends .box-trend-wrapper .box-trend:nth-child(2) {
+    width: 47%;
+  }
+
+  #login .content-wrapper, 
+  #signup .content-wrapper {
+    width: 70%;
+  }
+
+  #login-form img, #login-form h2,
+  #signup-form img, #signup-form h2 {
+    align-self: center;
+    padding-right: 7.5%;
+  }
+
+  #login .content-wrapper,
+  #signup .content-wrapper {
+    max-height: 90%;
+    overflow: auto;
+  }
+
+  #main-nav .list > li:first-child,
+  #main-nav .list > li:nth-child(2) {
+    display: none;
+  }
+
+  #main-nav .dropdown {
+    top: 49px;
+  }
+
+  .post-classic .post-content {
+    grid-template-columns: 0.75fr repeat(4, 1fr);
+  }
+
+  .post-classic .rating, 
+  .post-compact .rating,
+  .post-card .rating {
+    justify-content: start;
+  }
+}
+
+@media(max-width: 600px) {
+  #trends .box-trend-wrapper .box-trend:nth-child(2) {
+    display: none;
+  }
+
+  #trends .box-trend-wrapper .box-trend:first-child {
+    width: 100%;
+  }
+
+  .post-card,
+  .post-classic,
+  .post-compact {
+    grid-template-columns: 15% 85%;
+  }
+
+  .controls > ul:last-child > li:not(:last-child) {
+    display: none;
+  }
+
+  .controls ul:last-child > li:last-child {
+    display: block;
+  }
+
+  #login .content-wrapper, #signup .content-wrapper {
+    width: 90%;
+    min-height: 50%;
+  }
+
+  #main-nav .logo-wrapper {
+    padding: 0 2px;
+  }
+
+  #main-nav .logo-wrapper .logo {
+    width: 45px;
+  }
+
+  #main-nav .logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .post-classic .post-content img {
+    align-self: start;
+  }
+
+  .post-classic .post-content {
+    grid-template-columns: 1.5fr repeat(4, 1fr);    
+  }
+
+  #add-post-form {
+    padding: 1rem;
+  }
+
+  #add-post-form .contol-panel > ul {
+    flex-direction: column;
+  }
+
+  #add-post-form .contol-panel {
+    flex-direction: column;
+  }
+
+  #add-post-form .contol-panel > ul > li > label {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* community */
+  #main-communities .box {
+    padding: 0.25rem;
+  }
+
+  #main-community .content-wrapper {
+    display: block;
+    text-align: center;
+  }
+
+  #main-community .content-wrapper > .btn {
+    display: block;
+    width: 300px;
+    max-width: 90%;
+    margin: auto;
+  }
+
+  #main-community .content-wrapper > div {
+    display: block;
+  }
+
+  #main-community .content-wrapper > div > h2 {
+    margin-left: 0 !important;
+    margin-bottom: 20px;
+  }
+
+  #main-community .content-wrapper > div > img {
+    width: 150px;
+    height: 150px;
+  }
+}
