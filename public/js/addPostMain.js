@@ -5,6 +5,7 @@ const dropdownBtn = document.querySelector("#post-creation .dropdown-button");
 const communityChoice = document.getElementById("community-choice");
 
 const dropdownCommunityList = document.querySelector("#post-creation .community-list");
+const addPostForm = document.getElementById("add-post-form");
 
 // Functions
 // -------------------------
@@ -14,7 +15,17 @@ function textAreaAdjust(o) {
   o.style.height = (1 + o.scrollHeight) + "px";
 }
 
-function toggleDropDown(e) {
+async function isCommunityExists(input) {
+  const resData = await Server.post(`${domain}/communities/checkCommunity`, { communityName: input.value.trim() });
+
+  if (!resData.isCommunityExists) {
+    UI.showError(input, `Community \"${input.name}\" does not exists`);
+  } else {
+    UI.showSuccess(input);
+  }
+}
+
+function toggleDropDown() {
   console.log("toggle");
   dropdownCommunityList.classList.toggle("no-display");
 
@@ -28,10 +39,9 @@ function toggleDropDown(e) {
     icon.classList.add("fa-arrow-down");
   }
 
-  e.preventDefault();
 }
 
-function showDropDown(e) {
+function showDropDown() {
   dropdownCommunityList.classList.remove("no-display");
 
   const icon = document.querySelector(".icon-arrow");;
@@ -39,11 +49,9 @@ function showDropDown(e) {
     icon.classList.remove("fa-arrow-down");
     icon.classList.add("fa-arrow-up");
   }
-
-  e.preventDefault();
 }
 
-function closeDropDown(e) {
+function closeDropDown() {
   if (!dropdownCommunityList.classList.contains("no-display")) {
     dropdownCommunityList.classList.add("no-display");
   }
@@ -54,7 +62,6 @@ function closeDropDown(e) {
     icon.classList.add("fa-arrow-down");
   }
 
-  e.preventDefault();
 }
 
 function hideAllListItems() {
@@ -86,14 +93,24 @@ textareaTitle.addEventListener("keyup", (e) => {
   textAreaAdjust(textareaTitle);
 });
 
+textareaTitle.addEventListener("focus", (e) => {
+  closeDropDown();
+})
+
 textareaText.addEventListener("keyup", (e) => {
   textAreaAdjust(textareaText);
 });
 
+textareaText.addEventListener("focus", (e) => {
+  closeDropDown();
+})
+
 
 // Community Input
 communityChoice.addEventListener("focus", (e) => {
-  showDropDown(e);
+  showDropDown();
+
+  e.preventDefault();
 })
 
 communityChoice.addEventListener("keyup", (e) => {
@@ -104,25 +121,40 @@ communityChoice.addEventListener("keyup", (e) => {
 // Dropdown List
 dropdownCommunityList.addEventListener("click", (e) => {
   console.log(e.target);
-  if (e.target.classList.contains("community-button"))
+  if (e.target.classList.contains("community-button")) {
     communityChoice.value = e.target.querySelector(".community-name").textContent.trim();
+    closeDropDown();
+  }
 
   if (e.target.classList.contains("image")) {
     const btn = e.target.parentElement;
     communityChoice.value = btn.querySelector(".community-name").textContent.trim();
+    closeDropDown();
   }
 
-  if (e.target.classList.contains("community-name"))
+  if (e.target.classList.contains("community-name")) {
     communityChoice.value = e.target.textContent.trim();
+    closeDropDown();
+  }
 
   e.preventDefault();
 })
 
-// Window
-window.addEventListener("click", (e) => {
-  if (!e.target.classList.contains("community-choice") && !e.target.classList.contains("icon-search") && !e.target.classList.contains("icon-arrow") && !e.target.classList.contains("dropdown-button")) {
-    closeDropDown(e);
-  }
-})
+dropdownBtn.addEventListener("click", e => {
+  toggleDropDown();
+  e.preventDefault();
+});
 
-dropdownBtn.addEventListener("click", toggleDropDown);
+// Add post form
+addPostForm.addEventListener("submit", async e => {
+  // check if signUpPassword and signUpConfirmPassword are empty or not
+  const required = checkRequired([communityChoice, textareaTitle]);
+
+  const community = isCommunityExists(communityChoice);
+
+  if (required && community) {
+    await Server.post(`${domain}/posts/add-post`, { community: communityChoice.value.trim(), title: textareaTitle.value.trim(), text: textareaText.value.trim() });
+    window.location.href = `${domain}/user/profile`;
+  }
+  e.preventDefault();
+})

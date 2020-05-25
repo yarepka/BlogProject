@@ -14,6 +14,19 @@ router.get("/", (req, res) => {
   });
 })
 
+router.post("/checkCommunity", (req, res) => {
+  console.log("communityName: ", req.body.communityName);
+  Community.findOne({ name: req.body.communityName }, (err, community) => {
+    if (!err) {
+      if (community) {
+        res.json({ isCommunityExists: true });
+      } else {
+        res.json({ isCommunityExists: false });
+      }
+    }
+  })
+})
+
 router.get("/:id", (req, res) => {
   Community.findOne({ _id: req.params.id }, (err, community) => {
     if (!err) {

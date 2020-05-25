@@ -7,7 +7,7 @@ class Server {
       headers: {
         ...additionalHeaders,
         "Content-type": "application/json",
-        "Accept": 'application/json'
+        "Accept": "application/json"
       }
     });
     const data = await response.json();
@@ -19,8 +19,11 @@ class Server {
   static async post(url, body, additionalHeaders = {}) {
     const headers = {
       ...additionalHeaders,
-      "Content-type": "application/json"
+      "Content-type": "application/json",
+      "Accept": "application/json"
     };
+
+    console.log("Headers: ", headers);
 
     const response = await fetch(url, {
       method: "POST",

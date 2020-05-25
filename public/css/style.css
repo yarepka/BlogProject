@@ -812,7 +812,6 @@ a.comments-link:hover {
   padding-right: 1.75rem;
   min-width: 300px;
   font-size: 1.3rem;
-  margin-bottom: 10px;
   border: 1px solid var(--post-border-color);
   border-radius: 3px;
 }
@@ -843,6 +842,7 @@ a.comments-link:hover {
   min-width: 305px;
   overflow:auto;
   max-height: 300px;
+  z-index: 10;
 }
 
 #post-creation .community-list > li {
@@ -885,7 +885,6 @@ a.comments-link:hover {
 #add-post-form textarea {
   display: block;
   width: 100%;
-  margin-bottom: 5px;
   border-radius: 3px;
   border: 1px solid var(--post-border-color);
   padding: 0.75rem;
@@ -893,17 +892,21 @@ a.comments-link:hover {
   overflow:hidden;
 }
 
+#add-post-form textarea.text {
+  margin-bottom: 20px;
+}
+
 #add-post-form textarea:focus {
   outline: none;
   border-color: var(--text-color);
 }
 
-#add-post-form > textarea:first-child {
+#add-post-form .title {
   resize: none;
   height: 45px;
 }
 
-#add-post-form >textarea:nth-child(2) {
+#add-post-form .text {
   resize: vertical;
   min-height: 250px;
 }
@@ -1168,6 +1171,14 @@ a.comments-link:hover {
 }
 
 .form-control.error input {
+  border-color: var(--error-color) !important;
+}
+
+.form-control.success textarea {
+  border-color: var(--success-color) !important;
+}
+
+.form-control.error textarea {
   border-color: var(--error-color) !important;
 }
 

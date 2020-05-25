@@ -14,36 +14,42 @@
       <h3>Create a post</h3>
       <div class="line"></div>
 
-      <div class="community-choice">
-        <div>
-          <input type="text" id="community-choice" class="community-choice">
-          <i class="fas fa-search icon-search"></i>
-          <a class="dropdown-button"><i class="fas fa-arrow-down icon-arrow"></i></a>
+      <form id="add-post-form" action="/posts/add-post" method="POST" enctype="multipart/form-data" autocomplete="off">
+        <div class="community-choice">
+          <div>
+            <div class="form-control">
+              <input type="text" id="community-choice" class="community-choice" name="community">
+              <small>Error</small>
+            </div>
+            <i class="fas fa-search icon-search"></i>
+            <a class="dropdown-button"><i class="fas fa-arrow-down icon-arrow"></i></a>
+          </div>
+
+          <ul class="community-list no-display">
+            <% communities.forEach(community => { %>
+            <li class="item-list">
+              <a class="community-button">
+                <img src="<%= community.mainImagePath %>" class="image community-image-small">
+                <p class="community-name">
+                  <%= community.name %>
+                </p>
+              </a>
+            </li>
+            <% }); %>
+          </ul>
         </div>
 
-        <ul class="community-list no-display">
-          <% communities.forEach(community => { %>
-          <li class="item-list">
-            <a class="community-button">
-              <img src="<%= community.mainImagePath %>" class="image community-image-small">
-              <p class="community-name">
-                <%= community.name %>
-              </p>
-            </a>
-          </li>
-          <% }); %>
-        </ul>
-      </div>
-
-      <form id="add-post-form" method="POST" enctype="multipart/form-data">
-        <textarea maxlength="300" placeholder="Title" class="title"></textarea>
-        <textarea maxlength="1000" placeholder="Text (optional)" class="text"></textarea>
+        <div class="form-control">
+          <textarea maxlength="300" placeholder="Title" class="title" name="title"></textarea>
+          <small>Error</small>
+        </div>
+        <textarea maxlength="1000" placeholder="Text (optional)" class="text" name="text"></textarea>
 
         <div class="contol-panel">
           <ul>
             <li>
-              <label class="btn custom-file-upload">
-                <input type="file">
+              <label for="post-image" class="btn custom-file-upload">
+                <input type="file" id="post-image" name="post-image">
                 Upload Image
               </label>
             </li>
@@ -63,9 +69,12 @@
   <!-- Footer -->
   <%- include("./partials/footer") -%>
 
+  <script src="./js/server.js"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/addPostMain.js"></script>
+
+
 </body>
 
 </html>
