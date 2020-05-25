@@ -77,4 +77,8 @@ router.get("/logout", (req, res, next) => {
   res.json({ status: "OK" });
 });
 
+router.get("/profile", (req, res) => {
+  res.render("profile");
+})
+
 module.exports = router;

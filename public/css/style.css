@@ -841,6 +841,8 @@ a.comments-link:hover {
   display: inline-block;
   background-color: var(--primary-color);
   min-width: 305px;
+  overflow:auto;
+  max-height: 300px;
 }
 
 #post-creation .community-list > li {

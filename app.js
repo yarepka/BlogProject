@@ -28,6 +28,8 @@ const PORT = process.env.PORT || 3000;
 // routs
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
+const communitiesRouter = require("./routes/communities");
+const postsRouter = require("./routes/posts");
 require("./config/passport");
 
 // DB config
@@ -84,6 +86,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/posts", postsRouter);
+app.use("/communities", communitiesRouter);
 app.use("/user", userRouter);
 app.use("/", indexRouter);
 

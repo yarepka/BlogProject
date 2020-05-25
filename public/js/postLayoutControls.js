@@ -115,8 +115,7 @@ postsContainer.addEventListener("click", e => {
     console.log("Arrow Down");
   }
   if (e.target.tagName !== "I" && e.target.tagName !== "A" && !e.target.classList.contains("posts-container") && !e.target.classList.contains("comments-quantity")) {
-    console.log("Blog");
-    window.location.href = "/blog";
+    window.location.href = "/posts/1";
   }
 });
 

@@ -16,26 +16,26 @@
 
       <div class="community-choice">
         <div>
-          <input type="text">
-          <i class="fas fa-search"></i>
-          <a href=""><i class="fas fa-arrow-down"></i></a>
+          <input type="text" id="community-choice" class="community-choice">
+          <i class="fas fa-search icon-search"></i>
+          <a class="dropdown-button"><i class="fas fa-arrow-down icon-arrow"></i></a>
         </div>
 
         <ul class="community-list no-display">
-          <% for(let i = 0; i < 5; i++) { %>
-          <li>
-            <a href="#">
-              <img src="./img/post.jpg" class="community-image-small">
+          <% communities.forEach(community => { %>
+          <li class="item-list">
+            <a class="community-button">
+              <img src="<%= community.mainImagePath %>" class="image community-image-small">
               <p class="community-name">
-                y/gaming
+                <%= community.name %>
               </p>
             </a>
           </li>
-          <% } %>
+          <% }); %>
         </ul>
       </div>
 
-      <form id="add-post-form">
+      <form id="add-post-form" method="POST" enctype="multipart/form-data">
         <textarea maxlength="300" placeholder="Title" class="title"></textarea>
         <textarea maxlength="1000" placeholder="Text (optional)" class="text"></textarea>
 
