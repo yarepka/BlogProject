@@ -56,12 +56,12 @@ class UI {
     // loop through every posts
     posts.forEach((post, index) => {
       // create post wrapper element
-      const postWrapper = document.createElement("div");
-
+      let postWrapper = document.createElement("div");
+      let html = "";
       // append classes to post wrapper
       postWrapper.className = `post-wrapper post-${currentLayout}`;
 
-      postWrapper.innerHTML =
+      html =
         `<div class="rating">
           <i class="fa fa-arrow-up"></i>
           <p class="rating-quantity">${post.rating}</p>
@@ -70,16 +70,18 @@ class UI {
 
         <div class="post-content">
           <div class="post-info">
-            <p><a href="/communities/" class="community bold">${post.community}</a> Posted by <a
-              href="/user/profile" class="posted-by">${post.postedBy}</span> </a> <span
+            <p><a href="/communities/${post.communityId}" class="community bold">${post.communityName}</a> Posted by <a
+              href="/user/profile/${post.userId}" class="posted-by">${post.username}</span> </a> <span
               class="hours-ago">21
               hours ago</span>
           </div>
 
-          <h3 class="post-title">${post.title}</h3>
-          <img src="https://picsum.photos/700/700?random=${index}">
+          <h3 class="post-title">${post.title}</h3>`;
 
-          <div class="comments">
+      if (post.imageName) html += `<img src="../img/posts/${post.imageName}">`;
+
+      html +=
+        `<div class="comments">
             <a class="comments-link" href="/posts/1">
               <i class="fas fa-comment-alt"></i>
               <span class="comments-quantity">${post.commentsQuantity} Comments</span>
@@ -88,6 +90,8 @@ class UI {
             <p class="comments-quantity"></p>
           </div>
         </div>`;
+
+      postWrapper.innerHTML += html;
 
       // append post to parent
       postsContainer.append(postWrapper);

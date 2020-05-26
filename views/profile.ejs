@@ -36,16 +36,16 @@
 
         <aside class="communities box mb-10">
           <ul>
-            <% for(let i = 0; i < 5; i++) { %>
+            <% communities.forEach(community => { %>
             <li>
-              <a href="/community">
-                <img src="./img/post.jpg" class="community-image-small">
-                <p class="community-name">y/gaming</p>
+              <a href="/communities/<%= community._id %>">
+                <img src="<%= community.mainImagePath %>" class="community-image-small">
+                <p class="community-name"><%= community.name %></p>
               </a>
 
               <a href="#" class="btn">Join</a>
             </li>
-            <% } %>
+            <% }) %>
           </ul>
 
           <a class="btn btn-blue" href="/communities/">View All</a>
@@ -59,9 +59,6 @@
 
         <!-- Posts -->
         <div class="posts-container">
-          <% for(let i = 0; i < 10; i++) { %>
-          <%- include("./partials/fakePost") -%>
-          <% } %>
         </div>
       </div>
     </div>
@@ -77,6 +74,7 @@
   <script src="./js/ui.js"></script>
   <script src="./js/postLayoutControls.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/profileMain.js"></script>
 </body>
 
 </html>

@@ -3,7 +3,9 @@ const router = express.Router();
 const csrf = require("csurf");
 const passport = require("passport");
 
+// models
 const User = require("../models/user");
+const Community = require("../models/community");
 
 const csrfProtection = csrf();
 
@@ -78,7 +80,13 @@ router.get("/logout", (req, res, next) => {
 });
 
 router.get("/profile", (req, res) => {
-  res.render("profile");
+  Community.find({}).limit(5).exec((err, communities) => {
+    if (!err) {
+      if (communities.length > 0) {
+        res.render("profile", { communities: communities });
+      }
+    }
+  })
 })
 
 module.exports = router;

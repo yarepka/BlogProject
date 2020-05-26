@@ -23,6 +23,18 @@ const upload = multer({
 }).single("post-image");
 
 
+router.get("/userposts", (req, res) => {
+  console.log("req.user._id: ", req.user._id, ", req.query.skip: ", Number(req.query.skip), "req.query.limit", Number(req.query.limit));
+  Post.find({ userId: req.user._id }, {}, { skip: Number(req.query.skip), limit: Number(req.query.limit) }, (err, posts) => {
+    if (!err) {
+      console.log(`postsLength: ${posts.length}`);
+      res.json({ posts: posts, postsLength: posts.length });
+    } else {
+      console.log(err);
+    }
+  });
+});
+
 router.get("/add-post", (req, res) => {
   Community.find({}, (err, communities) => {
     if (!err) {
@@ -82,12 +94,13 @@ router.post("/add-post", (req, res) => {
     // Rename uploaded image
     if (data) {
       const oldPathName = `${data.destination}${data.filename}`;
-      const newPathName = `${data.destination}${newPost._id}${data.filename.substring(data.filename.indexOf("."), data.filename.length)}`;
+      const newName = `${newPost._id}${data.filename.substring(data.filename.indexOf("."), data.filename.length)}`;
+      const newPathName = `${data.destination}${newName}`;
       fs.rename(oldPathName, newPathName, err => {
         if (err) console.log("ERROR while renaming: ", err);
       });
 
-      newPost.imagePath = newPathName;
+      newPost.imageName = newName;
     }
 
     console.log("newPost:", newPost);

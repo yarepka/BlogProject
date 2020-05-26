@@ -27,7 +27,7 @@ async function loadPosts() {
 // ---------------------
 // ---------------------
 window.addEventListener("scroll", function (e) {
-  if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+  if ((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 20)) {
     window.setTimeout(() => {
       loadPosts();
     }, 500);

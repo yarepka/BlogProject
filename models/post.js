@@ -11,7 +11,7 @@ const postSchema = new Schema({
   rating: { type: Number, required: true },
   commentsQuantity: { type: Number, required: true },
   creationDate: { type: Date, required: true },
-  imagePath: { type: String }
+  imageName: { type: String }
 });
 
 module.exports = mongoose.model("Post", postSchema);

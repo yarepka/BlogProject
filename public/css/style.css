@@ -514,13 +514,16 @@ a.comments-link:hover {
 
 .post-card .post-content .post-title {
   padding: 0 0.75rem;
-  margin-bottom: 20px;
 }
 
 .post-card .post-content .comments {
   padding: 0.75rem;
   display: flex;
   align-items: center;
+}
+
+.post-card .post-content img {
+  margin-top: 20px;
 }
 
 /* Post classic */
