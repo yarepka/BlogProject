@@ -14,7 +14,7 @@
       <h3>Create a post</h3>
       <div class="line"></div>
 
-      <form id="add-post-form" action="/posts/add-post" method="POST" enctype="multipart/form-data" autocomplete="off">
+      <form id="add-post-form" method="POST" enctype="multipart/form-data" autocomplete="off">
         <div class="community-choice">
           <div>
             <div class="form-control">
@@ -48,10 +48,14 @@
         <div class="contol-panel">
           <ul>
             <li>
-              <label for="post-image" class="btn custom-file-upload">
-                <input type="file" id="post-image" name="post-image">
-                Upload Image
-              </label>
+
+              <div class="form-control">
+                <label for="post-image" class="btn custom-file-upload">
+                  <input type="file" id="post-image" name="post-image">
+                  Upload Image
+                </label>
+                <small>Error</small>
+              </div>
             </li>
           </ul>
 

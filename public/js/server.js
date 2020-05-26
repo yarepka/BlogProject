@@ -31,8 +31,12 @@ class Server {
       body: JSON.stringify(body)
     });
 
+    console.log("RESPONSE", response);
+
     // Saved data
     const data = await response.json();
+
+    console.log("DATA", data);
     return data;
   }
 

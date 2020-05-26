@@ -9,10 +9,7 @@ const Community = require("../models/community");
 const Post = require("../models/post");
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/img/posts/");
-  },
-
+  destination: "./public/img/posts/",
   filename: function (req, file, cb) {
     cb(null, "test" + path.extname(file.originalname));
   }
@@ -20,6 +17,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
+  fileFilter: function (req, file, cb) {
+    fileExtensionValidation(req, file, cb);
+  }
 }).single("post-image");
 
 
@@ -39,6 +39,7 @@ router.post("/add-post", (req, res) => {
       console.log("/add-post, file: ", req.file);
       if (err) {
         console.log("Error while uploading: ", err);
+        res.json({ status: "ERROR", title: req.body.title, text: req.body.text, msg: err });
       } else {
         console.log("Image Successfully uploaded");
         console.log("KRJGOIEWRJGIEOR: ", req.file);
@@ -101,6 +102,21 @@ router.get("/:id", (req, res) => {
   res.render("blog");
 })
 
-
-
 module.exports = router;
+
+
+// Check File Type
+function fileExtensionValidation(req, file, cb) {
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only!");
+  }
+}

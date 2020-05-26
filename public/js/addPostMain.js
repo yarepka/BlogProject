@@ -19,9 +19,11 @@ async function isCommunityExists(input) {
   const resData = await Server.post(`${domain}/communities/checkCommunity`, { communityName: input.value.trim() });
 
   if (!resData.isCommunityExists) {
-    UI.showError(input, `Community \"${input.name}\" does not exists`);
+    UI.showError(input, `Community \"${input.value}\" does not exists`);
+    return false;
   } else {
     UI.showSuccess(input);
+    return true;
   }
 }
 
@@ -146,15 +148,32 @@ dropdownBtn.addEventListener("click", e => {
 });
 
 // Add post form
-addPostForm.addEventListener("submit", async e => {
+addPostForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
   // check if signUpPassword and signUpConfirmPassword are empty or not
   const required = checkRequired([communityChoice, textareaTitle]);
 
-  const community = isCommunityExists(communityChoice);
+  const community = await isCommunityExists(communityChoice);
+  console.log(required, community);
 
   if (required && community) {
-    await Server.post(`${domain}/posts/add-post`, { community: communityChoice.value.trim(), title: textareaTitle.value.trim(), text: textareaText.value.trim() });
-    window.location.href = `${domain}/user/profile`;
+    console.log("SUBMIT");
+    // const resData = await Server.post(`${domain}/posts/add-post`, { community: communityChoice.value.trim(), title: textareaTitle.value.trim(), text: textareaText.value.trim() });
+    // console.log("resData: ", resData);
+
+    const res = await fetch(`${domain}/posts/add-post`, {
+      method: "POST",
+      body: new FormData(addPostForm)
+    });
+
+    const resData = await res.json();
+
+    if (resData.status === "ERROR") {
+      textareaTitle.value = resData.title;
+      textareaText.value = resData.text;
+      UI.showError(document.querySelector(".custom-file-upload"), resData.msg);
+    } else {
+      window.location.href = `${domain}/user/profile`;
+    }
   }
-  e.preventDefault();
 })
