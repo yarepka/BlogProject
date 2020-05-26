@@ -55,6 +55,7 @@ function changePostLayout(type) {
 
   posts.forEach(post => {
     post.className = `post-wrapper post-${typeLowerCase}`;
+    if (!post.querySelector(".post-content img")) post.classList.add("no-image");
   });
 
   document.querySelector(".controls .dropdown").className = "dropdown no-display";

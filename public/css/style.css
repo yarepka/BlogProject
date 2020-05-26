@@ -497,11 +497,6 @@ a.comments-link:hover {
   grid-area: comments;
 }
 
-.post-classic .post-content,
-.post-compact .post-content {
-  grid-gap: 5px;
-}
-
 /* Post card */
 .controls .btn-blue {
   border: 1px solid var(--text-color);
@@ -535,18 +530,20 @@ a.comments-link:hover {
   justify-content: center;
 }
 
-.post-classic .post-content {
-  padding: 0.25rem;
-}
-
 .post-classic .post-content img {
   grid-area: img;
   align-self: start;
   padding-top: 5px;
 }
 
-.post-classic .post-content .post-title {
+.post-classic .post-content .post-title, .post-classic .post-content .post-info,
+.post-classic .post-content .comments {
   padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+
+.post-classic .post-content .post-info {
+  padding-top: 5px;
 }
 
 .post-classic .post-content .post-info {
@@ -562,6 +559,14 @@ a.comments-link:hover {
   "img comments comments comments comments";
 }
 
+.post-classic.no-image .post-content {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+  "info"
+  "title"
+  "comments";
+}
+
 /* Post compact */
 .post-compact .post-content {
   display: grid;
@@ -572,7 +577,7 @@ a.comments-link:hover {
 }
 
 .post-compact .post-content {
-  padding: 5px 0 5px 10px;
+  padding: 5px 0.75rem 0 0.75rem;
 }
 .post-compact .post-content img {
   display: none;
@@ -813,7 +818,6 @@ a.comments-link:hover {
   padding: 0.5rem;
   padding-left: 1.75rem;
   padding-right: 1.75rem;
-  min-width: 300px;
   font-size: 1.3rem;
   border: 1px solid var(--post-border-color);
   border-radius: 3px;
@@ -842,10 +846,10 @@ a.comments-link:hover {
   right: 0;
   display: inline-block;
   background-color: var(--primary-color);
-  min-width: 305px;
+  width: 305px;
   overflow:auto;
   max-height: 300px;
-  z-index: 10;
+  z-index: 2;
 }
 
 #post-creation .community-list > li {
@@ -886,6 +890,12 @@ a.comments-link:hover {
   display: flex;
 }
 
+#add-post-form .contol-panel button[type="submit"] {
+  padding: 0.4rem 2rem;
+  border: 1px solid var(--text-color);
+  min-height: 40px;
+}
+
 #add-post-form textarea {
   display: block;
   width: 100%;
@@ -916,11 +926,14 @@ a.comments-link:hover {
 }
 
 #add-post-form .form-control:last-child {
-  min-width: 300px;
+  width: 300px;
 }
 
 #add-post-form .form-control:last-child label {
   display: inline-block;
+  padding: 0.4rem 2rem;
+  min-height: 40px;
+  border: 1px solid var(--text-color);
 }
 
 /* Profile Page*/

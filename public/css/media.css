@@ -171,6 +171,10 @@
     width: 100%;
   }
 
+  #post-creation .community-list {
+    width: 100%;
+  }
+
   #add-post-form .contol-panel {
     flex-direction: column;
   }
@@ -182,10 +186,9 @@
     padding: 1rem;
   }
 
-  #add-post-form button[type="submit"] {
+  #add-post-form .contol-panel button[type="submit"] {
     display: block;
     width: 100%;
-    padding: 1rem;
   }
 
   #add-post-form .contol-panel .form-control:last-child {
