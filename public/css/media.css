@@ -167,18 +167,29 @@
     padding: 1rem;
   }
 
-  #add-post-form .contol-panel > ul {
-    flex-direction: column;
+  #add-post-form .contol-panel > ul, #add-post-form .contol-panel > ul li {
+    width: 100%;
   }
 
   #add-post-form .contol-panel {
     flex-direction: column;
   }
 
-  #add-post-form .contol-panel > ul > li > label {
+  #add-post-form .contol-panel .custom-file-upload {
     display: block;
     width: 100%;
     text-align: center;
+    padding: 1rem;
+  }
+
+  #add-post-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  #add-post-form .contol-panel .form-control:last-child {
+    width: 100%;
     margin-bottom: 10px;
   }
 

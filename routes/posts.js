@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
+  limits: { fileSize: 1000000 }, // 1mb - Image Max Size
   fileFilter: function (req, file, cb) {
     fileExtensionValidation(req, file, cb);
   }
@@ -46,68 +47,63 @@ router.get("/add-post", (req, res) => {
 })
 
 router.post("/add-post", (req, res) => {
-  const p = new Promise((resolve, reject) => {
-    upload(req, res, err => {
-      console.log("/add-post, file: ", req.file);
-      if (err) {
+  upload(req, res, async err => {
+    console.log("/add-post, file: ", req.file);
+    if (err) {
+      if (err.code === "LIMIT_FILE_SIZE") {
+        res.json({ status: "ERROR", title: req.body.title, text: req.body.text, msg: "Image size must be less than 1 megabyte" })
+      } else {
         console.log("Error while uploading: ", err);
         res.json({ status: "ERROR", title: req.body.title, text: req.body.text, msg: err });
-      } else {
-        console.log("Image Successfully uploaded");
-        console.log("KRJGOIEWRJGIEOR: ", req.file);
-        if (req.file) {
-          resolve({ destination: req.file.destination, filename: filename = req.file.filename });
-        } else {
-          resolve(undefined);
+      }
+    } else {
+      console.log("Image Successfully uploaded");
+      let newPost = new Post();
+      const title = req.body.title;
+      const text = req.body.text;
+
+      await Community.findOne({ name: req.body.community }, (err, community) => {
+        if (!err) {
+          newPost.communityName = community.name;
+          newPost.communityId = community._id;
         }
-      }
-    })
-  });
-
-  p.then(async (data) => {
-    let newPost = new Post();
-    const title = req.body.title;
-    const text = req.body.text;
-
-    await Community.findOne({ name: req.body.community }, (err, community) => {
-      if (!err) {
-        newPost.communityName = community.name;
-        newPost.communityId = community._id;
-      }
-    });
-
-    // Set post username and userId properties
-    newPost.userId = req.user._id;
-    newPost.username = req.user.username;
-
-    // Set post title and text
-    newPost.title = title;
-    if (text) newPost.text = text;
-
-    // Set pot rating and comments quantity
-    newPost.rating = 0;
-    newPost.commentsQuantity = 0;
-
-    // Set post creation date
-    newPost.creationDate = new Date();
-
-    // Rename uploaded image
-    if (data) {
-      const oldPathName = `${data.destination}${data.filename}`;
-      const newName = `${newPost._id}${data.filename.substring(data.filename.indexOf("."), data.filename.length)}`;
-      const newPathName = `${data.destination}${newName}`;
-      fs.rename(oldPathName, newPathName, err => {
-        if (err) console.log("ERROR while renaming: ", err);
       });
 
-      newPost.imageName = newName;
+      // Set post username and userId properties
+      newPost.userId = req.user._id;
+      newPost.username = req.user.username;
+
+      // Set post title and text
+      newPost.title = title;
+      if (text) newPost.text = text;
+
+      // Set pot rating and comments quantity
+      newPost.rating = 0;
+      newPost.commentsQuantity = 0;
+
+      // Set post creation date
+      newPost.creationDate = new Date();
+
+      // Rename uploaded image
+      if (req.file) {
+        const destination = req.file.destination;
+        const filename = req.file.filename;
+        const oldPathName = `${destination}${filename}`;
+        const newName = `${newPost._id}${filename.substring(filename.indexOf("."), filename.length)}`;
+        const newPathName = `${destination}${newName}`;
+        fs.rename(oldPathName, newPathName, err => {
+          if (err) console.log("ERROR while renaming: ", err);
+        });
+
+        newPost.imageName = newName;
+      }
+
+      console.log("newPost:", newPost);
+
+      newPost.save();
+
+      res.json({ status: "OK" });
     }
-
-    console.log("newPost:", newPost);
-
-    newPost.save();
-
-    res.json({ status: "OK" });
   })
 })
 

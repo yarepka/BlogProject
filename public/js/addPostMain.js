@@ -19,7 +19,7 @@ async function isCommunityExists(input) {
   const resData = await Server.post(`${domain}/communities/checkCommunity`, { communityName: input.value.trim() });
 
   if (!resData.isCommunityExists) {
-    UI.showError(input, `Community \"${input.value}\" does not exists`);
+    UI.showError(input, `Community does not exists`);
     return false;
   } else {
     UI.showSuccess(input);
@@ -157,10 +157,6 @@ addPostForm.addEventListener("submit", async (e) => {
   console.log(required, community);
 
   if (required && community) {
-    console.log("SUBMIT");
-    // const resData = await Server.post(`${domain}/posts/add-post`, { community: communityChoice.value.trim(), title: textareaTitle.value.trim(), text: textareaText.value.trim() });
-    // console.log("resData: ", resData);
-
     const res = await fetch(`${domain}/posts/add-post`, {
       method: "POST",
       body: new FormData(addPostForm)
