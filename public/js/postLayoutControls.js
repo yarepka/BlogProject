@@ -116,7 +116,13 @@ postsContainer.addEventListener("click", e => {
     console.log("Arrow Down");
   }
   if (e.target.tagName !== "I" && e.target.tagName !== "A" && !e.target.classList.contains("posts-container") && !e.target.classList.contains("comments-quantity")) {
-    window.location.href = "/posts/1";
+    // we need to get element with "post-wrapper" class
+    // because it contains id of the post in "data-id" attribute
+    let parent = e.target;
+    while (!parent.classList.contains("post-wrapper")) {
+      parent = parent.parentElement;
+    }
+    window.location.href = `/posts/${parent.dataset.id}`;
   }
 });
 

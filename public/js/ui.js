@@ -58,8 +58,11 @@ class UI {
       // create post wrapper element
       let postWrapper = document.createElement("div");
       let html = "";
+      const date = getDateString(new Date(post.creationDate));
       // append classes to post wrapper
       postWrapper.className = `post-wrapper post-${currentLayout}`;
+
+      postWrapper.setAttribute("data-id", post._id);
 
       html =
         `<div class="rating">
@@ -72,8 +75,7 @@ class UI {
           <div class="post-info">
             <p><a href="/communities/${post.communityId}" class="community bold">${post.communityName}</a> Posted by <a
               href="/user/profile/${post.userId}" class="posted-by">${post.username}</span> </a> <span
-              class="hours-ago">21
-              hours ago</span>
+              class="hours-ago">${date}</span>
           </div>
 
           <h3 class="post-title">${post.title}</h3>`;
@@ -82,7 +84,7 @@ class UI {
 
       html +=
         `<div class="comments">
-            <a class="comments-link" href="/posts/1">
+            <a class="comments-link" href="/posts/${post._id}">
               <i class="fas fa-comment-alt"></i>
               <span class="comments-quantity">${post.commentsQuantity} Comments</span>
             </a>

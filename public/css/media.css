@@ -45,7 +45,7 @@
   display: none;
 }
 
-#main-section > div:first-child {
+#main-section .blog {
   flex: 1;
 }
 

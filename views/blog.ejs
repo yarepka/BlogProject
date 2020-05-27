@@ -15,105 +15,87 @@
 
   <div class="container">
     <section id="main-section">
-      <div class="box">
+      <div class="box blog">
         <div class="post-wrapper post-card">
           <div class="rating">
             <i class="fa fa-arrow-up"></i>
-            <p class="rating-quantity">3.3k</p>
+            <p class="rating-quantity"><%= post.rating %></p>
             <i class="fa fa-arrow-down"></i>
           </div>
 
           <div class="post-content">
             <div class="post-info">
-              <p><a href="/community" class="community bold">y/gaming</a> Posted by <a href="/profile"
-                  class="posted-by">Yarepka</span> </a> <span class="hours-ago">21
-                  hours ago</span>
+              <p><a href="/communities/<%= community._id %>" class="community bold"><%= community.name %></a> Posted by
+                <a href="/profile/<%= post.userId %>" class="posted-by"><%= post.username %></span> </a> <span
+                  class="hours-ago"><%= creationDateString %></span>
             </div>
 
-            <h3 class="post-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident tenetur quidem
-              obcaecati doloremque, necessitatibus a, quis doloribus eum libero eligendi eaque reprehenderit aut ad
-              quibusdam esse inventore? Dignissimos earum temporibus possimus asperiores!</h3>
+            <h3 class="post-title"><%= post.title %></h3>
 
-            <p class="post-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, dolor voluptas optio
-              tempora ipsum exercitationem est magnam maxime? Ratione dicta fuga temporibus voluptas ex suscipit
-              deserunt totam voluptatibus minus unde. Laboriosam iure, error possimus optio esse quos voluptates,
-              obcaecati placeat magni aspernatur totam perspiciatis impedit est libero! Debitis omnis nam quas
-              voluptatibus dicta eos aliquid sed soluta! Delectus ipsum vel dolore facilis perspiciatis porro. Culpa
-              dolor cumque neque labore similique sit accusamus quo velit laborum ad illum nesciunt nobis deleniti
-              aspernatur sed a et iste, dolores recusandae ratione dolorem quas eveniet veniam laudantium? Dicta
-              consequuntur neque voluptatum nobis nulla. Nam!</p>
+            <% if(post.text) {%>
+            <p class="post-text"><%= post.text %></p>
+            <% } %>
 
-            <img src="https://picsum.photos/700/700?random">
+            <% if(post.imageName) %>
+            <img src="./img/posts/<%= post.imageName %>">
+            <% %>
 
             <div class="comments">
               <a class="comments-link" href="/blog">
                 <i class="fas fa-comment-alt"></i>
-                <span class="comments-quantity">2.2k Comments</span>
-              </a>
+                <span class="comments-quantity"><%= post.commentsQuantity %> Comments</span>
+            </a>
 
-              <p class="comments-quantity"></p>
+            <p class="comments-quantity"></p>
+          </div>
+
+          <div class="add-comment">
+            <textarea name="comment" id="comment-input" placeholder="What are your thoughts?"></textarea>
+            <div class="control-panel">
+              <a href="#" class="btn btn-blue">Comment</a>
             </div>
+          </div>
 
-            <div class="add-comment">
-              <textarea name="comment" id="comment-input" placeholder="What are your thoughts?"></textarea>
-              <div class="control-panel">
-                <a href="#" class="btn btn-blue">Comment</a>
-              </div>
-            </div>
+          <!-- Break line -->
+          <div class="line"></div>
 
-            <!-- Break line -->
-            <div class="line"></div>
+          <!-- Comments -->
+          <div class="post-comments">
+            <% for(let i = 0; i < 10; i++) { %>
+            <div class="comment box">
+              <div class="comment-header">
+                <a href="/profile" class="posted-by bold">
+                  Yarepka
+                </a>
 
-            <!-- Comments -->
-            <div class="post-comments">
-              <% for(let i = 0; i < 10; i++) { %>
-              <div class="comment box">
-                <div class="comment-header">
-                  <a href="/profile" class="posted-by bold">
-                    Yarepka
-                  </a>
-
-                  <div class="commented-hours-ago">
-                    13 hours ago
-                  </div>
-                </div>
-
-                <div class="comment-content">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo dignissimos culpa necessitatibus
-                    reprehenderit excepturi totam iure omnis ipsa blanditiis inventore!</p>
+                <div class="commented-hours-ago">
+                  13 hours ago
                 </div>
               </div>
-              <% } %>
+
+              <div class="comment-content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo dignissimos culpa necessitatibus
+                  reprehenderit excepturi totam iure omnis ipsa blanditiis inventore!</p>
+              </div>
             </div>
+            <% } %>
           </div>
         </div>
       </div>
+  </div>
 
-      <!-- Community -->
-      <aside id="aside-community" class="box">
-        <div class="community-header">
-          <img src="./img/post.jpg" class="community-image" alt="">
-          <span class="community-title bold">y/AskYarepka</span>
-        </div>
+  <!-- Community -->
+  <aside id="aside-community" class="box">
+    <div class="community-header">
+      <img src="./img/post.jpg" class="community-image" alt="">
+      <span class="community-title bold">y/AskYarepka</span>
+    </div>
 
-        <div class="community-description">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, inventore?</p>
-        </div>
+    <div class="line"></div>
 
-        <div class="members">
-          <span class="members-quantity">27.9k</span>
-          <span>Members</span>
-        </div>
-
-        <div class="line"></div>
-
-        <div class="creation">
-          <i class="fas fa-birthday-cake"></i> Created <span class="creation-date">Jan 25, 2020</span>
-        </div>
-
-        <a href="#" class="btn">Join</a>
-      </aside>
-    </section>
+    <a href="#" class="btn">Join</a>
+  </aside>
+  </section>
   </div>
 
   <!-- Login & Sign Up forms -->
@@ -122,6 +104,7 @@
   <!-- Footer -->
   <%- include("./partials/footer") -%>
 
+  <script src="./js/globalFunctions.js"></script>
   <script src="./js/server.js"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/main.js"></script>

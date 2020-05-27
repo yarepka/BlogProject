@@ -3,6 +3,8 @@ const fs = require('fs');
 const multer = require("multer");
 const path = require("path");
 const router = express.Router();
+require('../public/js/globalFunctions');
+
 
 // models
 const Community = require("../models/community");
@@ -58,7 +60,7 @@ router.get("/userposts", (req, res) => {
   const skip = Number(req.query.skip);
   const limit = Number(req.query.limit);
   console.log("userId: ", userId, ", skip: ", skip, ", limit: ", limit);
-  Post.find({ userId: userId }, {}, { skip: skip, limit: limit }, (err, posts) => {
+  Post.find({ userId: userId }, {}, { sort: { creationDate: "-1" }, skip: skip, limit: limit }, (err, posts) => {
     if (!err) {
       console.log(`postsLength: ${posts.length}`);
       res.json({ posts: posts, postsLength: posts.length });
@@ -154,12 +156,67 @@ router.post("/add-post", (req, res) => {
   })
 })
 
-router.get("/:id", (req, res) => {
-  res.render("blog");
+router.get("/:id", async (req, res) => {
+  const post = await Post.findOne({ _id: req.params.id }, (err, post) => {
+    if (!err) {
+      return post;
+    } else {
+      console.log(err);
+    }
+  });
+
+  const community = await Community.findOne({ _id: post.communityId }, (err, community) => {
+    if (!err) {
+      return community;
+    } else {
+      console.log(err);
+    }
+  });
+
+  res.render("blog", { post: post, community: community, creationDateString: getDateString(post.creationDate) });
 })
 
 module.exports = router;
 
+// get date string from Date object
+function getDateString(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+  var intervalType;
+
+  var interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) {
+    intervalType = 'year';
+  } else {
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) {
+      intervalType = 'month';
+    } else {
+      interval = Math.floor(seconds / 86400);
+      if (interval >= 1) {
+        intervalType = 'day';
+      } else {
+        interval = Math.floor(seconds / 3600);
+        if (interval >= 1) {
+          intervalType = "hour";
+        } else {
+          interval = Math.floor(seconds / 60);
+          if (interval >= 1) {
+            intervalType = "minute";
+          } else {
+            interval = seconds;
+            intervalType = "second";
+          }
+        }
+      }
+    }
+  }
+
+  if (interval > 1 || interval === 0) {
+    intervalType += 's';
+  }
+
+  return `${interval} ${intervalType} ago`;
+}
 
 // Check File Type
 function fileExtensionValidation(req, file, cb) {

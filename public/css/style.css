@@ -407,6 +407,10 @@ a.community:hover, a.posted-by:hover {
   border-bottom: 1px solid var(--text-color);
 }
 
+.post-title, .post-text {
+  text-align: justify;
+}
+
 a.comments-link:hover {
   background-color: #f4f4f4;
 }
@@ -625,6 +629,8 @@ a.comments-link:hover {
   border-color: #fff;
 }
 
+
+/* boxes */
 #main-section {
   padding: 1rem 3rem 1rem 3rem;
   background-color: #efefef;
@@ -638,7 +644,7 @@ a.comments-link:hover {
   background-color: #fff;
 }
 
-#main-section > .box:first-child {
+#main-section .blog {
   padding: 0;
 }
 
@@ -647,9 +653,9 @@ a.comments-link:hover {
   flex: 1;
   overflow: auto;
   padding: 1rem;
-  margin-left: 20px;
   min-width: 300px;
   border: 1px solid var(--post-border-color);
+  margin-left: 20px;
 }
 
 #main-section aside .community-header {
@@ -660,24 +666,6 @@ a.comments-link:hover {
 
 #main-section aside .community-header span {
   margin-left: 5px;
-}
-
-#main-section aside .community-description {
-  margin-bottom: 10px
-}
-
-#main-section aside .community-description p {
-  font-size: 1rem;
-}
-
-#main-section aside .members {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-#main-section aside .creation {
-  margin-bottom: 10px;
 }
 
 #main-section aside .btn {
@@ -693,9 +681,8 @@ a.comments-link:hover {
 }
 
 /* post section */
-#main-section > div:first-child {
-  flex:3;
-  align-self: stretch;
+#main-section .blog {
+  flex: 5;
 }
 
 #main-section .post-card {
@@ -707,7 +694,7 @@ a.comments-link:hover {
   background-color: var(--primary-color);
 }
 
-#main-section > .box:first-child .line {
+#main-section .blog .line {
   width: 95%;
   margin: 0;
   margin-top: 60px;
@@ -725,13 +712,11 @@ a.comments-link:hover {
   margin-bottom: 10px;
 }
 
-
 #main-section .box {
   border: 1px solid var(--post-border-color);
 }
 
 /* Comments */
-
 .add-comment {
   position: relative;
   margin-bottom: 50px;
@@ -776,8 +761,6 @@ a.comments-link:hover {
   border-right: 1px solid var(--post-border-color);
   border-bottom: 1px solid var(--post-border-color);
 }
-
-
 
 #comment-input:focus + div {
   border-color: var(--text-color);
