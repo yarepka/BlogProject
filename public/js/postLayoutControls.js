@@ -106,7 +106,6 @@ compactControlsBtn.addEventListener("click", changeToCompact);
 // ------------------------
 // ------------------------
 postsContainer.addEventListener("click", e => {
-  console.log(e.target);
 
   if (e.target.classList.contains("fa-arrow-up")) {
     console.log("Arrow Up");
@@ -122,7 +121,7 @@ postsContainer.addEventListener("click", e => {
     while (!parent.classList.contains("post-wrapper")) {
       parent = parent.parentElement;
     }
-    window.location.href = `/posts/${parent.dataset.id}?creationDateString=${getDateString(new Date(parent.dataset.created))}`;
+    window.location.href = `/posts/${parent.dataset.id}`;
   }
 });
 

@@ -9,6 +9,7 @@ require('../public/js/globalFunctions');
 // models
 const Community = require("../models/community");
 const Post = require("../models/post");
+const CommentsBucket = require("../models/commentsBucket");
 
 const storage = multer.diskStorage({
   destination: "./public/img/posts/",
@@ -31,7 +32,7 @@ router.get("/community", (req, res) => {
   const skip = Number(req.query.skip);
   const limit = Number(req.query.limit);
   console.log("communityId: ", communityId, ", skip: ", skip, "limit", limit);
-  Post.find({ communityId: communityId }, {}, { skip: skip, limit: limit }, (err, posts) => {
+  Post.find({ communityId: communityId }, {}, { sort: { creationDate: "-1" }, skip: skip, limit: limit }, (err, posts) => {
     if (!err) {
       res.json({ posts: posts, postsLength: posts.length });
     } else {
@@ -156,8 +157,52 @@ router.post("/add-post", (req, res) => {
   })
 })
 
+router.post("/add-new-comment", async (req, res) => {
+  const postId = req.body.postId;
+  const commentText = req.body.commentText;
+  console.log("req.body.postId", postId);
+  console.log("req.body.commentText", commentText);
+
+  // get commentsBucket
+  const commentsBucket = await CommentsBucket.findOne({ postId: postId, commentsCount: { $lte: 20 } }, (err, commentsBucket) => {
+    if (!err) {
+      return commentsBucket;
+    } else {
+      console.log(err);
+      res.json({ status: "ERROR", errorMessage: err });
+    }
+  });
+
+  const now = new Date();
+  const newComment = {
+    userId: req.user._id,
+    username: req.user.username,
+    postedDate: now,
+    text: commentText
+  };
+
+  // no commentsBucket with empty space
+  if (commentsBucket === null) {
+    // create new commentsBucket
+    const newCommentsBucket = new CommentsBucket({
+      postId: postId,
+      commentsCount: 1,
+      lastAddedDate: now,
+      comments: [newComment]
+    });
+
+    newCommentsBucket.save();
+  } else {
+    commentsBucket.lastAddedDate = now;
+    commentsBucket.commentsCount++;
+    commentsBucket.comments.push(newComment);
+    commentsBucket.save();
+  }
+
+  res.json({ status: "OK" });
+})
+
 router.get("/:id", async (req, res) => {
-  const creationDateString = req.query.creationDateString;
   const post = await Post.findOne({ _id: req.params.id }, (err, post) => {
     if (!err) {
       return post;
@@ -174,7 +219,7 @@ router.get("/:id", async (req, res) => {
     }
   });
 
-  res.render("blog", { post: post, community: community, creationDateString: creationDateString });
+  res.render("blog", { post: post, community: community, creationDateString: getDateString(post.creationDate) });
 })
 
 module.exports = router;
@@ -193,4 +238,44 @@ function fileExtensionValidation(req, file, cb) {
   } else {
     cb("Error: Images Only!");
   }
+}
+
+// get date string from Date object
+function getDateString(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+  var intervalType;
+
+  var interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) {
+    intervalType = 'year';
+  } else {
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) {
+      intervalType = 'month';
+    } else {
+      interval = Math.floor(seconds / 86400);
+      if (interval >= 1) {
+        intervalType = 'day';
+      } else {
+        interval = Math.floor(seconds / 3600);
+        if (interval >= 1) {
+          intervalType = "hour";
+        } else {
+          interval = Math.floor(seconds / 60);
+          if (interval >= 1) {
+            intervalType = "minute";
+          } else {
+            interval = seconds;
+            intervalType = "second";
+          }
+        }
+      }
+    }
+  }
+
+  if (interval > 1 || interval === 0) {
+    intervalType += 's';
+  }
+
+  return `${interval} ${intervalType} ago`;
 }

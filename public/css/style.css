@@ -52,6 +52,11 @@ input[type="file"] {
   display: none !important;
 }
 
+.disabled {
+  opacity: 0.5;
+  cursor: default !important;
+}
+
 .hide-scrollbar {
   overflow-y: hidden !important;
 }
@@ -361,6 +366,9 @@ input[type="file"] {
 }
 
 /* Popular posts */
+#popular-posts {
+  min-height: 60vh;
+}
 
 /* Controls */
 .controls {
@@ -752,7 +760,7 @@ a.comments-link:hover {
   width: 95%;
   background: #eee;
   position: absolute;
-  bottom: -32px;
+  bottom: -28px;
   padding: 0.25rem;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 3px;

@@ -16,7 +16,7 @@
   <div class="container">
     <section id="main-section">
       <div class="box blog">
-        <div class="post-wrapper post-card">
+        <div class="post-wrapper post-card" data-id="<%= post._id %>">
           <div class="rating">
             <i class="fa fa-arrow-up"></i>
             <p class="rating-quantity"><%= post.rating %></p>
@@ -49,12 +49,14 @@
             <p class="comments-quantity"></p>
           </div>
 
-          <div class="add-comment">
-            <textarea name="comment" id="comment-input" placeholder="What are your thoughts?"></textarea>
-            <div class="control-panel">
-              <a href="#" class="btn btn-blue">Comment</a>
+          <form mathod="POST" id="add-comment-form">
+            <div class="add-comment">
+              <textarea name="comment" id="comment-input" placeholder="What are your thoughts?"></textarea>
+              <div class="control-panel">
+                <button type="submit" class="btn btn-blue btn-add-comment disabled">Comment</button>
+              </div>
             </div>
-          </div>
+          </form>
 
           <!-- Break line -->
           <div class="line"></div>
@@ -87,8 +89,8 @@
   <!-- Community -->
   <aside id="aside-community" class="box">
     <div class="community-header">
-      <img src="./img/post.jpg" class="community-image" alt="">
-      <span class="community-title bold">y/AskYarepka</span>
+      <img src="<%= community.mainImagePath %>" class="community-image" alt="">
+      <span class="community-title bold"><%= community.name %></span>
     </div>
 
     <div class="line"></div>

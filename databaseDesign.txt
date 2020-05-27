@@ -63,14 +63,12 @@ commentsBucketSchema
   // 20 - max document for Bucket
   comments: [
     {
-      _id: ID,
       userId: ID,
       userName: "yarepka",
       whenPosted: 2020-05-15 10:49:47,
       text: "It looks like i commented the blog :)"
     },
     {
-      _id: ID,
       userId: ID,
       userName: "goblin",
       whenPosted: 2020-05-15 10:49:47,
