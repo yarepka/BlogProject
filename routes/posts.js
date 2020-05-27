@@ -43,7 +43,7 @@ router.get("/new", (req, res) => {
   const limit = Number(req.query.limit);
   console.log("skip: ", skip, "limit", limit);
 
-  Post.find({}, {}, { skip: skip, limit: limit }, (err, posts) => {
+  Post.find({}, {}, { sort: { creationDate: "-1" }, skip: skip, limit: limit }, (err, posts) => {
     if (!err) {
       res.json({ posts: posts, postsLength: posts.length });
     } else {
