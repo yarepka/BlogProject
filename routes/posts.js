@@ -86,10 +86,25 @@ router.post("/add-post", (req, res) => {
 
       // Rename uploaded image
       if (req.file) {
+        const absolutePath = path.resolve("./public/img/posts");
         const destination = req.file.destination;
         const filename = req.file.filename;
+
+        // create directory
+        const date = newPost.creationDate.getDate(); // example 27
+        const month = newPost.creationDate.getMonth(); // 0 - 11, not 1 - 12
+        const year = newPost.creationDate.getFullYear();
+        const directoryName = `${date}${month}${year}`;
+
+        // directory with this name does not exists
+        if (!fs.existsSync(`${absolutePath}/${directoryName}`)) {
+          // create directory
+          fs.mkdirSync(`${absolutePath}/${directoryName}`);
+        }
+
+        // renaming the file
         const oldPathName = `${destination}${filename}`;
-        const newName = `${newPost._id}${filename.substring(filename.indexOf("."), filename.length)}`;
+        const newName = `${directoryName}/${newPost._id}${filename.substring(filename.indexOf("."), filename.length)}`;
         const newPathName = `${destination}${newName}`;
         fs.rename(oldPathName, newPathName, err => {
           if (err) console.log("ERROR while renaming: ", err);
