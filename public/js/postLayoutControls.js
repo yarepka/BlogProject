@@ -122,7 +122,7 @@ postsContainer.addEventListener("click", e => {
     while (!parent.classList.contains("post-wrapper")) {
       parent = parent.parentElement;
     }
-    window.location.href = `/posts/${parent.dataset.id}`;
+    window.location.href = `/posts/${parent.dataset.id}?creationDateString=${getDateString(new Date(parent.dataset.created))}`;
   }
 });
 

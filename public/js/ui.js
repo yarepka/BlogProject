@@ -63,6 +63,7 @@ class UI {
       postWrapper.className = `post-wrapper post-${currentLayout}`;
 
       postWrapper.setAttribute("data-id", post._id);
+      postWrapper.setAttribute("data-created", post.creationDate);
 
       html =
         `<div class="rating">

@@ -157,6 +157,7 @@ router.post("/add-post", (req, res) => {
 })
 
 router.get("/:id", async (req, res) => {
+  const creationDateString = req.query.creationDateString;
   const post = await Post.findOne({ _id: req.params.id }, (err, post) => {
     if (!err) {
       return post;
@@ -173,50 +174,10 @@ router.get("/:id", async (req, res) => {
     }
   });
 
-  res.render("blog", { post: post, community: community, creationDateString: getDateString(post.creationDate) });
+  res.render("blog", { post: post, community: community, creationDateString: creationDateString });
 })
 
 module.exports = router;
-
-// get date string from Date object
-function getDateString(date) {
-  var seconds = Math.floor((new Date() - date) / 1000);
-  var intervalType;
-
-  var interval = Math.floor(seconds / 31536000);
-  if (interval >= 1) {
-    intervalType = 'year';
-  } else {
-    interval = Math.floor(seconds / 2592000);
-    if (interval >= 1) {
-      intervalType = 'month';
-    } else {
-      interval = Math.floor(seconds / 86400);
-      if (interval >= 1) {
-        intervalType = 'day';
-      } else {
-        interval = Math.floor(seconds / 3600);
-        if (interval >= 1) {
-          intervalType = "hour";
-        } else {
-          interval = Math.floor(seconds / 60);
-          if (interval >= 1) {
-            intervalType = "minute";
-          } else {
-            interval = seconds;
-            intervalType = "second";
-          }
-        }
-      }
-    }
-  }
-
-  if (interval > 1 || interval === 0) {
-    intervalType += 's';
-  }
-
-  return `${interval} ${intervalType} ago`;
-}
 
 // Check File Type
 function fileExtensionValidation(req, file, cb) {
