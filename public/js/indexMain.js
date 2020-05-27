@@ -1,3 +1,7 @@
+let postsQuantity = 0;
+const postsLimit = 10;
+let isLoading = true;
+
 // Trends
 // ------------------
 // ------------------
@@ -12,8 +16,11 @@ loadPosts();
 // Get 10 posts
 async function loadPosts() {
   // Fetch posts
-  const posts = await Server.get("posts.json");
-  UI.appendPosts(postsContainer, currentLayout, posts);
+  const resData = await Server.get(`${domain}/posts/new?skip=${postsQuantity}&limit=${postsLimit}`);
+  postsQuantity += resData.postsLength;
+  UI.appendPosts(postsContainer, currentLayout, resData.posts);
+  console.log("resDat: ", resData, ", postsQuantity: ", postsQuantity);
+  isLoading = false;
 }
 // Event Listeners
 // -------------------------

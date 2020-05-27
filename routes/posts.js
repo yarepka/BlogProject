@@ -24,6 +24,17 @@ const upload = multer({
 }).single("post-image");
 
 
+router.get("/new", (req, res) => {
+  Post.find({}, {}, { skip: Number(req.query.skip), limit: Number(req.query.limit) }, (err, posts) => {
+    if (!err) {
+      res.json({ posts: posts, postsLength: posts.length });
+    } else {
+      console.log(err);
+    }
+  })
+});
+
+// return posts of authorized user
 router.get("/userposts", (req, res) => {
   console.log("req.user._id: ", req.user._id, ", req.query.skip: ", Number(req.query.skip), "req.query.limit", Number(req.query.limit));
   Post.find({ userId: req.user._id }, {}, { skip: Number(req.query.skip), limit: Number(req.query.limit) }, (err, posts) => {
