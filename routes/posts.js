@@ -24,8 +24,26 @@ const upload = multer({
 }).single("post-image");
 
 
+router.get("/community", (req, res) => {
+  const communityId = req.query.id;
+  const skip = Number(req.query.skip);
+  const limit = Number(req.query.limit);
+  console.log("communityId: ", communityId, ", skip: ", skip, "limit", limit);
+  Post.find({ communityId: communityId }, {}, { skip: skip, limit: limit }, (err, posts) => {
+    if (!err) {
+      res.json({ posts: posts, postsLength: posts.length });
+    } else {
+      console.log(err);
+    }
+  })
+});
+
 router.get("/new", (req, res) => {
-  Post.find({}, {}, { skip: Number(req.query.skip), limit: Number(req.query.limit) }, (err, posts) => {
+  const skip = Number(req.query.skip);
+  const limit = Number(req.query.limit);
+  console.log("skip: ", skip, "limit", limit);
+
+  Post.find({}, {}, { skip: skip, limit: limit }, (err, posts) => {
     if (!err) {
       res.json({ posts: posts, postsLength: posts.length });
     } else {
@@ -36,8 +54,11 @@ router.get("/new", (req, res) => {
 
 // return posts of authorized user
 router.get("/userposts", (req, res) => {
-  console.log("req.user._id: ", req.user._id, ", req.query.skip: ", Number(req.query.skip), "req.query.limit", Number(req.query.limit));
-  Post.find({ userId: req.user._id }, {}, { skip: Number(req.query.skip), limit: Number(req.query.limit) }, (err, posts) => {
+  const userId = req.user._id;
+  const skip = Number(req.query.skip);
+  const limit = Number(req.query.limit);
+  console.log("userId: ", userId, ", skip: ", skip, ", limit: ", limit);
+  Post.find({ userId: userId }, {}, { skip: skip, limit: limit }, (err, posts) => {
     if (!err) {
       console.log(`postsLength: ${posts.length}`);
       res.json({ posts: posts, postsLength: posts.length });

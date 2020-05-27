@@ -1,8 +1,7 @@
 let postsQuantity = 0;
 const postsLimit = 10;
 let isLoading = true;
-
-loadPosts();
+let isEnd = false;
 
 // Posts
 // ------------------
@@ -10,30 +9,12 @@ loadPosts();
 
 // Get 10 posts
 async function loadPosts(url) {
-  console.log("LOAD POSTS");
   // Fetch posts
-  const resData = await Server.get(`${domain}/posts/userposts?skip=${postsQuantity}&limit=${postsLimit}`);
+  const resData = await Server.get(url);
   postsQuantity += resData.postsLength;
   UI.appendPosts(postsContainer, currentLayout, resData.posts);
-  console.log("resDat: ", resData, ", postsQuantity: ", postsQuantity);
+  console.log("resDat: ", resData, ", postsQuantity: ", postsQuantity, ", isLoading: ", isLoading);
   isLoading = false;
+  if (resData.postsLength === 0) isEnd = true;
+  else isEnd = false;
 }
-// Event Listeners
-// -------------------------
-// -------------------------
-// -------------------------
-// -------------------------
-// -------------------------
-
-
-// Window
-// ---------------------
-// ---------------------
-window.addEventListener("scroll", function (e) {
-  if (((window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 20)) && !isLoading) {
-    isLoading = true;
-    window.setTimeout(() => {
-      loadPosts();
-    }, 500);
-  }
-});

@@ -8,7 +8,7 @@
   <!-- Navbar -->
   <%- include("./partials/navbar") -%>
 
-  <section id="main-community">
+  <section id="main-community" data-id="<%= community._id %>">
     <header>
       <div class="container">
         <div class="content-wrapper">
@@ -28,9 +28,6 @@
 
         <!-- Posts -->
         <div class=" posts-container">
-          <% for(let i = 0; i < 10; i++) { %>
-          <%- include("./partials/fakePost") -%>
-          <% } %>
         </div>
 
       </div>
@@ -49,6 +46,8 @@
   <script src="./js/ui.js"></script>
   <script src="./js/postLayoutControls.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/loadPosts.js"></script>
+  <script src="./js/communityMain.js"></script>
 </body>
 
 </html>
