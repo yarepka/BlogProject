@@ -23,24 +23,29 @@ async function loadPosts(url) {
     hash[post._id] = tempArr;
   })
 
+  let shiftIndex = 0;
+
   for (id in hash) {
     const tempArr = hash[id];
-    console.log("tempArr: ", tempArr);
+    console.log("tempArr BEFORE delete: ", tempArr);
     if (tempArr.length > 1) {
-      postsToSkip++;
       for (let i = 1; i < tempArr.length; i++) {
+        const index = tempArr[i] % 10;
         // delete element from posts
-        console.log(`Delete ${resData.posts[tempArr[i]]} element, (tempArr[i] % 10) = ${(tempArr[i] % 10)}`);
-        resData.posts.splice((tempArr[i] % 10), 1);
-
+        console.log(`Delete ${resData.posts[index + shiftIndex]} element, (tempArr[i] % 10) = ${index + shiftIndex}, shiftIndex: ${shiftIndex}`);
+        resData.posts.splice(index + shiftIndex, 1);
+        shiftIndex--;
         // delete element from hash
         tempArr.splice(i, 1);
+
+        console.log("tempArr AFTER delete: ", tempArr);
       }
       hash[id] = tempArr;
     }
   }
 
   postsToSkip += resData.postsLength;
+  console.log("postsToSkip: ", postsToSkip, "resData.postsLength: ", resData.postsLength);
 
   UI.appendPosts(postsContainer, currentLayout, resData.posts);
   console.log("resDat: ", resData, ", postsToSkip: ", postsToSkip, ", isLoading: ", isLoading);
