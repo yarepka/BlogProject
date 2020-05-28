@@ -31,7 +31,10 @@ router.get("/community", (req, res) => {
   const communityId = req.query.id;
   const skip = Number(req.query.skip);
   const limit = Number(req.query.limit);
+  const testVariable = Number(req.query.testVariable); // does not exists
+  if (Number.isNaN(testVariable)) console.log("NAN");
   console.log("communityId: ", communityId, ", skip: ", skip, "limit", limit);
+  console.log("TEST VAR: ", testVariable);
   Post.find({ communityId: communityId }, {}, { sort: { creationDate: "-1" }, skip: skip, limit: limit }, (err, posts) => {
     if (!err) {
       res.json({ posts: posts, postsLength: posts.length });
@@ -201,6 +204,10 @@ router.post("/add-new-comment", async (req, res) => {
 
   res.json({ status: "OK" });
 })
+
+router.get("/comments", (req, res) => {
+  const postId = req.params.postId;
+});
 
 router.get("/:id", async (req, res) => {
   const post = await Post.findOne({ _id: req.params.id }, (err, post) => {

@@ -34,8 +34,10 @@ async function addComment(e) {
   if (commentInputData === "") {
     console.log("Comment Input is Empty");
   } else {
-    const res = await Server.post(`${domain}/posts/add-new-comment`, { postId: document.querySelector(".post-wrapper").dataset.id, commentText: commentInputData });
+    const postId = document.querySelector(".post-wrapper").dataset.id;
+    const res = await Server.post(`${domain}/posts/add-new-comment`, { postId: postId, commentText: commentInputData });
     clearCommentInput();
+    window.location.href = `${domain}/posts/${postId}`;
   }
 }
 

@@ -59,8 +59,8 @@ app.use(
     saveUninitialized: false, // true - session will be stored on the server even it was not initialized
     // sessions will be stored in database (default LocalMemory)
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    // set how long session can leave before it expire (minutes)
-    cookie: { maxAge: 180 * 60 * 1000 },
+    // set how long session can leave before it expire (2 weeks)
+    cookie: { maxAge: 60 * 60 * 1000 * 24 * 14 },
   })
 );
 
