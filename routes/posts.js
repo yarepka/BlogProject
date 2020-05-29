@@ -343,9 +343,6 @@ router.post("/vote", async (req, res) => {
       const votes = postVotersBuckets[i].votes;
       console.log("votes: ", votes);
       for (let j = 0; j < votes.length && !isVoted; j++) {
-        console.log(`votes[j].userId === req.user._id: ${String(votes[j].userId)} === ${String(req.user._id)} - `, String(votes[j].userId) === String(req.user._id));
-        console.log(typeof votes[j].userId);
-        console.log(typeof req.user._id);
         if (String(votes[j].userId) === String(req.user._id)) {
           console.log("User found");
           if (Number(votes[j].vote) === voteDecision) {
@@ -355,6 +352,11 @@ router.post("/vote", async (req, res) => {
           } else {
             console.log("Vote Changed to ", voteDecision);
             votes[j].vote = voteDecision;
+            if (voteDecision < 0) {
+              voteDecision += -1;
+            } else if (voteDecision > 0) {
+              voteDecision += 1;
+            }
             isVoted = true;
             postVotersBuckets[i].save();
             break;
@@ -405,6 +407,7 @@ router.post("/vote", async (req, res) => {
   });
 
   post.rating += voteDecision;
+
   post.save();
 
   res.json({ status: "OK", postRating: post.rating });
