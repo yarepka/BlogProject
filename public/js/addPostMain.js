@@ -10,9 +10,8 @@ const addPostForm = document.getElementById("add-post-form");
 // Functions
 // -------------------------
 // -------------------------
-function textAreaAdjust(o) {
-  o.style.height = "1px";
-  o.style.height = (1 + o.scrollHeight) + "px";
+function adjustHeight(el) {
+  el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight) + "px" : "40px";
 }
 
 async function isCommunityExists(input) {
@@ -92,19 +91,27 @@ function showLiByName(name) {
 
 // Text areas
 textareaTitle.addEventListener("keyup", (e) => {
-  textAreaAdjust(textareaTitle);
+  adjustHeight(textareaTitle);
+
+  e.preventDefault();
 });
 
 textareaTitle.addEventListener("focus", (e) => {
   closeDropDown();
+
+  e.preventDefault();
 })
 
 textareaText.addEventListener("keyup", (e) => {
-  textAreaAdjust(textareaText);
+  adjustHeight(textareaText);
+
+  e.preventDefault();
 });
 
 textareaText.addEventListener("focus", (e) => {
   closeDropDown();
+
+  e.preventDefault();
 })
 
 
@@ -150,7 +157,7 @@ dropdownBtn.addEventListener("click", e => {
 // Add post form
 addPostForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  // check if signUpPassword and signUpConfirmPassword are empty or not
+
   const required = checkRequired([communityChoice, textareaTitle]);
 
   const community = await isCommunityExists(communityChoice);

@@ -18,7 +18,7 @@ async function loadPosts(url) {
   })
 
   resData.posts.forEach((post, index) => {
-    const tempArr = hash[post._id];
+    const tempArr = hash[post._id].slice();
     tempArr.push(index + postsToSkip);
     hash[post._id] = tempArr;
   })
@@ -26,7 +26,7 @@ async function loadPosts(url) {
   let shiftIndex = 0;
 
   for (id in hash) {
-    const tempArr = hash[id];
+    const tempArr = hash[id].slice();
     console.log("tempArr BEFORE delete: ", tempArr);
     if (tempArr.length > 1) {
       for (let i = 1; i < tempArr.length; i++) {

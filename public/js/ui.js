@@ -56,14 +56,14 @@ class UI {
     // loop through every posts
     posts.forEach((post, index) => {
       // create post wrapper element
-      let postWrapper = document.createElement("div");
-      let html = "";
+      let postWrapper = document.createElement('div');
+      let html = '';
       const date = getDateString(new Date(post.creationDate));
       // append classes to post wrapper
       postWrapper.className = `post-wrapper post-${currentLayout}`;
 
-      postWrapper.setAttribute("data-id", post._id);
-      postWrapper.setAttribute("data-created", post.creationDate);
+      postWrapper.setAttribute('data-id', post._id);
+      postWrapper.setAttribute('data-created', post.creationDate);
 
       html =
         `<div class="rating">
@@ -99,5 +99,39 @@ class UI {
       // append post to parent
       postsContainer.append(postWrapper);
     });
+  }
+
+  static appendComments(commentsContainer, comments) {
+    comments.forEach(comment => {
+      // create comments element
+      let commentElement = document.createElement('div');
+      let html = '';
+      const date = getDateString(new Date(comment.postedDate));
+      // add className to comment element
+      commentElement.className = 'comment box';
+
+      commentElement.setAttribute('data-id', comment._id);
+
+      html = `
+        <div class="comment-header">
+          <a href="/user/profile/${comment.userId}" class="posted-by bold">
+            ${comment.username}
+          </a>
+
+          <div class="commented-hours-ago">
+            ${date}
+          </div>
+        </div>
+
+        <div class="comment-content">
+          <p>${comment.text}</p>
+        </div>
+      `;
+
+      commentElement.innerHTML += html;
+
+      // append comment to commentsContainer
+      commentsContainer.append(commentElement);
+    })
   }
 }

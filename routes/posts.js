@@ -167,7 +167,7 @@ router.post("/add-new-comment", async (req, res) => {
   console.log("req.body.commentText", commentText);
 
   // get commentsBucket
-  const commentsBucket = await CommentsBucket.findOne({ postId: postId, commentsCount: { $lte: 20 } }, (err, commentsBucket) => {
+  const commentsBucket = await CommentsBucket.findOne({ postId: postId, commentsCount: { $lte: 19 } }, (err, commentsBucket) => {
     if (!err) {
       return commentsBucket;
     } else {
@@ -183,6 +183,8 @@ router.post("/add-new-comment", async (req, res) => {
     postedDate: now,
     text: commentText
   };
+
+  console.log("CommentsBucket", commentsBucket);
 
   // no commentsBucket with empty space
   if (commentsBucket === null) {
@@ -202,12 +204,114 @@ router.post("/add-new-comment", async (req, res) => {
     commentsBucket.save();
   }
 
+
   res.json({ status: "OK" });
 })
 
-router.get("/comments", (req, res) => {
-  const postId = req.params.postId;
+router.get("/comments", async (req, res) => {
+  const commentsToSkip = Number(req.query.skip);
+  const commentsLimit = Number(req.query.limit);
+  const postId = req.query.postId;
+
+  let totalCommentsSkipped = 0;
+  let indexToStart = 0;
+  let bucketsToSkip = 0;
+  let isSkipped = false;
+  let isFetched = false;
+  let comments = [];
+
+  let commentsBucket = await CommentsBucket.findOne({ postId: postId }, {}, { sort: { lastAddedDate: "-1" }, skip: bucketsToSkip, limit: 1 }, (err, commentsBucket) => {
+    if (!err) {
+      if (commentsBucket) {
+        return commentsBucket;
+      } else {
+        return null;
+      }
+    }
+  });
+
+
+  // skipping comments
+  if (commentsToSkip === 0 || commentsBucket === null) isSkipped = true;
+  while (!isSkipped && totalCommentsSkipped < commentsToSkip && commentsBucket !== null) {
+    if ((totalCommentsSkipped + commentsBucket.comments.length) < commentsToSkip) {
+      bucketsToSkip++;
+      totalCommentsSkipped += commentsBucket.comments.length;
+      commentsBucket = await CommentsBucket.findOne({ postId: postId }, {}, { sort: { lastAddedDate: "-1" }, skip: bucketsToSkip, limit: 1 }, (err, commentsBucket) => {
+        if (!err) {
+          if (commentsBucket) {
+            return commentsBucket;
+          } else {
+            return null;
+          }
+        }
+      });
+    } else {
+      isSkipped = true;
+      indexToStart = commentsToSkip - totalCommentsSkipped;
+      totalCommentsSkipped += commentsToSkip - totalCommentsSkipped;
+      if (indexToStart === commentsLimit) {
+        indexToStart = 0;
+        bucketsToSkip++;
+      }
+    }
+  }
+
+  console.log(`commentsToSkip: ${commentsToSkip}\ntotalCommentsSkipped: ${totalCommentsSkipped}\nindexToStart: ${indexToStart}\nbucketsToSkip: ${bucketsToSkip}\nisSkipped: ${isSkipped}`);
+
+  // fetching comments
+  if (isSkipped) {
+    if (indexToStart > 0) {
+      const tempArr = [];
+
+      for (let i = indexToStart; i < commentsBucket.comments.length; i++) {
+        tempArr.push(commentsBucket.comments[(commentsLimit - i) - 1]);
+      }
+
+      tempArr.forEach(tempComment => {
+        if (comments.length < commentsLimit) {
+          comments.push(tempComment);
+        } else {
+          isFetched = true;
+        }
+      });
+
+      bucketsToSkip++;
+    }
+
+    while (!isFetched) {
+      commentsBucket = await CommentsBucket.findOne({ postId: postId }, {}, { sort: { lastAddedDate: "-1" }, skip: bucketsToSkip, limit: 1 }, (err, commentsBucket) => {
+        if (!err) {
+          if (commentsBucket) {
+            return commentsBucket;
+          } else {
+            return null;
+          }
+        }
+      });
+
+      if (commentsBucket !== null) {
+        const tempArr = commentsBucket.comments.slice();
+        tempArr.reverse();
+        tempArr.forEach(tempComment => {
+          if (comments.length < commentsLimit) {
+            comments.push(tempComment);
+          } else {
+            isFetched = true;
+          }
+        });
+        bucketsToSkip++;
+      } else {
+        isFetched = true;
+      }
+    }
+  }
+
+  console.log("comments.length before return: ", comments.length);
+
+  res.json({ commentsQuantity: comments.length, comments: comments });
 });
+
 
 router.get("/:id", async (req, res) => {
   const post = await Post.findOne({ _id: req.params.id }, (err, post) => {
