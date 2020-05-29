@@ -37,3 +37,32 @@ function getDateString(date) {
 
   return `${interval} ${intervalType} ago`;
 }
+
+function cleanList(hash, elements, toSkip) {
+  elements.forEach(element => {
+    if (!hash[element._id]) hash[element._id] = [];
+  })
+
+  elements.forEach((element, index) => {
+    const tempArr = hash[element._id].slice();
+    tempArr.push(index + toSkip);
+    hash[element._id] = tempArr;
+  })
+
+  let shiftIndex = 0;
+
+  for (id in hash) {
+    const tempArr = hash[id].slice();
+    if (tempArr.length > 1) {
+      for (let i = 1; i < tempArr.length; i++) {
+        const index = tempArr[i] % 10;
+        // delete element from elements
+        elements.splice(index + shiftIndex, 1);
+        shiftIndex--;
+        // delete element from hash
+        tempArr.splice(i, 1);
+      }
+      hash[id] = tempArr;
+    }
+  }
+}
