@@ -1,4 +1,5 @@
 loadPosts(`${domain}/posts/userposts?skip=${postsToSkip}&limit=${postsLimit}`);
+
 // Event Listeners
 // ---------------------
 // ---------------------

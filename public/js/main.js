@@ -147,7 +147,7 @@ function closeSignup(e) {
 // Check username
 async function isUsernameAvailable(input) {
   /* https://stackoverflow.com/questions/12018245/regular-expression-to-validate-username */
-  const re = /^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+  const re = /^(?=[a-zA-Z0-9._]{6,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
 
   if (re.test(String(input.value.trim()))) {
     const resData = await Server.post(`${domain}/user/checkUsername`, { username: input.value.trim() }, { "CSRF-Token": signUpCsrf.value });

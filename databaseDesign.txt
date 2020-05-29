@@ -8,7 +8,7 @@ Community Subscribers
 
 Schemas:
 
-postSchema
+postSchema +
 {
   _id: ID,
   title: "Example Title",

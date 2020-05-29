@@ -83,6 +83,13 @@ function changeToCompact(e) {
   e.preventDefault();
 }
 
+async function vote(post, decision) {
+  const postIdToVote = post.dataset.id;
+  const resData = await Server.post(`${domain}/posts/vote`, { postId: postIdToVote, voteDecision: decision });
+  console.log("E: ", post.querySelector(".rating-quantity"));
+  post.querySelector(".rating-quantity").textContent = resData.postRating;
+}
+
 // Event Listeners
 // -------------------------
 // -------------------------
@@ -109,11 +116,14 @@ postsContainer.addEventListener("click", e => {
 
   if (e.target.classList.contains("fa-arrow-up")) {
     console.log("Arrow Up");
+    vote(e.target.parentElement.parentElement, 1);
   }
 
   if (e.target.classList.contains("fa-arrow-down")) {
     console.log("Arrow Down");
+    vote(e.target.parentElement.parentElement, -1);
   }
+
   if (e.target.tagName !== "I" && e.target.tagName !== "A" && !e.target.classList.contains("posts-container") && !e.target.classList.contains("comments-quantity")) {
     // we need to get element with "post-wrapper" class
     // because it contains id of the post in "data-id" attribute

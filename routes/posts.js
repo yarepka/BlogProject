@@ -10,6 +10,7 @@ require('../public/js/globalFunctions');
 const Community = require("../models/community");
 const Post = require("../models/post");
 const CommentsBucket = require("../models/commentsBucket");
+const PostVotersBucket = require("../models/postVotersBucket");
 
 const storage = multer.diskStorage({
   destination: "./public/img/posts/",
@@ -204,6 +205,14 @@ router.post("/add-new-comment", async (req, res) => {
     commentsBucket.save();
   }
 
+  await Post.findOne({ _id: postId }, (err, post) => {
+    if (!err) {
+      post.commentsQuantity++;
+      post.save();
+    } else {
+      console.log(err);
+    }
+  })
 
   res.json({ status: "OK" });
 })
@@ -310,6 +319,95 @@ router.get("/comments", async (req, res) => {
   console.log("comments.length before return: ", comments.length);
 
   res.json({ commentsQuantity: comments.length, comments: comments });
+});
+
+
+router.post("/vote", async (req, res) => {
+  const postId = req.body.postId;
+  let voteDecision = Number(req.body.voteDecision) >= 0 ? 1 : -1;
+  let isVoted = false;
+
+  // check if user is already voted
+  const postVotersBuckets = await PostVotersBucket.find({ postId: postId }, (err, postVotersBuckets) => {
+    if (!err) {
+      if (postVotersBuckets.length > 0) {
+        return postVotersBuckets;
+      } else {
+        return null;
+      }
+    }
+  });
+
+  if (postVotersBuckets !== null) {
+    for (let i = 0; i < postVotersBuckets.length && !isVoted; i++) {
+      const votes = postVotersBuckets[i].votes;
+      console.log("votes: ", votes);
+      for (let j = 0; j < votes.length && !isVoted; j++) {
+        console.log(`votes[j].userId === req.user._id: ${String(votes[j].userId)} === ${String(req.user._id)} - `, String(votes[j].userId) === String(req.user._id));
+        console.log(typeof votes[j].userId);
+        console.log(typeof req.user._id);
+        if (String(votes[j].userId) === String(req.user._id)) {
+          console.log("User found");
+          if (Number(votes[j].vote) === voteDecision) {
+            voteDecision = 0;
+            isVoted = true;
+            break;
+          } else {
+            console.log("Vote Changed to ", voteDecision);
+            votes[j].vote = voteDecision;
+            isVoted = true;
+            postVotersBuckets[i].save();
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  if (!isVoted) {
+    const vote = {
+      userId: req.user._id,
+      vote: voteDecision
+    };
+
+    const postVotersBucket = await PostVotersBucket.findOne({ postId: postId, votesCount: { $lte: 19 } }, (err, postVotersBucket) => {
+      if (!err) {
+        return postVotersBucket;
+      } else {
+        console.log(err);
+        res.json({ status: "ERROR", errorMessage: err });
+      }
+    });
+
+    if (postVotersBucket === null) {
+      const newPostVotersBucket = new PostVotersBucket({
+        postId: postId,
+        votesCount: 1,
+        votes: [vote]
+      });
+
+      newPostVotersBucket.save();
+    } else {
+      postVotersBucket.votesCount++;
+      postVotersBucket.votes.push(vote);
+      postVotersBucket.save();
+    }
+  }
+
+  const post = await Post.findOne({ _id: postId }, (err, post) => {
+    if (!err) {
+      if (post) {
+        return post;
+      }
+    } else {
+      console.log(err);
+    }
+  });
+
+  post.rating += voteDecision;
+  post.save();
+
+  res.json({ status: "OK", postRating: post.rating });
 });
 
 
