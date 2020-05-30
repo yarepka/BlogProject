@@ -1,7 +1,16 @@
 const mainCommunitySection = document.getElementById("main-community");
-
+let joinBtn = document.querySelector(".join");
+if (joinBtn === null) joinBtn = document.querySelector(".quit");
 
 loadPosts(`${domain}/posts/community?id=${mainCommunitySection.dataset.id}&skip=${postsToSkip}&limit=${postsLimit}`);
+
+// JoinBtn
+// ---------------------
+// ---------------------
+joinBtn.addEventListener("click", e => {
+  e.preventDefault();
+  manageClick(e.target, mainCommunitySection.dataset.id);
+});
 
 // Window
 // ---------------------

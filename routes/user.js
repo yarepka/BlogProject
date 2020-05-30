@@ -2,11 +2,13 @@ const express = require("express");
 const router = express.Router();
 const csrf = require("csurf");
 const passport = require("passport");
+const cs = require("../config/checkSubscribtions");
 
 // models
 const User = require("../models/user");
 const Profile = require("../models/profile");
 const Community = require("../models/community");
+const ProfileSubscribtionsBucket = require("../models/buckets/profileSubscribtionsBucket");
 
 const csrfProtection = csrf();
 
@@ -75,19 +77,20 @@ router.post("/signup",
 );
 
 router.get("/logout", (req, res, next) => {
-  console.log("LOGOUT");
   req.logout();
   res.json({ status: "OK" });
 });
 
-router.get("/profile", (req, res) => {
-  Community.find({}).limit(5).exec((err, communities) => {
+router.get("/profile", async (req, res) => {
+  communities = await Community.find({}, {}, { limit: 5 }, (err, communities) => {
     if (!err) {
-      if (communities.length > 0) {
-        res.render("profile", { communities: communities });
-      }
+      return communities;
     }
-  })
+  });
+
+  communitiesToReturn = await cs.checkSubscribtions(communities, req.user);
+
+  return res.render("profile", { communities: communitiesToReturn });
 })
 
 module.exports = router;

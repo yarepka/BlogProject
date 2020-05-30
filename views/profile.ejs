@@ -35,20 +35,22 @@
         </aside>
 
         <aside class="communities box mb-10">
-          <ul>
+          <ul class="communities-list">
             <% communities.forEach(community => { %>
-            <li>
+            <li data-id="<%= community._id %>">
               <a href="/communities/<%= community._id %>">
                 <img src="<%= community.mainImagePath %>" class="community-image-small">
                 <p class="community-name"><%= community.name %></p>
               </a>
-
-              <a href="#" class="btn">Join</a>
+              <% if(login) { %>
+              <a class="btn <%= community.isJoined? "quit" : "join" %>"
+                href=""><%= community.isJoined? "quit" : "join" %></a>
+              <% } %>
             </li>
             <% }) %>
           </ul>
 
-          <a class="btn btn-blue" href="/communities/">View All</a>
+          <a class="btn btn-blue view" href="/communities/">View All</a>
         </aside>
       </div>
 
@@ -76,6 +78,7 @@
   <script src="./js/postLayoutControls.js" type="text/javascript"></script>
   <script src="./js/main.js" type="text/javascript"></script>
   <script src="./js/loadPosts.js" type="text/javascript"></script>
+  <script src="./js/subscribtionManager.js" type="text/javascript"></script>
   <script src="./js/profileMain.js" type="text/javascript"></script>
 </body>
 

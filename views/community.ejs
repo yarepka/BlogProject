@@ -16,7 +16,9 @@
             <img src="<%= community.mainImagePath %>" class="community-image-big">
             <h2 class="community-name"><%= community.name %></h2>
           </div>
-          <a href="#" class="btn">Join</a>
+          <% if(login) { %>
+          <a class="btn <%= community.isJoined? "quit" : "join" %>"><%= community.isJoined? "quit" : "join" %></a>
+          <% } %>
         </div>
       </div>
     </header>
@@ -48,6 +50,7 @@
   <script src="./js/postLayoutControls.js" type="text/javascript"></script>
   <script src="./js/main.js" type="text/javascript"></script>
   <script src="./js/loadPosts.js" type="text/javascript"></script>
+  <script src="./js/subscribtionManager.js" type="text/javascript"></script>
   <script src="./js/communityMain.js" type="text/javascript"></script>
 </body>
 

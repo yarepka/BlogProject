@@ -267,6 +267,28 @@ input[type="file"] {
   cursor: default;
 }
 
+.join {
+  padding: 0.25rem 1rem;
+  text-transform: uppercase;
+}
+
+.join:hover {
+  background-color: var(--text-color);
+  color: var(--primary-color);
+}
+
+.quit {
+  background-color: var(--orange);
+  color: var(--primary-color);
+  padding: 0.25rem 1rem;
+  text-transform: uppercase;
+}
+
+.quit:hover {
+  background-color: var(--text-color);
+  color: var(--primary-color);
+  border: 1px solid var(--text-color);
+}
 
 /* Navbar */
 #main-nav {
@@ -944,8 +966,8 @@ a.comments-link:hover {
 }
 
 /* profile */
-#main-profile .communities .btn:hover,
-#main-profile .profile .btn:hover {
+#main-profile .profile .btn:hover,
+#main-profile .profile-header .communities .view:hover {
   border-color:var(--text-color);
   background: var(--primary-color);
   color: var(--text-color);
@@ -1005,7 +1027,8 @@ a.comments-link:hover {
   font-size: 0.9rem;
 }
 
-#main-profile .profile-header .profile .btn {
+#main-profile .profile-header .profile .btn,
+#main-profile .profile-header .communities .view {
   display: block;
   width: 100%;
   text-align: center;
@@ -1031,16 +1054,6 @@ a.comments-link:hover {
   align-items: center;
 }
 
-#main-profile .profile-header .communities ul > li .btn:last-child {
-  padding: 0.25rem 1rem;
-  transition: all 0.4s ease;
-}
-
-#main-profile .profile-header .communities ul > li .btn:last-child:hover {
-  background-color: var(--text-color);
-  color: var(--primary-color);
-}
-
 #main-profile .profile-header .communities ul > li a {
   display: inline-flex;
   align-items: center;
@@ -1057,14 +1070,6 @@ a.comments-link:hover {
 
 #main-profile .profile-header .communities ul > li a > p {
   margin-left: 10px;
-}
-
-#main-profile .profile-header .communities .btn {
-  display: block;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  padding: 0.6rem;
 }
 
 /* Communities page */
@@ -1109,15 +1114,6 @@ a.comments-link:hover {
   border-color: var(--text-color);
 }
 
-#main-communities .communities-list > li a.join {
-  padding: 0.25rem 1rem;
-}
-
-#main-communities .communities-list > li a.join:hover {
-  background-color: var(--text-color);
-  color: var(--primary-color);
-}
-
 /* Community page */
 #main-community {
   min-height: 89.9vh;
@@ -1143,16 +1139,6 @@ a.comments-link:hover {
 #main-community .content-wrapper > div {
   display: flex;
   align-items: center;
-}
-
-#main-community .content-wrapper > .btn {
-  padding: 0.25rem 1.5rem;
-  background-color: #fff;
-}
-
-#main-community .content-wrapper > .btn:hover {
-  background-color: var(--text-color);
-  color: var(--primary-color);
 }
 
 #main-community .content-wrapper > div img {
