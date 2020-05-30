@@ -22,7 +22,7 @@ postSchema +
   imagePath: "./img/nature.jpg"
 }
 
-postVotersBucketSchema
+postVotersBucketSchema +
 {
   _id: ID,
   postId: ID,
@@ -54,7 +54,7 @@ Information took from: https://forums.meteor.com/t/efficient-mongodb-comments-sc
 
 The 4th way is preferable.
 
-commentsBucketSchema
+commentsBucketSchema +
 {
   _id: ID,
   postId: ID,
@@ -77,7 +77,7 @@ commentsBucketSchema
   ]
 }
 
-communitySchema
+communitySchema +
 {
   _id: ID,
   name: "y/gaming",
@@ -87,7 +87,16 @@ communitySchema
   mainImagePath: "./img/main.jpg"
 }
 
-communitySubscribersBucketSchema
+userSchema { +
+  _id: ID,
+  username: "usernickname"
+  password: "encrypted with bcrypt and salted",
+  creationDate: 2020-05-15 10:52:12
+  / isAdmin: true / - optional property
+}
+
+
+communitySubscribersBucketSchema 
 {
   _id: ID,
   communityId: ID,
@@ -110,17 +119,20 @@ communityModeratorsBucketSchema {
   ]
 }
 
-userSchema {
+profileSubscribtionsBucketSchema {
   _id: ID,
-  username: "usernickname"
-  password: "encrypted with bcrypt and salted",
-  creationDate: 2020-05-15 10:52:12
-  / isAdmin: true / - optional property
+  profileId: ID,
+  subscribtionsCount: 1,
+  subscribtions: [{
+    _id: ID,
+    communityId: ID
+  }]
 }
 
-profileSchema {
+profileSchema { +
   _id: ID,
   userId: ID,
+  communitySubscribtions: 0,
   mainImagePath: "./img/profile-photo.jpg"
 }
 

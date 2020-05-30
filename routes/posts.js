@@ -9,8 +9,8 @@ require('../public/js/globalFunctions');
 // models
 const Community = require("../models/community");
 const Post = require("../models/post");
-const CommentsBucket = require("../models/commentsBucket");
-const PostVotersBucket = require("../models/postVotersBucket");
+const CommentsBucket = require("../models/buckets/commentsBucket");
+const PostVotersBucket = require("../models/buckets/postVotersBucket");
 
 const storage = multer.diskStorage({
   destination: "./public/img/posts/",

@@ -1,6 +1,7 @@
-var passport = require("passport");
-var User = require("../models/user");
-var LocalStrategy = require("passport-local").Strategy;
+const passport = require("passport");
+const User = require("../models/user");
+const Profile = require("../models/profile");
+const LocalStrategy = require("passport-local").Strategy;
 
 // tells passport how to
 // store the user in the session
@@ -38,10 +39,13 @@ passport.use(
       newUser.username = username;
       newUser.password = newUser.encryptPassword(password);
       newUser.createdOn = new Date();
+      let profile = new Profile();
+      profile.userId = newUser._id;
       newUser.save((err, result) => {
         if (err) {
           return done(err);
         }
+        profile.save();
         return done(null, newUser);
       });
     }

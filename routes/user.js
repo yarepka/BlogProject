@@ -5,6 +5,7 @@ const passport = require("passport");
 
 // models
 const User = require("../models/user");
+const Profile = require("../models/profile");
 const Community = require("../models/community");
 
 const csrfProtection = csrf();

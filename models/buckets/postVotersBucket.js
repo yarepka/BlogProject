@@ -10,4 +10,4 @@ const postVotersBucketSchema = new Schema({
   }]
 });
 
-module.exports = mongoose.model("postVotersBucket", postVotersBucketSchema);
+module.exports = mongoose.model("PostVotersBucket", postVotersBucketSchema);
