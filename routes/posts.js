@@ -61,18 +61,19 @@ router.get("/new", (req, res) => {
 
 // return posts of authorized user
 router.get("/userposts", (req, res) => {
-  const userId = req.user._id;
-  const skip = Number(req.query.skip);
-  const limit = Number(req.query.limit);
-  console.log("userId: ", userId, ", skip: ", skip, ", limit: ", limit);
-  Post.find({ userId: userId }, {}, { sort: { creationDate: "-1" }, skip: skip, limit: limit }, (err, posts) => {
-    if (!err) {
-      console.log(`postsLength: ${posts.length}`);
-      res.json({ posts: posts, postsLength: posts.length });
-    } else {
-      console.log(err);
-    }
-  });
+  if (req.isAuthenticated()) {
+    const userId = req.user._id;
+    const skip = Number(req.query.skip);
+    const limit = Number(req.query.limit);
+    Post.find({ userId: userId }, {}, { sort: { creationDate: "-1" }, skip: skip, limit: limit }, (err, posts) => {
+      if (!err) {
+        console.log(`postsLength: ${posts.length}`);
+        res.json({ posts: posts, postsLength: posts.length });
+      } else {
+        console.log(err);
+      }
+    });
+  }
 });
 
 router.get("/add-post", (req, res) => {
@@ -87,7 +88,6 @@ router.get("/add-post", (req, res) => {
 
 router.post("/add-post", (req, res) => {
   upload(req, res, async err => {
-    console.log("/add-post, file: ", req.file);
     if (err) {
       if (err.code === "LIMIT_FILE_SIZE") {
         res.json({ status: "ERROR", title: req.body.title, text: req.body.text, msg: "Image size must be less than 1 megabyte" })

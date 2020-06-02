@@ -96,7 +96,7 @@ userSchema { +
 }
 
 
-communitySubscribersBucketSchema 
+communitySubscribersBucketSchema +
 {
   _id: ID,
   communityId: ID,

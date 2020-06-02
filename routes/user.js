@@ -3,6 +3,9 @@ const router = express.Router();
 const csrf = require("csurf");
 const passport = require("passport");
 const cs = require("../config/checkSubscribtions");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
 // models
 const User = require("../models/user");
@@ -11,6 +14,70 @@ const Community = require("../models/community");
 const ProfileSubscribtionsBucket = require("../models/buckets/profileSubscribtionsBucket");
 
 const csrfProtection = csrf();
+
+// multer configuration
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, '..', 'public', 'img'),
+  filename: function (req, file, cb) {
+    cb(null, path.join('profiles', `test${path.extname(file.originalname).toLowerCase()}`));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }, // 1mb - Image Max Size
+  fileFilter: function (req, file, cb) {
+    fileExtensionValidation(req, file, cb);
+  }
+}).single("profile-image");
+
+router.post("/upload-image", (req, res) => {
+  upload(req, res, async err => {
+    if (err) {
+      console.log(err);
+      return res.json({ status: "ERROR" });
+    } else {
+      console.log("Profile Image Successfully uploaded");
+
+      // get profile
+      const profile = await Profile.findOne({ userId: req.user._id });
+
+      if (req.file) {
+        // delete old profile image if it's name is not equals to logo_big.png which is default image for every profile
+        if (profile.mainImageName !== "logo_big.png") {
+          const oldImageName = profile.mainImageName;
+          const oldImagePath = path.join(__dirname, '..', 'public', 'img', oldImageName);
+          if (fs.existsSync(oldImagePath)) {
+            fs.unlinkSync(oldImagePath), err => {
+              if (err) console.log(err);
+            };
+            console.log("deleted");
+          }
+        }
+
+        // rename the file
+        const destination = req.file.destination;
+        const filename = req.file.filename;
+
+        const newFileName = path.join('profiles', `${profile._id}${Math.abs(new Date().getTime())}${path.extname(filename).toLowerCase()}`);
+        const oldPathImage = path.join(destination, filename);
+        const newPathImage = path.join(destination, newFileName);
+        fs.renameSync(oldPathImage, newPathImage, err => {
+          if (err) console.log("ERROR while renaming: ", err);
+        })
+        console.log("renamed");
+
+        // set profile image to the new file name
+        profile.mainImageName = newFileName;
+        profile.save();
+
+        console.log("before return")
+        // return json with status: "OK" and new profile image path
+        return res.json({ status: "OK", profileImageName: profile.mainImageName });
+      }
+    }
+  })
+});
 
 router.use(csrfProtection);
 
@@ -88,9 +155,34 @@ router.get("/profile", async (req, res) => {
     }
   });
 
+  // get joined/NOT joined communities
   communitiesToReturn = await cs.checkSubscribtions(communities, req.user);
 
-  return res.render("profile", { communities: communitiesToReturn });
-})
+  // get profile
+  const profile = await Profile.findOne({ userId: req.user._id });
+
+  console.log("PROFILE: ", profile);
+
+  console.log("Before return");
+  return res.render("profile", { communities: communitiesToReturn, profileImage: profile.mainImageName });
+});
+
+
 
 module.exports = router;
+
+// Check File Type
+function fileExtensionValidation(req, file, cb) {
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only!");
+  }
+}

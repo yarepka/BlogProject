@@ -86,9 +86,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/posts", postsRouter);
-app.use("/communities", communitiesRouter);
-app.use("/user", userRouter);
-app.use("/", indexRouter);
+app.use('/posts', postsRouter);
+app.use('/communities', communitiesRouter);
+app.use('/user', userRouter);
+app.use('/', indexRouter);
+
+app.use((req, res) => {
+  res
+    .status(404)
+    .send('<h1>Page Not Found</h1>');
+})
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));

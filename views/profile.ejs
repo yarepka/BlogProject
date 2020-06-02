@@ -14,12 +14,13 @@
         <aside class="profile box mb-10">
           <div class="profile-image-container">
             <div class="profile-image-wrapper">
-              <img class="profile-image" src="./img/post.jpg">
-              <form>
+              <img class="profile-image" src="./img/<%= profileImage %>">
+              <form id="add-profile-image" method="POST" enctype="multipart/form-data" autocomplete="off">
                 <label for="image-file">
                   <i class="fas fa-pencil-alt"></i>
-                  <input type="file" id="image-file" hidden="hidden">
+                  <input type="file" id="image-file" name="profile-image">
                 </label>
+                <button id="add-profile-image-submit" type="submit" class="no-display"></button>
               </form>
             </div>
 
