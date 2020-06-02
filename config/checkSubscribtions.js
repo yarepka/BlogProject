@@ -3,11 +3,12 @@ const ProfileSubscribtionsBucket = require("../models/buckets/profileSubscribtio
 
 exports.checkSubscribtions = async (communities, user) => {
   if (!user) return communities;
-  communitiesToReturn = [];
+  const tempCommunities = {};
   if (communities.length > 0) {
     communities.forEach(community => {
       const newObject = { ...community.toObject(), isJoined: false };
-      communitiesToReturn.push(newObject);
+      // tempCommunities.push(newObject);
+      tempCommunities[community._id] = newObject;
     })
   }
 
@@ -31,19 +32,21 @@ exports.checkSubscribtions = async (communities, user) => {
     }
   });
 
+  // NOT GOOD CODE, NEED TO BE FIXED IN THE FUTURE
+
+  // if profile has any subscribtions
   if (profileSubscribtionBuckets.length > 0) {
-    let changed = 0;
-    // loop through subscribtions and change isJoined of communities which are part of subscribtions
-    for (let i = 0; i < profileSubscribtionBuckets.length && changed < communitiesToReturn.length; i++) {
-      for (let j = 0; j < profileSubscribtionBuckets[i].subscribtions.length && changed < communitiesToReturn.length; j++) {
-        for (let k = 0; k < communitiesToReturn.length && changed < communitiesToReturn.length; k++) {
-          if (String(communitiesToReturn[k]._id) === String(profileSubscribtionBuckets[i].subscribtions[j].communityId)) {
-            communitiesToReturn[k].isJoined = true;
-            changed++;
-          }
-        }
+    for (let i = 0; i < profileSubscribtionBuckets.length; i++) {
+      for (let j = 0; j < profileSubscribtionBuckets[i].subscribtions.length; j++) {
+        if (tempCommunities[profileSubscribtionBuckets[i].subscribtions[j].communityId])
+          tempCommunities[profileSubscribtionBuckets[i].subscribtions[j].communityId].isJoined = true;
       }
     }
+  }
+
+  const communitiesToReturn = [];
+  for (var id in tempCommunities) {
+    communitiesToReturn.push(tempCommunities[id]);
   }
 
   return communitiesToReturn;

@@ -94,7 +94,7 @@ app.use('/', indexRouter);
 app.use((req, res) => {
   res
     .status(404)
-    .send('<h1>Page Not Found</h1>');
+    .render('404');
 })
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
