@@ -1,4 +1,4 @@
-- Create 404 page and show it whenever no path was matched
+- Create 404 page and show it whenever no path was matched 
 - Upload profile picture +
 - User must be logged in to access some routes, make it
 - If no posts in the profile, then hide controls and show message with button which allows user to create a new post.

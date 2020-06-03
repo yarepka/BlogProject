@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require('fs');
+const cl = require("../util/checkLogged");
 const multer = require("multer");
 const path = require("path");
 const router = express.Router();
@@ -60,7 +61,7 @@ router.get("/new", (req, res) => {
 });
 
 // return posts of authorized user
-router.get("/userposts", (req, res) => {
+router.get("/userposts", cl.isLoggedIn, (req, res) => {
   if (req.isAuthenticated()) {
     const userId = req.user._id;
     const skip = Number(req.query.skip);
@@ -76,7 +77,7 @@ router.get("/userposts", (req, res) => {
   }
 });
 
-router.get("/add-post", (req, res) => {
+router.get("/add-post", cl.isLoggedIn, (req, res) => {
   Community.find({}, (err, communities) => {
     if (!err) {
       if (communities.length > 0) {
@@ -86,7 +87,7 @@ router.get("/add-post", (req, res) => {
   });
 })
 
-router.post("/add-post", (req, res) => {
+router.post("/add-post", cl.isLoggedIn, (req, res) => {
   upload(req, res, async err => {
     if (err) {
       if (err.code === "LIMIT_FILE_SIZE") {
@@ -161,7 +162,7 @@ router.post("/add-post", (req, res) => {
   })
 })
 
-router.post("/add-new-comment", async (req, res) => {
+router.post("/add-new-comment", cl.isLoggedIn, async (req, res) => {
   const postId = req.body.postId;
   const commentText = req.body.commentText;
   console.log("req.body.postId", postId);
@@ -322,7 +323,7 @@ router.get("/comments", async (req, res) => {
 });
 
 
-router.post("/vote", async (req, res) => {
+router.post("/vote", cl.isLoggedIn, async (req, res) => {
   const postId = req.body.postId;
   let voteDecision = Number(req.body.voteDecision) >= 0 ? 1 : -1;
   let isVoted = false;

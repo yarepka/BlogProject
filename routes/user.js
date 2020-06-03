@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const csrf = require("csurf");
 const passport = require("passport");
-const cs = require("../config/checkSubscribtions");
+const cs = require("../util/checkSubscribtions");
+const cl = require("../util/checkLogged");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+
 
 // models
 const User = require("../models/user");
@@ -31,7 +33,7 @@ const upload = multer({
   }
 }).single("profile-image");
 
-router.post("/upload-image", (req, res) => {
+router.post("/upload-image", cl.isLoggedIn, (req, res) => {
   upload(req, res, async err => {
     if (err) {
       console.log(err);
@@ -81,13 +83,13 @@ router.post("/upload-image", (req, res) => {
 
 router.use(csrfProtection);
 
-router.get("/signup", (req, res) => {
+router.get("/signup", cl.notLoggedIn, (req, res) => {
   res.json({
     csrfToken: req.csrfToken()
   });
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", cl.notLoggedIn, (req, res) => {
   res.json({
     csrfToken: req.csrfToken()
   });
@@ -110,6 +112,7 @@ router.post("/checkUsername", (req, res) => {
 
 router.post(
   "/signin",
+  cl.notLoggedIn,
   passport.authenticate("local.signin", {
     successRedirect: "/user/successLogin",
     failureRedirect: "/user/failureLogin",
@@ -137,18 +140,19 @@ router.get("/failureLogin", (req, res) => {
 })
 
 router.post("/signup",
+  cl.notLoggedIn,
   passport.authenticate("local.signup"),
   (req, res) => {
     res.json({ status: "OK" });
   }
 );
 
-router.get("/logout", (req, res, next) => {
+router.get("/logout", cl.isLoggedIn, (req, res, next) => {
   req.logout();
   res.json({ status: "OK" });
 });
 
-router.get("/profile", async (req, res) => {
+router.get("/profile", cl.isLoggedIn, async (req, res) => {
   communities = await Community.find({}, {}, { limit: 5 }, (err, communities) => {
     if (!err) {
       return communities;

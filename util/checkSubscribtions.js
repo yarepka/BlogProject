@@ -32,8 +32,6 @@ exports.checkSubscribtions = async (communities, user) => {
     }
   });
 
-  // NOT GOOD CODE, NEED TO BE FIXED IN THE FUTURE
-
   // if profile has any subscribtions
   if (profileSubscribtionBuckets.length > 0) {
     for (let i = 0; i < profileSubscribtionBuckets.length; i++) {

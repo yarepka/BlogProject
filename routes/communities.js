@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const cs = require("../config/checkSubscribtions");
+const cs = require("../util/checkSubscribtions");
+const cl = require("../util/checkLogged");
 
 // models
 const Community = require("../models/community");
@@ -32,7 +33,7 @@ router.post("/checkCommunity", (req, res) => {
   })
 })
 
-router.post("/join", async (req, res) => {
+router.post("/join", cl.isLoggedIn, async (req, res) => {
   const communityId = req.body.communityId;
   let isAlreadyJoined = false;
 
@@ -138,7 +139,7 @@ router.post("/join", async (req, res) => {
   return res.json({ status: "ERROR", msg: "Profile can't be found" });
 })
 
-router.post("/quit", async (req, res) => {
+router.post("/quit", cl.isLoggedIn, async (req, res) => {
   const communityId = req.body.communityId;
   let isSubscribtionExists = false;
   let isDeleted = false;

@@ -55,7 +55,7 @@ app.use(cookieParser());
 app.use(
   session({
     secret: "mysupersecret",
-    resave: false, // true - session will be saved on each request no matter something chaned or not
+    resave: false, // true - session will be saved on each request no matter something changed or not
     saveUninitialized: false, // true - session will be stored on the server even it was not initialized
     // sessions will be stored in database (default LocalMemory)
     store: new MongoStore({ mongooseConnection: mongoose.connection }),

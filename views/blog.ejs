@@ -49,6 +49,7 @@
             <p class="comments-quantity"></p>
           </div>
 
+          <% if(login) { %>
           <form mathod="POST" id="add-comment-form">
             <div class="add-comment">
               <textarea name="comment" id="comment-input" placeholder="What are your thoughts?"></textarea>
@@ -57,6 +58,7 @@
               </div>
             </div>
           </form>
+          <% } %>
 
           <!-- Break line -->
           <div class="line"></div>
