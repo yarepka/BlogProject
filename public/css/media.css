@@ -227,3 +227,12 @@
     height: 150px;
   }
 }
+
+/* In order to look good on Iphone 5 */
+@media(max-width: 320px) {
+  #main-communities .communities-list > li a:not(.join) p,
+  #main-profile .profile-header .communities ul > li a > p {
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+}

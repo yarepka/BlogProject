@@ -228,7 +228,10 @@ router.get("/:id", async (req, res) => {
 
   communitiesToReturn = await cs.checkSubscribtions(community, req.user);
 
-  const post = await Post.findOne({ communityId: community._id });
+  console.log("community._id: ", community[0]._id);
+  const post = await Post.findOne({ communityId: community[0]._id });
+
+  console.log("FOUND POST: ", post);
 
   let hasPosts = true;
   if (!post) hasPosts = false;
