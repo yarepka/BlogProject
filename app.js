@@ -92,6 +92,7 @@ app.use('/user', userRouter);
 app.use('/', indexRouter);
 
 app.use((req, res) => {
+  console.log("HERE");
   res
     .status(404)
     .render('404');

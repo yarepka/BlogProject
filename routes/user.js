@@ -11,6 +11,7 @@ const fs = require("fs");
 
 // models
 const User = require("../models/user");
+const Post = require("../models/post");
 const Profile = require("../models/profile");
 const Community = require("../models/community");
 const ProfileSubscribtionsBucket = require("../models/buckets/profileSubscribtionsBucket");
@@ -165,10 +166,20 @@ router.get("/profile", cl.isLoggedIn, async (req, res) => {
   // get profile
   const profile = await Profile.findOne({ userId: req.user._id });
 
-  console.log("PROFILE: ", profile);
+  // check is there any posts for this user
+  const post = await Post.findOne({ userId: req.user._id });
+
+  let hasPosts = true;
+  if (!post) hasPosts = false;
+
+  const date = req.user.createdOn;
+  const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' })
+  const [{ value: month }, , { value: day }, , { value: year }] = dateTimeFormat.formatToParts(date);
+
+  console.log(`${day}-${month}-${year}`)
 
   console.log("Before return");
-  return res.render("profile", { communities: communitiesToReturn, profileImage: profile.mainImageName });
+  return res.render("profile", { communities: communitiesToReturn, profileImage: profile.mainImageName, hasPosts: hasPosts, cakeDay: `${month} ${day}, ${year}` });
 });
 
 

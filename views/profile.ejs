@@ -26,7 +26,7 @@
 
             <div class="registered-date">
               <p>Cake day</p>
-              <span class="date">December 1, 2018</span>
+              <span class="date"><%= cakeDay %></span>
             </div>
           </div>
 
@@ -55,6 +55,7 @@
         </aside>
       </div>
 
+      <% if(hasPosts) { %>
       <div class="posts">
         <h3 class="mb-10">Your Posts:</h3>
         <!-- Controls -->
@@ -64,6 +65,12 @@
         <div class="posts-container">
         </div>
       </div>
+      <% } else { %>
+      <div class="no-post">
+        <h2>You haven't posted anything yet!</h2>
+        <a href="/posts/add-post" class="btn">Make My First Post</a>
+      </div>
+      <% } %>
     </div>
   </section>
 

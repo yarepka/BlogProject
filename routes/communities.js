@@ -4,6 +4,7 @@ const cs = require("../util/checkSubscribtions");
 const cl = require("../util/checkLogged");
 
 // models
+const Post = require("../models/post");
 const Community = require("../models/community");
 const Profile = require("../models/profile");
 const CommunitySubscribersBucket = require("../models/buckets/communitySubscribersBucket");
@@ -225,12 +226,14 @@ router.get("/:id", async (req, res) => {
     }
   });
 
-  console.log("community: ", community);
   communitiesToReturn = await cs.checkSubscribtions(community, req.user);
 
-  console.log("communitiesToReturn: ", communitiesToReturn);
+  const post = await Post.findOne({ communityId: community._id });
 
-  return res.render("community", { community: communitiesToReturn[0] });
+  let hasPosts = true;
+  if (!post) hasPosts = false;
+
+  return res.render("community", { community: communitiesToReturn[0], hasPosts: hasPosts });
 })
 
 module.exports = router;

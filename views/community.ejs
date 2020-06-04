@@ -23,18 +23,24 @@
       </div>
     </header>
 
+
     <section id="community-content">
       <div class="container">
+        <% if(hasPosts) { %>
         <!-- Controls -->
         <%- include("./partials/controls") -%>
 
         <!-- Posts -->
         <div class=" posts-container">
         </div>
-
+        <% } else { %>
+        <div class="no-post">
+          <h2>This Community has no posts yet.</h2>
+          <a href="/posts/add-post" class="btn">Fix It</a>
+        </div>
+        <% } %>
       </div>
     </section>
-
 
   </section>
 

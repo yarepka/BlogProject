@@ -1072,6 +1072,32 @@ a.comments-link:hover {
   margin-left: 10px;
 }
 
+/* no-post */
+.no-post {
+  border: 1px solid var(--border-color);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+}
+
+.no-post h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.no-post .btn {
+  background-color: var(--primary-color);
+}
+
+.no-post .btn:hover {
+  background-color: var(--text-color);
+  color: var(--primary-color);
+}
+
 /* Communities page */
 #main-communities {
   min-height: 89.9vh;
