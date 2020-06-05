@@ -415,6 +415,18 @@ router.post("/vote", cl.isLoggedIn, async (req, res) => {
 });
 
 
+
+router.get("/find/:text", async (req, res) => {
+  const text = req.params.text;
+  const regex = new RegExp(text);
+
+  const postsByTitle = await Post.find({ title: { $regex: regex, $options: "i" } }, { title: 1 });
+  const postsByText = await Post.find({ text: { $regex: regex, $options: "i" } }, { text: 1 });
+
+  res.json({ postsByTitle: postsByTitle, postsByText: postsByText });
+})
+
+
 router.get("/:id", async (req, res) => {
   const post = await Post.findOne({ _id: req.params.id }, (err, post) => {
     if (!err) {

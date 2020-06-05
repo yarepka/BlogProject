@@ -17,6 +17,7 @@ const userBtn = document.querySelector("#main-nav .user");
 const navBarDropdown = document.querySelector("#main-nav .dropdown");
 const logo = document.querySelector("#main-nav .logo");
 const logout = document.getElementById("logout");
+const postsCommunitiesList = document.querySelector("#main-nav .posts-communities-list");
 
 let scrolled = false;
 
@@ -64,8 +65,85 @@ function returnToHomePage() {
   window.location.href = "/";
 }
 
-function searchForPost(e) {
+async function searchForPost(e) {
+  const inputValue = e.target.value.trim();
   console.log(`Searching for ${e.target.value} post`);
+
+  if (inputValue !== '') {
+    // clear the list
+    postsCommunitiesList.innerHTML = '';
+
+    // get communities
+    const communitiesObject = await Server.get(`${domain}/communities/find/${inputValue}`);
+    // get posts
+    const posts = await Server.get(`${domain}/posts/find/${inputValue}`);
+
+    if (communitiesObject.communities.length > 0 || posts.postsByTitle.length > 0 || posts.postsByText > 0) {
+      let html = '';
+      if (communitiesObject.communities.length > 0) {
+        console.log("communities.length: ", communitiesObject.communities.length)
+        communitiesObject.communities.forEach(community => {
+          html += `
+            <li class="item-list">
+              <a class="item-button" href="/communities/${community._id}">
+                <p class="item-name">
+                  ${community.name.substring(0, 30)}...
+                </p>
+              </a>
+            </li>
+          `;
+        });
+      }
+
+      if (posts.postsByTitle.length > 0) {
+        posts.postsByTitle.forEach(post => {
+          html += `
+            <li class="item-list">
+              <a class="item-button" href="/posts/${post._id}">
+                <p class="item-name">
+                  ${post.title.substring(0, 30)}...
+                </p>
+              </a>
+            </li>
+          `;
+        });
+      }
+
+      if (posts.postsByText.length > 0) {
+        posts.postsByText.forEach(post => {
+          html += `
+            <li class="item-list">
+              <a class="item-button" href="/posts/${post._id}">
+                <p class="item-name">
+                  ${post.text.substring(0, 30)}...
+                </p>
+              </a>
+            </li>
+          `;
+        });
+      }
+
+      console.log(html);
+
+      postsCommunitiesList.innerHTML += html;
+      showList();
+    }
+  } else {
+    closeList();
+  }
+}
+
+// posts-communities-list
+function showList() {
+  if (postsCommunitiesList.classList.contains("no-display")) {
+    postsCommunitiesList.classList.remove("no-display");
+  }
+}
+
+function closeList() {
+  if (!postsCommunitiesList.classList.contains("no-display")) {
+    postsCommunitiesList.classList.add("no-display");
+  }
 }
 
 // Login / Sign Up functions
@@ -238,6 +316,11 @@ function getRoute(url) {
 // ------------------------
 // ------------------------
 search.addEventListener("keyup", searchForPost);
+search.addEventListener("blur", (e) => {
+  if (search.value.trim() === '') {
+    closeList();
+  }
+});
 userBtn.addEventListener("click", (e) => {
   const icon = userBtn.querySelector("i:last-child");
 

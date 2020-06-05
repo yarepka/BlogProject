@@ -218,6 +218,13 @@ router.post("/quit", cl.isLoggedIn, async (req, res) => {
   return res.json({ status: "ERROR", msg: "Profile can't be found" });
 })
 
+router.get("/find/:text", async (req, res) => {
+  const text = req.params.text;
+  const regex = new RegExp(text);
+  const communities = await Community.find({ name: { $regex: regex, $options: "i" } }, { name: 1 });
+
+  res.json({ "communities": communities });
+})
 
 router.get("/:id", async (req, res) => {
   const community = await Community.find({ _id: req.params.id }, (err, community) => {

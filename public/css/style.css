@@ -377,6 +377,28 @@ input[type="file"] {
   height: 100%;
 }
 
+/* Navbar search dropdown list */
+.posts-communities-list {
+  width: 100%;
+  position: absolute;
+  top: calc(0.5rem + 26px);
+  left: 0;
+  background-color: var(--primary-color);
+  padding: 0 0.5rem 0 0.5rem;
+  max-height: 210px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.posts-communities-list li a {
+  padding-top: 0.85rem;
+  text-align: justify;
+}
+
+.posts-communities-list li:not(:last-child) {
+  border-bottom: 1px dotted var(--text-color)
+}
+
 /* Trends */
 #trends .box-trend-wrapper {
   display: flex;
