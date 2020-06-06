@@ -13,12 +13,12 @@
     <div class="container">
       <h3>Trending today</h3>
       <div class="box-trend-wrapper">
-        <% for(let i = 0; i < 4; i++) { %>
-        <a href="/posts/1" class="box-trend">
-          <h3 class="title">Lorem, ipsum dolor.</h3>
-          <p class="text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates, blanditiis.</p>
+        <% trends.forEach(trend => { %>
+        <a href="/posts/<%= trend._id %>" class="box-trend"
+          style="background: url('/img/posts/<%= trend.imageName %>') no-repeat center center/cover">
+          <h3 class="title"><%= trend.title.substring(0, 100) %>...</h3>
         </a>
-        <% } %>
+        <% }); %>
       </div>
     </div>
   </section>

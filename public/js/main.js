@@ -127,6 +127,8 @@ async function searchForPost(e) {
 
       postsCommunitiesList.innerHTML += html;
       showList();
+    } else {
+      closeList();
     }
   } else {
     closeList();

@@ -37,6 +37,7 @@ async function addComment(e) {
     const postId = document.querySelector(".post-wrapper").dataset.id;
     const res = await Server.post(`${domain}/posts/add-new-comment`, { postId: postId, commentText: commentInputData });
     clearCommentInput();
+    window.location.href = `${domain}/posts/${postId}`;
   }
 }
 
